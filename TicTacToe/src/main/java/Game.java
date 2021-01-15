@@ -16,7 +16,7 @@ public class Game {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.println("---Single Player(1)---    ---Multiplayer(2)---    ---Quit(0)--- ");
-        int choice = getInt(input);
+        int choice = Console.getInt(input);
             switch (choice) {
                 case 1:
                     Play();
@@ -28,9 +28,11 @@ public class Game {
                     System.out.println("Come back soon!");
                     break;
                 default:
-                    System.out.println("That's not one of the choices.");
-            }
+                    System.out.println("That's not one of the choices! Choose again!");
+                    choice = Console.getInt(input);
 
+
+        }
 
     }
 
@@ -129,11 +131,11 @@ public class Game {
                 break;
             }
             System.out.println("Do you want to play again? Yes(1), No(0)");
-            quit = getInt(input);
+            quit = Console.getInt(input);
             while(quit != 1 && quit!=0)
             {
                 System.out.println("Invalid choice try again.");
-                quit = getInt(input);
+                quit = Console.getInt(input);
             }
         } while(quit!=0); //end of do loop
         System.out.println("Thanks for playing!");
@@ -143,15 +145,15 @@ public class Game {
     public static void printSide(boolean side)
     {
         if (side) {
-            System.out.println("You are O, you go first.");
-            //assign player tokens
-            yourToken = O;
-            compToken = X;
-        } else {
-            System.out.println("You are X you go second.");
+            System.out.println("You are X, you go first.");
             //assign player tokens
             yourToken = X;
             compToken = O;
+        } else {
+            System.out.println("You are O you go second.");
+            //assign player tokens
+            yourToken = O;
+            compToken = X;
         }
     }
 
@@ -251,7 +253,7 @@ public class Game {
     public static int chooseSpot(Scanner input)
     {
         System.out.println("Your turn to pick...");
-        int userSpot = getInt(input);
+        int userSpot = Console.getInt(input);
 
         //check is the spot is valid
         if(userSpot < 0 || userSpot > 8)
@@ -260,7 +262,7 @@ public class Game {
             while (userSpot < 0 || userSpot > 8)
             {
                 System.out.println("That spot does not exist! Choose another spot.");
-                userSpot = getInt(input);
+                userSpot = Console.getInt(input);
             }
         }
         //check if the spot chosen is occupied
@@ -270,7 +272,7 @@ public class Game {
             while (isOccupied(gameArray, userSpot))
             {
                 System.out.println("That spot is occupied! Choose another spot.");
-                userSpot = getInt(input);
+                userSpot = Console.getInt(input);
             }
         }
 
@@ -294,11 +296,11 @@ public class Game {
     //returns how many rounds users would like to play
     public static int numOfRounds(Scanner input)
     {
-        int rounds = getInt(input);
+        int rounds = Console.getInt(input);
         while(rounds < 0)
         {
             System.out.println("Cannot play less than zero rounds! Enter again!");
-            rounds = getInt(input);
+            rounds = Console.getInt(input);
         }
         return rounds;
     }
@@ -309,17 +311,6 @@ public class Game {
             return spot;
         }
 
-    //verifying if an int is passed in
-    public static int getInt(Scanner input)
-    {
-        while(!input.hasNextInt())
-        {
-            input.nextLine();
-            System.out.println("That is not an integer! Try again!");
-
-        }
-        return input.nextInt();
-    }
 
     //same as Play() but invcludes a 2nd human player instead of computer
     public static void Multi()
@@ -424,11 +415,11 @@ public class Game {
                 break;
             }
             System.out.println("Do you want to play again? Yes(1), No(0)");
-            quit = getInt(input);
+            quit = Console.getInt(input);
             while(quit != 1 && quit!=0)
             {
                 System.out.println("Invalid choice try again.");
-                quit = getInt(input);
+                quit = Console.getInt(input);
             }
         } while(quit!=0); //end of do loop
         System.out.println("Thanks for playing!");
@@ -438,15 +429,15 @@ public class Game {
     public static void printSideTwo (boolean side)
     {
         if (side) {
-            System.out.println("Player 1 is O, they go first. Player 2 is X they go second");
-            //assign player tokens
-            yourToken = O;
-            secondToken = X;
-        } else {
-            System.out.println("Player 1 is X, they go second. Player 2 is 0 they go first");
+            System.out.println("Player 1 is X, they go first. Player 2 is O they go second");
             //assign player tokens
             yourToken = X;
             secondToken = O;
+        } else {
+            System.out.println("Player 1 is O, they go second. Player 2 is X they go first");
+            //assign player tokens
+            yourToken = O;
+            secondToken = X;
         }
     }
 
@@ -454,7 +445,7 @@ public class Game {
     public static int chooseSpot(Scanner input, String player)
     {
         System.out.println(player +"'s turn to pick...");
-        int userSpot = getInt(input);
+        int userSpot = Console.getInt(input);
 
         //check is the spot is valid
         if(userSpot < 0 || userSpot > 8)
@@ -463,7 +454,7 @@ public class Game {
             while (userSpot < 0 || userSpot > 8)
             {
                 System.out.println("That spot does not exist! Choose another spot.");
-                userSpot = getInt(input);
+                userSpot = Console.getInt(input);
             }
         }
         //check if the spot chosen is occupied
@@ -473,7 +464,7 @@ public class Game {
             while (isOccupied(gameArray, userSpot))
             {
                 System.out.println("That spot is occupied! Choose another spot.");
-                userSpot = getInt(input);
+                userSpot = Console.getInt(input);
             }
         }
 
