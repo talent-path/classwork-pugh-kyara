@@ -51,6 +51,7 @@ public class Game {
                 boolean side = coinFlip();
                 //keep going for number of rounds given
                 while (rounds <= setRounds) {
+                    Console.print("RULES: Get three of your token in a row! \nBoard positions start from 0 up to 8. The top leftmost position is 0 and the bottom rightmost position is 8.");
                     Console.print("Round " + rounds);
                     printSide(side);
                     //create a blank board
