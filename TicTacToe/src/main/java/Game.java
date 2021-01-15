@@ -19,7 +19,7 @@ public class Game {
 
     //main playing method
     public static void Play() {
-        int quit = 0;
+        int quit = 1;
         // do loop allows player to choose whether they want to play again
         do {
         Scanner input = new Scanner(System.in);
@@ -111,14 +111,14 @@ public class Game {
                 //leave loop
                 break;
             }
-            System.out.println("Do you want to play again? Yes(0), No(1)");
+            System.out.println("Do you want to play again? Yes(1), No(0)");
             quit = getInt(input);
             while(quit != 1 && quit!=0)
             {
                 System.out.println("Invalid choice try again.");
                 quit = getInt(input);
             }
-        } while(quit!=1); //end of do loop
+        } while(quit!=0); //end of do loop
         System.out.println("Thanks for playing!");
     }
 
