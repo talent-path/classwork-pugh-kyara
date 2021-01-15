@@ -15,7 +15,7 @@ public class Game {
     //main method
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        System.out.println("---Single Player(1)---    ---Multiplayer(2)---    ---Quit(0)--- ");
+        Console.print("---Single Player(1)---    ---Multiplayer(2)---    ---Quit(0)--- ");
         int choice = Console.getInt(input);
             switch (choice) {
                 case 1:
@@ -25,10 +25,10 @@ public class Game {
                     Multi();
                     break;
                 case 0:
-                    System.out.println("Come back soon!");
+                    Console.print("Come back soon!");
                     break;
                 default:
-                    System.out.println("That's not one of the choices! Choose again!");
+                    Console.print("That's not one of the choices! Choose again!");
                     choice = Console.getInt(input);
 
 
@@ -42,19 +42,19 @@ public class Game {
         // do loop allows player to choose whether they want to play again
         do {
         Scanner input = new Scanner(System.in);
-        System.out.println("How many rounds will you play?");
+        Console.print("How many rounds will you play?");
         int wins = 0;
         int rounds = 1;
         int setRounds = numOfRounds(input);
 
             //if the player decides to do more than 0 rounds
             if (setRounds > 0) {
-                System.out.println("Flipping to determine your token...");
+                Console.print("Flipping to determine your token...");
                 boolean side = coinFlip();
 
                 //keep going for number of rounds given
                 while (rounds <= setRounds) {
-                    System.out.println("Round " + rounds);
+                    Console.print("Round " + rounds);
                     printSide(side);
                     gameArray = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
                     int turns = 1;
@@ -71,12 +71,12 @@ public class Game {
                                 gameOver = true;
                                 if (yourToken.equals(matchUpdate())) {
                                     winner = "Player";
-                                    System.out.println("Match over! " + winner + " is the winner!");
+                                    Console.print("Match over! " + winner + " is the winner!");
                                     rounds++;
                                     wins++;
                                 } else if (compToken.equals(matchUpdate())) {
                                     winner = "Computer";
-                                    System.out.println("Match over! " + winner + " is the winner!");
+                                    Console.print("Match over! " + winner + " is the winner!");
                                     rounds++;
                                 }
 
@@ -96,12 +96,12 @@ public class Game {
                                 gameOver = true;
                                 if (yourToken.equals(matchUpdate())) {
                                     winner = "Player";
-                                    System.out.println("Match over! " + winner + " is the winner!");
+                                    Console.print("Match over! " + winner + " is the winner!");
                                     rounds++;
                                     wins++;
                                 } else if (compToken.equals(matchUpdate())) {
                                     winner = "Computer";
-                                    System.out.println("Match over! " + winner + " is the winner!");
+                                    Console.print("Match over! " + winner + " is the winner!");
                                     rounds++;
                                 }
                             }
@@ -114,7 +114,7 @@ public class Game {
                         //if no one wins in more than 9 turns declare a draw
                         if (turns > 9 && winner == null) {
                             gameOver = true;
-                            System.out.println("Match over! Draw!");
+                            Console.print("Match over! Draw!");
                             rounds++;
                         }
 
@@ -122,35 +122,35 @@ public class Game {
 
                 }
                 //output wins
-                System.out.println("You had " + wins + " win(s).");
+                Console.print("You had " + wins + " win(s).");
             }
             //outout dialog for if the player decides to play no rounds at all
             else {
-                System.out.println("That's too bad. Goodbye!");
+                Console.print("That's too bad. Goodbye!");
                 //leave loop
                 break;
             }
-            System.out.println("Do you want to play again? Yes(1), No(0)");
+            Console.print("Do you want to play again? Yes(1), No(0)");
             quit = Console.getInt(input);
             while(quit != 1 && quit!=0)
             {
-                System.out.println("Invalid choice try again.");
+                Console.print("Invalid choice try again.");
                 quit = Console.getInt(input);
             }
         } while(quit!=0); //end of do loop
-        System.out.println("Thanks for playing!");
+        Console.print("Thanks for playing!");
     }
 
     //determines sides and their token
     public static void printSide(boolean side)
     {
         if (side) {
-            System.out.println("You are X, you go first.");
+            Console.print("You are X, you go first.");
             //assign player tokens
             yourToken = X;
             compToken = O;
         } else {
-            System.out.println("You are O you go second.");
+            Console.print("You are O you go second.");
             //assign player tokens
             yourToken = O;
             compToken = X;
@@ -160,11 +160,11 @@ public class Game {
     //print the gameboard
     public static void printGame()
     {
-        System.out.println(" " + gameArray[0] + " | " + gameArray[1]+ " | "+ gameArray[2]);
-        System.out.println("---|---|---");
-        System.out.println(" " + gameArray[3] + " | " + gameArray[4]+ " | "+ gameArray[5]);
-        System.out.println("---|---|---");
-        System.out.println(" " + gameArray[6] + " | " + gameArray[7]+ " | "+ gameArray[8]);
+        Console.print(" " + gameArray[0] + " | " + gameArray[1]+ " | "+ gameArray[2]);
+        Console.print("---|---|---");
+        Console.print(" " + gameArray[3] + " | " + gameArray[4]+ " | "+ gameArray[5]);
+        Console.print("---|---|---");
+        Console.print(" " + gameArray[6] + " | " + gameArray[7]+ " | "+ gameArray[8]);
     }
 
     //update array based on the spots given by players
@@ -238,7 +238,7 @@ public class Game {
     //cannot be on an occupied spot
     public static int generateSpot()
     {
-        System.out.println("It's the computer's turn...");
+        Console.print("It's the computer's turn...");
         int compSpot = randInt(MIN, MAX);
         while(isOccupied(gameArray, compSpot))
         {
@@ -252,7 +252,7 @@ public class Game {
     //cannot be on an occupied spot
     public static int chooseSpot(Scanner input)
     {
-        System.out.println("Your turn to pick...");
+        Console.print("Your turn to pick...");
         int userSpot = Console.getInt(input);
 
         //check is the spot is valid
@@ -261,7 +261,7 @@ public class Game {
             //keep asking until a valid spot is given
             while (userSpot < 0 || userSpot > 8)
             {
-                System.out.println("That spot does not exist! Choose another spot.");
+                Console.print("That spot does not exist! Choose another spot.");
                 userSpot = Console.getInt(input);
             }
         }
@@ -271,7 +271,7 @@ public class Game {
             //keep asking until a valid spot is given
             while (isOccupied(gameArray, userSpot))
             {
-                System.out.println("That spot is occupied! Choose another spot.");
+                Console.print("That spot is occupied! Choose another spot.");
                 userSpot = Console.getInt(input);
             }
         }
@@ -299,7 +299,7 @@ public class Game {
         int rounds = Console.getInt(input);
         while(rounds < 0)
         {
-            System.out.println("Cannot play less than zero rounds! Enter again!");
+            Console.print("Cannot play less than zero rounds! Enter again!");
             rounds = Console.getInt(input);
         }
         return rounds;
@@ -319,7 +319,7 @@ public class Game {
         // do loop allows player to choose whether they want to play again
         do {
             Scanner input = new Scanner(System.in);
-            System.out.println("How many rounds will you play?");
+            Console.print("How many rounds will you play?");
             int wins1 = 0;
             int wins2 = 0;
             int rounds = 1;
@@ -328,12 +328,12 @@ public class Game {
 
             //if the player decides to do more than 0 rounds
             if (setRounds > 0) {
-                System.out.println("Flipping to determine player tokens...");
+                Console.print("Flipping to determine player tokens...");
                 boolean side = coinFlip();
 
                 //keep going for number of rounds given
                 while (rounds <= setRounds) {
-                    System.out.println("Round " + rounds);
+                    Console.print("Round " + rounds);
                     printSideTwo(side);
                     gameArray = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
                     int turns = 1;
@@ -351,12 +351,12 @@ public class Game {
                                 gameOver = true;
                                 if (yourToken.equals(matchUpdate())) {
                                     winner = "Player 1";
-                                    System.out.println("Match over! " + winner + " is the winner!");
+                                    Console.print("Match over! " + winner + " is the winner!");
                                     rounds++;
                                     wins1++;
                                 } else if (secondToken.equals(matchUpdate())) {
                                     winner = "Player 2";
-                                    System.out.println("Match over! " + winner + " is the winner!");
+                                    Console.print("Match over! " + winner + " is the winner!");
                                     rounds++;
                                     wins2++;
                                 }
@@ -378,12 +378,12 @@ public class Game {
                                 gameOver = true;
                                 if (yourToken.equals(matchUpdate())) {
                                     winner = "Player 1";
-                                    System.out.println("Match over! " + winner + " is the winner!");
+                                    Console.print("Match over! " + winner + " is the winner!");
                                     rounds++;
                                     wins1++;
                                 } else if (secondToken.equals(matchUpdate())) {
                                     winner = "Player 2";
-                                    System.out.println("Match over! " + winner + " is the winner!");
+                                    Console.print("Match over! " + winner + " is the winner!");
                                     rounds++;
                                     wins2++;
                                 }
@@ -397,7 +397,7 @@ public class Game {
                         //if no one wins in more than 9 turns declare a draw
                         if (turns > 9 && winner == null) {
                             gameOver = true;
-                            System.out.println("Match over! Draw!");
+                            Console.print("Match over! Draw!");
                             rounds++;
                         }
 
@@ -405,36 +405,36 @@ public class Game {
 
                 }
                 //output wins
-                System.out.println("Player 1 has " + wins1 + " win(s).");
-                System.out.println("Player 2 has " + wins2 + " win(s).");
+                Console.print("Player 1 has " + wins1 + " win(s).");
+                Console.print("Player 2 has " + wins2 + " win(s).");
             }
             //outout dialog for if the player decides to play no rounds at all
             else {
-                System.out.println("That's too bad. Goodbye!");
+                Console.print("That's too bad. Goodbye!");
                 //leave loop
                 break;
             }
-            System.out.println("Do you want to play again? Yes(1), No(0)");
+            Console.print("Do you want to play again? Yes(1), No(0)");
             quit = Console.getInt(input);
             while(quit != 1 && quit!=0)
             {
-                System.out.println("Invalid choice try again.");
+                Console.print("Invalid choice try again.");
                 quit = Console.getInt(input);
             }
         } while(quit!=0); //end of do loop
-        System.out.println("Thanks for playing!");
+        Console.print("Thanks for playing!");
     }
 
     //determines sides and their token
     public static void printSideTwo (boolean side)
     {
         if (side) {
-            System.out.println("Player 1 is X, they go first. Player 2 is O they go second");
+            Console.print("Player 1 is X, they go first. Player 2 is O they go second");
             //assign player tokens
             yourToken = X;
             secondToken = O;
         } else {
-            System.out.println("Player 1 is O, they go second. Player 2 is X they go first");
+            Console.print("Player 1 is O, they go second. Player 2 is X they go first");
             //assign player tokens
             yourToken = O;
             secondToken = X;
@@ -444,7 +444,7 @@ public class Game {
     //differentiates which player turn it is
     public static int chooseSpot(Scanner input, String player)
     {
-        System.out.println(player +"'s turn to pick...");
+        Console.print(player +"'s turn to pick...");
         int userSpot = Console.getInt(input);
 
         //check is the spot is valid
@@ -453,7 +453,7 @@ public class Game {
             //keep asking until a valid spot is given
             while (userSpot < 0 || userSpot > 8)
             {
-                System.out.println("That spot does not exist! Choose another spot.");
+                Console.print("That spot does not exist! Choose another spot.");
                 userSpot = Console.getInt(input);
             }
         }
@@ -463,7 +463,7 @@ public class Game {
             //keep asking until a valid spot is given
             while (isOccupied(gameArray, userSpot))
             {
-                System.out.println("That spot is occupied! Choose another spot.");
+                Console.print("That spot is occupied! Choose another spot.");
                 userSpot = Console.getInt(input);
             }
         }
