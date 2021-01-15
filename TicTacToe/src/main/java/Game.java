@@ -22,6 +22,7 @@ public class Game {
     public static void Play() {
         Scanner input = new Scanner(System.in);
         System.out.println("How many rounds will you play?");
+        int wins = 0;
         int rounds = 1;
         int setRounds = numOfRounds(input);
         if (setRounds > 0) {
@@ -41,12 +42,13 @@ public class Game {
                         //asks players to choose a spot and inputs their token
                         updateGame(chooseSpot(input), yourToken);
                         printGame();
-                        if (gameOver(matchUpdate()) || turns == 9) {
+                        if (gameOver(matchUpdate()) || turns > 9) {
                             gameOver = true;
                             if (yourToken.equals(matchUpdate())) {
                                 winner = "Player";
                                 System.out.println("Match over! " + winner + " is the winner!");
                                 rounds++;
+                                wins++;
                             } else if (compToken.equals(matchUpdate())) {
                                 winner = "Computer";
                                 System.out.println("Match over! " + winner + " is the winner!");
@@ -65,12 +67,13 @@ public class Game {
                         updateGame(generateSpot(), compToken);
                         printGame();
                         //check if the game is over or if 9 turns have been reached
-                        if (gameOver(matchUpdate()) || turns == 9) {
+                        if (gameOver(matchUpdate()) || turns > 9) {
                             gameOver = true;
                             if (yourToken.equals(matchUpdate())) {
                                 winner = "Player";
                                 System.out.println("Match over! " + winner + " is the winner!");
                                 rounds++;
+                                wins++;
                             } else if (compToken.equals(matchUpdate())) {
                                 winner = "Computer";
                                 System.out.println("Match over! " + winner + " is the winner!");
@@ -83,7 +86,7 @@ public class Game {
                             turns++;
                         }
                     }
-                    if(turns == 9 && winner == null))
+                    if(turns > 9 && winner == null)
                     {
                         gameOver = true;
                         System.out.println("Match over! Draw!");
@@ -93,6 +96,7 @@ public class Game {
                 }
 
             }
+            System.out.println("You had " + wins + " win(s).");
         }
         else
         {
@@ -163,7 +167,7 @@ public class Game {
                     line = gameArray[0] + gameArray[4] + gameArray[8];
                     break;
                 case 7:
-                    line = gameArray[3] + gameArray[4] + gameArray[6];
+                    line = gameArray[2] + gameArray[4] + gameArray[6];
                     break;
             }
 
