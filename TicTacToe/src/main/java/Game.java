@@ -49,7 +49,6 @@ public class Game {
 
             //if the player decides to do more than 0 rounds
             if (setRounds > 0) {
-                Console.print("Flipping to determine your token...");
                 boolean side = coinFlip();
 
                 //keep going for number of rounds given
@@ -289,7 +288,7 @@ public class Game {
     //decide whether player will be X or O
     public static boolean coinFlip()
     {
-
+        Console.print("Flipping to determine player tokens...");
         return rand.nextBoolean();
     }
 
@@ -312,7 +311,7 @@ public class Game {
         }
 
 
-    //same as Play() but invcludes a 2nd human player instead of computer
+    //same as Play() but includes a 2nd human player instead of computer
     public static void Multi()
     {
         int quit = 1;
@@ -328,9 +327,7 @@ public class Game {
 
             //if the player decides to do more than 0 rounds
             if (setRounds > 0) {
-                Console.print("Flipping to determine player tokens...");
                 boolean side = coinFlip();
-
                 //keep going for number of rounds given
                 while (rounds <= setRounds) {
                     Console.print("Round " + rounds);
