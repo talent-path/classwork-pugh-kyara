@@ -46,16 +46,15 @@ public class Game {
         int wins = 0;
         int rounds = 1;
         int setRounds = numOfRounds(input);
-
             //if the player decides to do more than 0 rounds
             if (setRounds > 0) {
                 boolean side = coinFlip();
-
                 //keep going for number of rounds given
                 while (rounds <= setRounds) {
                     Console.print("Round " + rounds);
                     printSide(side);
-                    gameArray = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
+                    //create a blank board
+                    createBlankBoard();
                     int turns = 1;
                     boolean gameOver = false;
                     String winner = null;
@@ -154,6 +153,10 @@ public class Game {
             yourToken = O;
             compToken = X;
         }
+    }
+
+    public static void createBlankBoard() {
+        gameArray = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
     }
 
     //print the gameboard
@@ -332,7 +335,7 @@ public class Game {
                 while (rounds <= setRounds) {
                     Console.print("Round " + rounds);
                     printSideTwo(side);
-                    gameArray = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
+                    createBlankBoard();
                     int turns = 1;
                     boolean gameOver = false;
                     String winner = null;
