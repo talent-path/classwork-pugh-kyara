@@ -70,4 +70,16 @@ public class Console {
         return parsedInt;
     }
 
+    //verifying if an int is passed in
+    public static int getInt(Scanner input)
+    {
+        while(!input.hasNextInt())
+        {
+            input.nextLine();
+            System.out.println("That is not an integer! Try again!");
+
+        }
+        return input.nextInt();
+    }
+
 }

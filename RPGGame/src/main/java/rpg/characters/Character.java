@@ -17,10 +17,10 @@ import rpg.weapons.Weapon;
 public abstract class Character implements Chooser {
 
     //TODO: add fields for armor(s) and weapon(s)
-    protected String name;
-    protected int hitPoints;
-    protected int defense;
-    protected int speed;
+    private String name;
+    private int hitPoints;
+    private int defense;
+    private int speed;
 
     public Character()
     {
@@ -53,7 +53,11 @@ public abstract class Character implements Chooser {
         return speed;
     }
 
-    public void attack( Character defender ){
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void attack(Character defender ){
 
 
 //        throw new UnsupportedOperationException();

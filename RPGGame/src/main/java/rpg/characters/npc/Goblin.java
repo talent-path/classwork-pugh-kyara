@@ -1,4 +1,4 @@
-package rpg.characters;
+package rpg.characters.npc;
 
 //goblins always attack?
 public class Goblin extends NonPlayerCharacter {

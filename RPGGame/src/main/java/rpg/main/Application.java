@@ -1,8 +1,8 @@
 package rpg.main;
 
 import rpg.characters.Character;
-import rpg.characters.NonPlayerCharacter;
-import rpg.characters.PlayerCharacter;
+import rpg.characters.npc.NonPlayerCharacter;
+import rpg.characters.pc.PlayerCharacter;
 
 public class Application {
     public static void main(String[] args) {
