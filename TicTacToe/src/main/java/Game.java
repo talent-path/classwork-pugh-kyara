@@ -7,7 +7,7 @@ public class Game {
     final static String X = "X";
     final static String O = "O";
     static String yourToken = "";
-    static String secondToken = "";
+    static String secondToken = ""; //multiplayer
     static String compToken = "";
     static Random rand = new Random();
     static String [] gameArray;

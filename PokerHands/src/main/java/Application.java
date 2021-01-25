@@ -37,7 +37,7 @@ public class Application {
 
         //                   straight flush vs 4 of a kind
         //                   2D  3D 4D 5D  6D  7S  7D  7C  7H  8S
-        int[] bothHands = { 1, 5, 9, 13, 17, 20, 21, 22, 23, 24  };
+        int[] bothHands = { 1, 5, 9, 13, 17, 20, 21, 22, 23, 24 };
         Card[] hand1Cards = new Card[5];
         Card[] hand2Cards = new Card[5];
 
@@ -49,21 +49,48 @@ public class Application {
             }
         }
 
+        //                   2C  3C 4C 5C  6C  7S  7D  7C  7H  8S
+        int[] bothHands2 = { 2, 6, 10, 14, 22, 31, 32, 33, 34, 35  };
+        Card[] hand1Cards2 = new Card[5];
+        Card[] hand2Cards2 = new Card[5];
+
+        for( int i = 0; i < bothHands2.length; i++ ){
+            if( i < 5 ){
+                hand1Cards2[i] = new Card(bothHands2[i]);
+            } else {
+                hand2Cards2[i-5] = new Card(bothHands2[i]);
+            }
+        }
+//          TESTING METHODS HERE!!!
+
         PokerHand hand1 = new PokerHand(hand1Cards);
         PokerHand hand2 = new PokerHand(hand2Cards);
+        //more test values
+        PokerHand newHand1 = new PokerHand(hand1Cards2);
+        PokerHand newHand2 = new PokerHand(hand2Cards2);
 
         //testing value outputs to delete later
 //        System.out.println(hand1.isFlush());
 //        System.out.println(hand2.isFlush());
+//        System.out.println(hand1.isStraightFlush());
+//        System.out.println(hand2.isStraightFlush());
         System.out.println(hand1.fourOfAKindValue());
         System.out.println(hand2.fourOfAKindValue());
+//        System.out.println(newHand1.isFlush());
+//        System.out.println(newHand2.isFlush());
+//        System.out.println(newHand1.isStraightFlush());
+//        System.out.println(newHand2.isStraightFlush());
+        System.out.println(newHand1.fourOfAKindValue());
+        System.out.println(newHand2.fourOfAKindValue());
+
+
 
         //test suit and face value counts
         Map<FaceValue,Integer> valueCountsH1 = hand1.countFaceValues();
         Map<FaceValue,Integer> valueCountsH2 = hand2.countFaceValues();
 
-        Map<Suit, Integer> suitCountsH1 = hand1.countSuits();
-        Map<Suit, Integer> suitCountsH2 = hand2.countSuits();
+        Map<Suit, Integer> suitCountsH1 = newHand1.countSuits();
+        Map<Suit, Integer> suitCountsH2 = newHand2.countSuits();
 
         System.out.println("hand 1: ");
         for( FaceValue key : valueCountsH1.keySet() ){
@@ -96,6 +123,8 @@ public class Application {
         }
 
     }
+
+    // END OF METHOD TESTING!!!
 
     //player one's cards are 0-4
     //player two's cards are 5-9

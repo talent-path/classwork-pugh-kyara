@@ -21,7 +21,8 @@ public class Rogue extends PlayerCharacter {
 
 
     @Override
-    public String makeChoice() {
-        return null;
+    public int makeChoice() {
+
+        return super.makeChoice();
     }
 }

@@ -108,20 +108,11 @@ public class PokerHand {
 
     public boolean isFlush(){
         Map<Suit, Integer> suits = countSuits();
-        Suit suit = this.cards[0].getCardSuit();
-        boolean flush = false;
-        for(Suit key : suits.keySet())
-        {
-            if(key == suit) {
-                flush = true;
-                System.out.println("From the isFlush method, The key is: " + key);
-            }
-            else
-            {
-                flush = false;
-            }
-        }
-        return flush;
+      if(suits.size() == 1)
+      {
+          return true;
+      }
+      return false;
     }
 
 
@@ -143,25 +134,35 @@ public class PokerHand {
     //if not 4 of a kind, return null
     public FaceValue fourOfAKindValue(){
         Map<FaceValue, Integer> values = countFaceValues();
-        FaceValue cardVal = this.cards[0].getCardValue();
+        int count = 0;
+        FaceValue match = this.cards[0].getCardValue();
         for(FaceValue key : values.keySet())
         {
             System.out.println("From 4 of a kind method, the key is: " + key);
-            if(key != cardVal)
+            if(key != match)
             {
-                cardVal = null;
-            }
-            else
-            {
+                if(count < 5) {
+                    count++;
+                    match = this.cards[0+count].getCardValue();
+                }
 
             }
+
         }
-        return this.cards[0].getCardValue();
+        if(count == 0)
+        {
+            return match;
+        }
+        else
+        {
+            match = null;
+        }
+        return match;
     }
 
     //should return null if there are really 4
     public FaceValue threeOfAKindValue(){
-        Map<FaceValue, Integer> suits = countFaceValues();
+        Map<FaceValue, Integer> values = countFaceValues();
 
         throw new UnsupportedOperationException();
     }

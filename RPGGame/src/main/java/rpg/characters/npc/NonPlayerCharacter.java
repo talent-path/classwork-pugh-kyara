@@ -12,7 +12,7 @@ public  class NonPlayerCharacter extends Character {
     }
 
     @Override
-    public String makeChoice() {
-        return null;
+    public int makeChoice() {
+        return 0;
     }
 }

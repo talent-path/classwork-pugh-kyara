@@ -1,8 +1,10 @@
 package rpg.characters.pc;
 
+import rpg.Console;
 import rpg.characters.pc.PlayerCharacter;
 import rpg.weapons.Sword;
 import rpg.weapons.Weapon;
+
 
 public class Warrior extends PlayerCharacter {
 
@@ -23,8 +25,7 @@ public class Warrior extends PlayerCharacter {
     }
 
     @Override
-    public String makeChoice() {
-
-        return null;
+    public int makeChoice() {
+        return super.makeChoice();
     }
 }

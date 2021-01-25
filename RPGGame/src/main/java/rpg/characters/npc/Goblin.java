@@ -3,8 +3,8 @@ package rpg.characters.npc;
 //goblins always attack?
 public class Goblin extends NonPlayerCharacter {
     @Override
-    public String makeChoice() {
+    public int makeChoice() {
 
-        return "Attack";
+        return 0;
     }
 }

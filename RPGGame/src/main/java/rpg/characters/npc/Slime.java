@@ -5,7 +5,7 @@ public class Slime extends NonPlayerCharacter{
 
 
     @Override
-    public String makeChoice() {
-        return null;
+    public int makeChoice() {
+        return 0;
     }
 }

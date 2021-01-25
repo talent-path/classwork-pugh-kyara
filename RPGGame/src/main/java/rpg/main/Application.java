@@ -40,7 +40,7 @@ public class Application {
         Character defender = b;
 
         while( a.isAlive() && b.isAlive() ){
-            if( a.makeChoice().equals("Attack")) {
+            if( a.makeChoice()==1) {
                 attacker.attack(defender);
             } else {
                 //TODO: consider other actions
