@@ -8,4 +8,9 @@ public class Fist implements Weapon {
 
         return 1;
     }
+
+    public String printWeapon()
+    {
+       return "Fists";
+    }
 }

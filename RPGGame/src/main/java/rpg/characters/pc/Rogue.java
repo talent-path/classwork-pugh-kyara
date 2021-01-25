@@ -25,4 +25,5 @@ public class Rogue extends PlayerCharacter {
 
         return super.makeChoice();
     }
+
 }

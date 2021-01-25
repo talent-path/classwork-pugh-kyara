@@ -8,4 +8,9 @@ public class Sword implements Weapon{
 
         return 3;
     }
+
+    @Override
+    public String printWeapon() {
+        return "Sword";
+    }
 }
