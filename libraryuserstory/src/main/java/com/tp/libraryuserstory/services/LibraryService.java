@@ -1,6 +1,7 @@
 package com.tp.libraryuserstory.services;
 
 
+import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
 import com.tp.libraryuserstory.exceptions.NullAuthorException;
 import com.tp.libraryuserstory.exceptions.NullTitleException;
 import com.tp.libraryuserstory.models.LibraryApp;
@@ -34,8 +35,9 @@ public class LibraryService {
         //get the book ID back from DAO
         int newBookID = dao.createBook(title,author);
         //return a view model of that book
-
+        return this.getBookByID(newBookID);
     }
+
 
     public List<LibraryViewModel> getCollection()
     {
@@ -44,8 +46,28 @@ public class LibraryService {
 
         for(LibraryApp toConvert : fullCollection)
         {
-            
+            converted.add(convertModel(toConvert));
         }
+        return converted;
     }
+
+    public LibraryViewModel getBookByID(Integer bookID) {
+        LibraryApp collection = dao.getBookByID(bookID);
+        return convertModel(collection);
+    }
+
+    public void deleteBook(Integer bookID) throws InvalidBookIDException {
+        dao.deleteBook(bookID);
+    }
+
+
+    private LibraryViewModel convertModel(LibraryApp collection)
+    {
+        LibraryViewModel toReturn = new LibraryViewModel();
+
+        return toReturn;
+    }
+
+
 
 }
