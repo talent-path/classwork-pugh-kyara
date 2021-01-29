@@ -95,10 +95,10 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     //edit a book ID given a specific ID
     @Override
-    public void editBookID(Integer bookID, Integer newID) {
+    public void editBookID(LibraryApp app, Integer newID) {
         int editIndex = -1;
         for (int i = 0; i < fullCollection.size(); i++) {
-            if(fullCollection.get(i).getBookID().equals(bookID))
+            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
             {
                 editIndex = i;
             }
@@ -129,10 +129,10 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     //edits a books author given an ID
     @Override
-    public void editBookAuthor(Integer bookID, List<String> author) {
+    public void editBookAuthor(LibraryApp app, List<String> author) {
         int editIndex = -1;
         for (int i = 0; i < fullCollection.size(); i++) {
-            if(fullCollection.get(i).getBookID().equals(bookID))
+            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
             {
                 editIndex = i;
             }
@@ -145,10 +145,10 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     //edits a book publish year based on a given ID
     @Override
-    public void editBookYear(Integer bookID, Integer year) {
+    public void editBookYear(LibraryApp app, Integer year) {
         int editIndex = -1;
         for (int i = 0; i < fullCollection.size(); i++) {
-            if(fullCollection.get(i).getBookID().equals(bookID))
+            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
             {
                 editIndex = i;
             }

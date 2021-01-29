@@ -18,9 +18,9 @@ public interface LibraryDAO {
     List<String> getAuthorList();
     //make any changes to a book
     //TODO:might need to add parameters later
-    void editBookID(Integer bookID, Integer newID);
-    void editBookTitle(Integer bookID, String title);
-    void editBookAuthor(Integer bookID, List<String> author);
-    void editBookYear(Integer bookID, Integer year);
+    void editBookID(LibraryApp app, Integer newID);
+    void editBookTitle(LibraryApp app, String title);
+    void editBookAuthor(LibraryApp app, List<String> author);
+    void editBookYear(LibraryApp app, Integer year);
     void deleteBook(Integer bookID) throws InvalidBookIDException;
 }

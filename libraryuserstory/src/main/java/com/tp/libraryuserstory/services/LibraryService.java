@@ -65,6 +65,7 @@ public class LibraryService {
     {
         LibraryApp toEdit = dao.getBookByID(bookID);
         toEdit.setBookID(newID);
+        dao.editBookID(toEdit, newID);
         return getBookByID(bookID);
     }
 
