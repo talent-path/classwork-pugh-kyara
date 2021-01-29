@@ -79,14 +79,18 @@ public class LibraryInMemDAO implements LibraryDAO {
     //returns a list of authors
     //TODO:create a way to iterate through author list
     @Override
-    public List<LibraryApp> getAuthorList() {
+    public List<String> getAuthorList() {
         List<LibraryApp> copyCollection = new ArrayList<>();
+        List<String> copyAuthorList = new ArrayList<>();
         for(LibraryApp toCopy : fullCollection)
         {
-
+         for(String copyAuthor : toCopy.getAuthors())
+         {
+             copyAuthorList.add(copyAuthor);
+         }
         }
 
-        return null;
+        return copyAuthorList;
     }
 
     //edit a book ID given a specific ID

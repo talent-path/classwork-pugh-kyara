@@ -5,9 +5,7 @@ import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
 import com.tp.libraryuserstory.models.LibraryViewModel;
 import com.tp.libraryuserstory.services.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,9 +15,22 @@ public class LibraryController {
     @Autowired
     LibraryService service;
 
+    @GetMapping("/book")
     public List<LibraryViewModel> getCollection()
     {
         return service.getCollection();
+    }
+
+    @GetMapping("/book/{bookID}")
+    public LibraryViewModel getBookByID(@PathVariable Integer bookID)
+    {
+        return service.getBookByID(bookID);
+    }
+
+    @PutMapping("/editid")
+    public LibraryViewModel editBookID(@RequestBody UpdateBookRequest request)
+    {
+        return service.editBookID(request.getBookID(), request.getNewID());
     }
 
     @PostMapping("/delete/{bookID}")
@@ -28,10 +39,11 @@ public class LibraryController {
         try{
 
             service.deleteBook(bookID);
+            return "Book with ID "+ bookID + "sucessfully deleted!";
         }
         catch(InvalidBookIDException ex)
         {
-            ex.printStackTrace();
+            return ex.getMessage();
         }
     }
 

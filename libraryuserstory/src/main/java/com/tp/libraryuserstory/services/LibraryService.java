@@ -9,6 +9,7 @@ import com.tp.libraryuserstory.models.LibraryViewModel;
 import com.tp.libraryuserstory.persistence.LibraryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,14 @@ public class LibraryService {
     public void deleteBook(Integer bookID) throws InvalidBookIDException {
         dao.deleteBook(bookID);
     }
+
+    public LibraryViewModel editBookID(Integer bookID, Integer newID)
+    {
+        LibraryApp toEdit = dao.getBookByID(bookID);
+        toEdit.setBookID(newID);
+        return getBookByID(bookID);
+    }
+
 
 
     private LibraryViewModel convertModel(LibraryApp collection)

@@ -15,7 +15,7 @@ public interface LibraryDAO {
     //return entire book collection
     List<LibraryApp> getCollection();
     //return a list of authors
-    List<LibraryApp> getAuthorList();
+    List<String> getAuthorList();
     //make any changes to a book
     //TODO:might need to add parameters later
     void editBookID(Integer bookID, Integer newID);
