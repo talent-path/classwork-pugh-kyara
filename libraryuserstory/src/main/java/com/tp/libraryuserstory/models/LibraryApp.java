@@ -17,13 +17,14 @@ public class LibraryApp {
 
     //adding a new book to the library;
     //must have at the very least an ID the other variables initialized to default values
-    public LibraryApp(Integer bookID)
+    public LibraryApp(Integer bookID, String title, String author)
 
     {
         this.bookID = bookID;
-        this.title = "";
+        this.title = title;
         this.year = 0;
         this.authors = new ArrayList<>();
+        authors.add(author);
     }
 
     //to update or add to an existing book

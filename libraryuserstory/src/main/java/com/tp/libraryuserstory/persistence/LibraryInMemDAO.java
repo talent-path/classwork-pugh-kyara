@@ -1,8 +1,11 @@
 package com.tp.libraryuserstory.persistence;
 
 import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
+import com.tp.libraryuserstory.exceptions.NullAuthorException;
+import com.tp.libraryuserstory.exceptions.NullTitleException;
 import com.tp.libraryuserstory.models.LibraryApp;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +17,36 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     public LibraryInMemDAO()
     {
-       LibraryApp firstBook = new LibraryApp(100);
+       LibraryApp firstBook = new LibraryApp(100, "My Book", "Jane Doe");
        fullCollection.add(firstBook);
     }
 
+
+    //create a new book
+    @Override
+    public int createBook(String title, String author) throws NullAuthorException, NullTitleException {
+        if(title == null)
+        {
+            throw new NullTitleException("Cannot add a book with a null title!");
+        }
+        if(author == null)
+        {
+            throw new NullAuthorException("Cannot add a book with a null author!");
+        }
+        int id = 0;
+        for(LibraryApp toCheck : fullCollection )
+        {
+            if(toCheck.getBookID()>id)
+            {
+                id = toCheck.getBookID();
+            }
+        }
+        id++;
+        LibraryApp bookToAdd = new LibraryApp(id,title,author);
+
+
+        return id;
+    }
 
     //returns a specific book
     @Override
