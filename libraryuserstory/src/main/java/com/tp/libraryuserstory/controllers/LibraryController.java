@@ -33,6 +33,24 @@ public class LibraryController {
         return service.editBookID(request.getBookID(), request.getNewID());
     }
 
+    @PutMapping("/edittitle")
+    public LibraryViewModel editBookTitle(@RequestBody UpdateBookRequest request)
+    {
+        return service.editBookTitle(request.getBookID(), request.getNewTitle());
+    }
+
+    @PutMapping("/editauthor")
+    public LibraryViewModel editBookAuthor(@RequestBody UpdateBookRequest request)
+    {
+        return service.editBookAuthor(request.getBookID(), request.getAuthorsList());
+    }
+
+    @PutMapping("/edityear")
+    public LibraryViewModel editBookYear(@RequestBody UpdateBookRequest request)
+    {
+        return service.editBookYear(request.getBookID(), request.getNewID());
+    }
+
     @PostMapping("/delete/{bookID}")
     public String deleteBook(@PathVariable Integer bookID)
     {

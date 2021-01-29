@@ -78,5 +78,26 @@ public class LibraryService {
     }
 
 
+    public LibraryViewModel editBookYear(Integer bookID, Integer newYear) {
 
+        LibraryApp toEdit = dao.getBookByID(bookID);
+        toEdit.setYear(newYear);
+        return getBookByID(bookID);
+
+    }
+
+    public LibraryViewModel editBookAuthor(Integer bookID, List<String> newAuthors) {
+
+        LibraryApp toEdit = dao.getBookByID(bookID);
+        toEdit.setAuthors(newAuthors);
+        return getBookByID(bookID);
+    }
+
+    public LibraryViewModel editBookTitle(Integer bookID, String newTitle) {
+
+        LibraryApp toEdit = dao.getBookByID(bookID);
+        toEdit.setTitle(newTitle);
+        return getBookByID(bookID);
+
+    }
 }

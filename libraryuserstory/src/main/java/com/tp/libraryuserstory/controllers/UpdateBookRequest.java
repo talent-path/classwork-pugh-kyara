@@ -1,5 +1,7 @@
 package com.tp.libraryuserstory.controllers;
 
+import java.util.List;
+
 public class UpdateBookRequest {
     Integer bookID;
     Integer newID;
@@ -8,6 +10,24 @@ public class UpdateBookRequest {
     String title;
     String newTitle;
     Integer newYear;
+    List<String> authorsList;
+    List<String> newAuthList;
+
+    public List<String> getAuthorsList() {
+        return authorsList;
+    }
+
+    public void setAuthorsList(List<String> authorsList) {
+        this.authorsList = authorsList;
+    }
+
+    public List<String> getNewAuthList() {
+        return newAuthList;
+    }
+
+    public void setNewAuthList(List<String> newAuthList) {
+        this.newAuthList = newAuthList;
+    }
 
     public Integer getNewID() {
         return newID;
