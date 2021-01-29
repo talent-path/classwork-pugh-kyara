@@ -83,6 +83,7 @@ public class LibraryService {
 
         LibraryApp toEdit = dao.getBookByID(bookID);
         toEdit.setYear(newYear);
+        dao.editBookYear(toEdit, newYear);
         return getBookByID(bookID);
 
     }
@@ -91,6 +92,7 @@ public class LibraryService {
 
         LibraryApp toEdit = dao.getBookByID(bookID);
         toEdit.setAuthors(newAuthors);
+        dao.editBookAuthor(toEdit, newAuthors);
         return getBookByID(bookID);
     }
 
@@ -98,6 +100,7 @@ public class LibraryService {
 
         LibraryApp toEdit = dao.getBookByID(bookID);
         toEdit.setTitle(newTitle);
+        dao.editBookTitle(toEdit, newTitle);
         return getBookByID(bookID);
 
     }

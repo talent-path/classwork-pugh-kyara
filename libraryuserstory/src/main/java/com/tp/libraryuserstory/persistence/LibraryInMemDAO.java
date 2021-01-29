@@ -111,10 +111,10 @@ public class LibraryInMemDAO implements LibraryDAO {
     }
 
     //edits a book title given a book ID
-    public void editBookTitle(Integer bookID, String title) {
+    public void editBookTitle(LibraryApp app, String title) {
         int editIndex = -1;
         for (int i = 0; i < fullCollection.size(); i++) {
-            if(fullCollection.get(i).getBookID().equals(bookID))
+            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
             {
                 editIndex = i;
             }
@@ -160,6 +160,7 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     }
 
+
     //remove a book at a given index
     @Override
     public void deleteBook(Integer bookID) throws InvalidBookIDException {
@@ -181,5 +182,15 @@ public class LibraryInMemDAO implements LibraryDAO {
             throw new InvalidBookIDException("Cannot find book with ID "+ bookID +" to delete!");
         }
 
+    }
+
+    public void updateBook(LibraryApp app)
+    {
+        for( int i = 0; i < fullCollection.size(); i++){
+            if( fullCollection.get(i).getBookID().equals(app.getBookID())){
+                //we found the game to update
+                fullCollection.set(i, new LibraryApp(app) );
+            }
+        }
     }
 }
