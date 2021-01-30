@@ -61,20 +61,25 @@ public class LibraryController {
 
     }
 
-    @PutMapping("/editid")
-    public ResponseEntity editBookID(@RequestBody UpdateBookRequest request)
-    {
-        //deleteBook(request.getBookID());
-        LibraryViewModel toReturn = null;
-        try {
-            toReturn = service.editBookID(request.getBookID(), request.getNewID());
-        }
-        catch (InvalidBookIDException e)
-        {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        return ResponseEntity.ok(toReturn);
-    }
+//cannot get this to run as I need
+//    @PutMapping("/editid")
+//    public ResponseEntity editBookID(@RequestBody UpdateBookRequest request)
+//    {
+//
+//        LibraryViewModel toReturn = null;
+//        try {
+//            toReturn = service.editBookID(request.getBookID(), request.getNewID());
+//        }
+//        catch (InvalidBookIDException e)
+//        {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//        } catch (NullTitleException e) {
+//            e.printStackTrace();
+//        } catch (NullAuthorException e) {
+//            e.printStackTrace();
+//        }
+//        return ResponseEntity.ok(toReturn);
+//    }
 
     @PutMapping("/edittitle")
     public ResponseEntity editBookTitle(@RequestBody UpdateBookRequest request)
@@ -118,13 +123,13 @@ public class LibraryController {
         return ResponseEntity.ok(toReturn);
     }
 
-    @PutMapping("/delete/{bookID}")
+    @DeleteMapping("/delete/{bookID}")
     public String deleteBook(@PathVariable Integer bookID)
     {
         try{
 
             service.deleteBook(bookID);
-            return "Book with ID "+ bookID + "sucessfully deleted!";
+            return "Book with ID "+ bookID + " successfully deleted!";
         }
         catch(InvalidBookIDException ex)
         {

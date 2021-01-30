@@ -106,23 +106,18 @@ public class LibraryInMemDAO implements LibraryDAO {
         return toReturn;
     }
 
-    //edit a book ID given a specific ID
-    @Override
-    public void editBookID(LibraryApp app, Integer newID) throws InvalidBookIDException{
-        int editIndex = -1;
-        for (int i = 0; i < fullCollection.size(); i++) {
-            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
-            {
-                fullCollection.get(i).setBookID(newID);
-                break;
-            }
-            else
-            {
-                throw new InvalidBookIDException("Could not find a book with the ID "+ app.getBookID());
-            }
-        }
-
-    }
+//    //edit a book ID given a specific ID
+//    @Override
+//    public void editBookID(LibraryApp app){
+//        int editIndex = -1;
+//        for (int i = 0; i < fullCollection.size(); i++) {
+//            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
+//            {
+//                fullCollection.set(i, new LibraryApp(app));
+//                break;
+//            }
+//        }
+//    }
 
     //edits a book title given a book ID
     public void editBookTitle(LibraryApp app, String title) {
@@ -195,6 +190,11 @@ public class LibraryInMemDAO implements LibraryDAO {
         {
             throw new InvalidBookIDException("Cannot find book with ID "+ bookID +" to delete!");
         }
+
+    }
+
+    @Override
+    public void deleteAuthorByName(Integer bookID) throws NullAuthorException {
 
     }
 

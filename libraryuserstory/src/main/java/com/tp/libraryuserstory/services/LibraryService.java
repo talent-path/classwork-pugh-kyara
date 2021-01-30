@@ -21,13 +21,13 @@ public class LibraryService {
 
     String [] possibleBookTitles = {"Pride and Prejudice", "Good Omens", "Game of Thrones", "Crucible", "Hunger Games"};
     String [] possibleBookAuthors = {"Jane Austen", "Neil Gaiman", "George R.R. Martin", "Arthur Miller", "Suzanne Collins"};
-    int index = RNG.randomIndex(possibleBookTitles.length-1);
 
     public LibraryViewModel createBook() throws NullAuthorException, NullTitleException {
         //create a new book
         //list of possible Book titles for testing
         //real authors and books they wrote should align together
         //not necessary but I just want a bit of organization
+        int index = RNG.randomIndex(possibleBookTitles.length-1);
         String title = possibleBookTitles[index];
         String author = possibleBookAuthors[index];
 
@@ -61,11 +61,6 @@ public class LibraryService {
         return convertModel(collection);
     }
 
-    public void deleteBook(Integer bookID) throws InvalidBookIDException {
-        dao.deleteBook(bookID);
-    }
-
-
 
     private LibraryViewModel convertModel(LibraryApp collection)
     {
@@ -76,15 +71,13 @@ public class LibraryService {
         toReturn.setYear(collection.getYear());
         return toReturn;
     }
-
-    public LibraryViewModel editBookID(Integer bookID, Integer newID) throws InvalidBookIDException
-    {
-        LibraryApp toEdit = dao.getBookByID(bookID);
-        toEdit.setBookID(newID);
-        dao.editBookID(toEdit, newID);
-        convertModel(toEdit);
-        return getBookByID(bookID);
-    }
+//
+//    public LibraryViewModel editBookID(Integer bookID, Integer newID) throws InvalidBookIDException, NullAuthorException, NullTitleException {
+//        LibraryApp toEdit = dao.getBookByID(bookID);
+//        toEdit.setBookID(newID);
+//        dao.editBookID(toEdit);
+//        return convertModel(toEdit);
+//    }
 
     public LibraryViewModel editBookYear(Integer bookID, Integer newYear) throws InvalidBookIDException {
 
@@ -112,5 +105,14 @@ public class LibraryService {
 
     }
 
+    //
+    public void deleteBook(Integer bookID) throws InvalidBookIDException {
+        dao.deleteBook(bookID);
+    }
+
+    //takes in book id and deletes specified author with an exact match
+    public void deleteAuthorByName(Integer bookID, String author) throws InvalidBookIDException, NullAuthorException{
+        dao.deleteAuthorByName(bookID);
+    }
 
 }
