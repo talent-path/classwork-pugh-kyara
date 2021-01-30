@@ -43,8 +43,7 @@ public class LibraryInMemDAO implements LibraryDAO {
         }
         id++;
         LibraryApp bookToAdd = new LibraryApp(id,title,author);
-
-
+        fullCollection.add(bookToAdd);
         return id;
     }
 
@@ -93,19 +92,34 @@ public class LibraryInMemDAO implements LibraryDAO {
         return copyAuthorList;
     }
 
+    @Override
+    public LibraryApp getBookByAuthor(String author) throws NullAuthorException {
+        LibraryApp toReturn = null;
+        for(LibraryApp toCheck : fullCollection)
+        {
+            if(toCheck.getAuthors().equals(author))
+            {
+                toReturn = new LibraryApp(toCheck);
+                break;
+            }
+        }
+        return toReturn;
+    }
+
     //edit a book ID given a specific ID
     @Override
-    public void editBookID(LibraryApp app, Integer newID) {
+    public void editBookID(LibraryApp app, Integer newID) throws InvalidBookIDException{
         int editIndex = -1;
         for (int i = 0; i < fullCollection.size(); i++) {
             if(fullCollection.get(i).getBookID().equals(app.getBookID()))
             {
-                editIndex = i;
+                fullCollection.get(i).setBookID(newID);
+                break;
             }
-        }
-        if(editIndex!=-1)
-        {
-            fullCollection.get(editIndex).setBookID(newID);
+            else
+            {
+                throw new InvalidBookIDException("Could not find a book with the ID "+ app.getBookID());
+            }
         }
 
     }

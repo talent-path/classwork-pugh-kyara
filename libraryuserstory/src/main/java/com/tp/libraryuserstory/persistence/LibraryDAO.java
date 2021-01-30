@@ -16,11 +16,14 @@ public interface LibraryDAO {
     List<LibraryApp> getCollection();
     //return a list of authors
     List<String> getAuthorList();
+    LibraryApp getBookByAuthor(String author) throws NullAuthorException;
     //make any changes to a book
     //TODO:might need to add parameters later
-    void editBookID(LibraryApp app, Integer newID);
+    void editBookID(LibraryApp app, Integer newID) throws InvalidBookIDException;
     void editBookTitle(LibraryApp app, String title);
     void editBookAuthor(LibraryApp app, List<String> author);
     void editBookYear(LibraryApp app, Integer year);
     void deleteBook(Integer bookID) throws InvalidBookIDException;
+
+
 }

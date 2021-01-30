@@ -2,9 +2,13 @@ package com.tp.libraryuserstory.controllers;
 
 
 import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
+import com.tp.libraryuserstory.exceptions.NullAuthorException;
+import com.tp.libraryuserstory.exceptions.NullTitleException;
 import com.tp.libraryuserstory.models.LibraryViewModel;
 import com.tp.libraryuserstory.services.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,31 +31,94 @@ public class LibraryController {
         return service.getBookByID(bookID);
     }
 
-    @PutMapping("/editid")
-    public LibraryViewModel editBookID(@RequestBody UpdateBookRequest request)
+    @PostMapping("/new")
+    public LibraryViewModel createLibrary()
     {
-        return service.editBookID(request.getBookID(), request.getNewID());
+        LibraryViewModel app = null;
+        try
+        {
+            app = service.createBook();
+        }catch (NullAuthorException | NullTitleException e)
+        {
+            e.printStackTrace();
+        }
+        return app;
+    }
+
+
+    @GetMapping
+    public ResponseEntity getBookByAuthor(@PathVariable String author)
+    {
+        LibraryViewModel toReturn = null;
+        try {
+            toReturn = service.getBookByAuthor(author);
+        }
+        catch (NullAuthorException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(toReturn);
+
+    }
+
+    @PutMapping("/editid")
+    public ResponseEntity editBookID(@RequestBody UpdateBookRequest request)
+    {
+        //deleteBook(request.getBookID());
+        LibraryViewModel toReturn = null;
+        try {
+            toReturn = service.editBookID(request.getBookID(), request.getNewID());
+        }
+        catch (InvalidBookIDException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(toReturn);
     }
 
     @PutMapping("/edittitle")
-    public LibraryViewModel editBookTitle(@RequestBody UpdateBookRequest request)
+    public ResponseEntity editBookTitle(@RequestBody UpdateBookRequest request)
     {
-        return service.editBookTitle(request.getBookID(), request.getNewTitle());
+        LibraryViewModel toReturn = null;
+        try {
+            toReturn = service.editBookTitle(request.getBookID(), request.getNewTitle());
+        }
+        catch (NullTitleException | InvalidBookIDException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(toReturn);
     }
 
     @PutMapping("/editauthor")
-    public LibraryViewModel editBookAuthor(@RequestBody UpdateBookRequest request)
+    public ResponseEntity editBookAuthor(@RequestBody UpdateBookRequest request)
     {
-        return service.editBookAuthor(request.getBookID(), request.getAuthorsList());
+        LibraryViewModel toReturn = null;
+        try {
+            toReturn = service.editBookAuthor(request.getBookID(), request.getAuthorsList());
+        }
+        catch(NullAuthorException | InvalidBookIDException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(toReturn);
     }
 
     @PutMapping("/edityear")
-    public LibraryViewModel editBookYear(@RequestBody UpdateBookRequest request)
+    public ResponseEntity editBookYear(@RequestBody UpdateBookRequest request)
     {
-        return service.editBookYear(request.getBookID(), request.getNewID());
+        LibraryViewModel toReturn = null;
+        try {
+             service.editBookYear(request.getBookID(), request.getNewYear());
+        }
+        catch (InvalidBookIDException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(toReturn);
     }
 
-    @PostMapping("/delete/{bookID}")
+    @PutMapping("/delete/{bookID}")
     public String deleteBook(@PathVariable Integer bookID)
     {
         try{

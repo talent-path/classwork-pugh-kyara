@@ -43,9 +43,7 @@ public class LibraryApp {
         this.bookID = that.bookID;
         this.title = that.title;
         this.year = that.year;
-        for (String copyAuthors : that.authors) {
-            this.authors.add(copyAuthors);
-        }
+        this.authors = that.authors;
     }
 
     public Integer getBookID() {

@@ -19,16 +19,15 @@ public class LibraryService {
     @Autowired
     LibraryDAO dao;
 
+    String [] possibleBookTitles = {"Pride and Prejudice", "Good Omens", "Game of Thrones", "Crucible", "Hunger Games"};
+    String [] possibleBookAuthors = {"Jane Austen", "Neil Gaiman", "George R.R. Martin", "Arthur Miller", "Suzanne Collins"};
+    int index = RNG.randomIndex(possibleBookTitles.length-1);
+
     public LibraryViewModel createBook() throws NullAuthorException, NullTitleException {
         //create a new book
-
         //list of possible Book titles for testing
-        String [] possibleBookTitles = {"Pride and Prejudice", "Good Omens", "Game of Thrones", "Crucible", "Hunger Games"};
-        String [] possibleBookAuthors = {"Jane Austen", "Neil Gaiman", "George R.R. Martin", "Arthur Miller", "Suzanne Collins"};
-
         //real authors and books they wrote should align together
         //not necessary but I just want a bit of organization
-        int index = RNG.randomIndex(possibleBookTitles.length-1);
         String title = possibleBookTitles[index];
         String author = possibleBookAuthors[index];
 
@@ -57,16 +56,13 @@ public class LibraryService {
         return convertModel(collection);
     }
 
-    public void deleteBook(Integer bookID) throws InvalidBookIDException {
-        dao.deleteBook(bookID);
+    public LibraryViewModel getBookByAuthor(String author) throws NullAuthorException{
+        LibraryApp collection = dao.getBookByAuthor(author);
+        return convertModel(collection);
     }
 
-    public LibraryViewModel editBookID(Integer bookID, Integer newID)
-    {
-        LibraryApp toEdit = dao.getBookByID(bookID);
-        toEdit.setBookID(newID);
-        dao.editBookID(toEdit, newID);
-        return getBookByID(bookID);
+    public void deleteBook(Integer bookID) throws InvalidBookIDException {
+        dao.deleteBook(bookID);
     }
 
 
@@ -74,34 +70,47 @@ public class LibraryService {
     private LibraryViewModel convertModel(LibraryApp collection)
     {
         LibraryViewModel toReturn = new LibraryViewModel();
-
+        toReturn.setBookID(collection.getBookID());
+        toReturn.setTitle(collection.getTitle());
+        toReturn.setAuthors(collection.getAuthors());
+        toReturn.setYear(collection.getYear());
         return toReturn;
     }
 
+    public LibraryViewModel editBookID(Integer bookID, Integer newID) throws InvalidBookIDException
+    {
+        LibraryApp toEdit = dao.getBookByID(bookID);
+        toEdit.setBookID(newID);
+        dao.editBookID(toEdit, newID);
+        convertModel(toEdit);
+        return getBookByID(bookID);
+    }
 
-    public LibraryViewModel editBookYear(Integer bookID, Integer newYear) {
+    public LibraryViewModel editBookYear(Integer bookID, Integer newYear) throws InvalidBookIDException {
 
         LibraryApp toEdit = dao.getBookByID(bookID);
         toEdit.setYear(newYear);
         dao.editBookYear(toEdit, newYear);
-        return getBookByID(bookID);
+        return convertModel(toEdit);
 
     }
 
-    public LibraryViewModel editBookAuthor(Integer bookID, List<String> newAuthors) {
+    public LibraryViewModel editBookAuthor(Integer bookID, List<String> newAuthors) throws NullAuthorException, InvalidBookIDException {
 
         LibraryApp toEdit = dao.getBookByID(bookID);
         toEdit.setAuthors(newAuthors);
         dao.editBookAuthor(toEdit, newAuthors);
-        return getBookByID(bookID);
+        return convertModel(toEdit);
     }
 
-    public LibraryViewModel editBookTitle(Integer bookID, String newTitle) {
+    public LibraryViewModel editBookTitle(Integer bookID, String newTitle) throws InvalidBookIDException, NullTitleException{
 
         LibraryApp toEdit = dao.getBookByID(bookID);
         toEdit.setTitle(newTitle);
         dao.editBookTitle(toEdit, newTitle);
-        return getBookByID(bookID);
+        return convertModel(toEdit);
 
     }
+
+
 }
