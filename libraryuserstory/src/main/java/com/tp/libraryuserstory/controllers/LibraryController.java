@@ -8,6 +8,7 @@ import com.tp.libraryuserstory.exceptions.NullYearException;
 import com.tp.libraryuserstory.models.Book;
 import com.tp.libraryuserstory.services.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,17 +27,18 @@ public class LibraryController {
     }
 
     @GetMapping("/book/{bookID}")
-    public Book getBookByID(@PathVariable Integer bookID)
+    public ResponseEntity getBookByID(@PathVariable Integer bookID)
     {
         Book toReturn = null;
-        try {
-             toReturn = service.getBookByID(bookID);
+        try
+        {
+            toReturn = service.getBookByID(bookID);
         }
         catch (InvalidBookIDException e)
         {
-            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-        return toReturn;
+        return ResponseEntity.ok(toReturn);
     }
 
     @PostMapping("/new")
@@ -54,11 +56,11 @@ public class LibraryController {
     }
 
     @PutMapping("/editbook")
-    public String editBook(@RequestBody Book request)
+    public String editBook(@RequestBody Integer bookID, @RequestBody Book request)
     {
         try{
 
-            service.editBook(request.getBookID(), request);
+            service.editBook(bookID, request);
             return "Book with ID "+ request.getBookID() + " successfully edited!";
         }
         catch(InvalidBookIDException ex)

@@ -62,15 +62,7 @@ public class LibraryInMemDAO implements LibraryDAO {
                 break;
             }
         }
-        if(toReturn!=null)
-        {
-            return toReturn;
-        }
-        else
-        {
-            throw new InvalidBookIDException("Cannot find a book with ID "+ bookID +"!");
-        }
-
+        return toReturn;
     }
 
     //returns full library collection
@@ -118,6 +110,24 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     @Override
     public void editBook(Integer bookID, Book editBook) throws InvalidBookIDException {
+        if(bookID == null)
+        {
+            throw new InvalidBookIDException("Cannot edit a book with null ID");
+        }
+        int editIndex = -1;
+        for (int i = 0; i < fullCollection.size(); i++) {
+            if(fullCollection.get(i).getBookID().equals(bookID))
+            {
+                editIndex = i;
+                fullCollection.set(i,editBook);
+                break;
+            }
+        }
+        if(editIndex == -1)
+        {
+            throw new InvalidBookIDException("Cannot find a book with ID "+bookID+"!");
+
+        }
 
     }
 

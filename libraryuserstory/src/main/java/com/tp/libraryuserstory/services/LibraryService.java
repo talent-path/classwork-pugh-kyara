@@ -48,6 +48,11 @@ public class LibraryService {
     }
 
     public Book getBookByID(Integer bookID) throws InvalidBookIDException{
+
+        if(bookID == null)
+        {
+            throw new InvalidBookIDException("Cannot retrieve a book with a null ID!");
+        }
         List<Book> fullCollection = dao.getCollection();
         Book collection = null;
         for(int i =0; i< fullCollection.size();i++)
@@ -56,6 +61,10 @@ public class LibraryService {
             {
                 collection = new Book(fullCollection.get(i));
 ;            }
+        }
+        if(collection == null)
+        {
+            throw new InvalidBookIDException("Cannot retrieve a book with ID "+bookID+"!");
         }
         return collection;
     }

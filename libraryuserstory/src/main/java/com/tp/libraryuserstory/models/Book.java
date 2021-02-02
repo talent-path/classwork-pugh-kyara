@@ -32,8 +32,6 @@ public class Book {
         this.title = title;
         this.year = year;
         this.authors = authors;
-
-
     }
 
     //copy constructor
