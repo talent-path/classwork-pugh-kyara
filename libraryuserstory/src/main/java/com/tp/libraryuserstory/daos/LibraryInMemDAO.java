@@ -1,9 +1,9 @@
-package com.tp.libraryuserstory.persistence;
+package com.tp.libraryuserstory.daos;
 
 import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
 import com.tp.libraryuserstory.exceptions.NullAuthorException;
 import com.tp.libraryuserstory.exceptions.NullTitleException;
-import com.tp.libraryuserstory.models.LibraryApp;
+import com.tp.libraryuserstory.models.Book;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import java.util.List;
 @Component
 public class LibraryInMemDAO implements LibraryDAO {
 
-    private List<LibraryApp> fullCollection = new ArrayList<>();
+    private List<Book> fullCollection = new ArrayList<>();
 
     public LibraryInMemDAO()
     {
-       LibraryApp firstBook = new LibraryApp(100, "My Book", "Jane Doe");
+       Book firstBook = new Book(100, "My Book", "Jane Doe");
        fullCollection.add(firstBook);
     }
 
@@ -32,7 +32,7 @@ public class LibraryInMemDAO implements LibraryDAO {
             throw new NullAuthorException("Cannot add a book with a null author!");
         }
         int id = 0;
-        for(LibraryApp toCheck : fullCollection )
+        for(Book toCheck : fullCollection )
         {
             if(toCheck.getBookID()>id)
             {
@@ -40,21 +40,21 @@ public class LibraryInMemDAO implements LibraryDAO {
             }
         }
         id++;
-        LibraryApp bookToAdd = new LibraryApp(id,title,author);
+        Book bookToAdd = new Book(id,title,author);
         fullCollection.add(bookToAdd);
         return id;
     }
 
     //returns a specific book
     @Override
-    public LibraryApp getBookByID(Integer bookID) {
-        LibraryApp toReturn = null;
+    public Book getBookByID(Integer bookID) {
+        Book toReturn = null;
 
-        for(LibraryApp toCheck : fullCollection)
+        for(Book toCheck : fullCollection)
         {
             if(toCheck.getBookID().equals(bookID))
             {
-                toReturn = new LibraryApp(toCheck);
+                toReturn = new Book(toCheck);
                 break;
             }
         }
@@ -63,11 +63,11 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     //returns full library collection
     @Override
-    public List<LibraryApp> getCollection() {
-        List<LibraryApp> copyCollection = new ArrayList<>();
-        for(LibraryApp toCopy : fullCollection)
+    public List<Book> getCollection() {
+        List<Book> copyCollection = new ArrayList<>();
+        for(Book toCopy : fullCollection)
         {
-            copyCollection.add(new LibraryApp(toCopy));
+            copyCollection.add(new Book(toCopy));
         }
         return copyCollection;
     }
@@ -77,9 +77,9 @@ public class LibraryInMemDAO implements LibraryDAO {
     //TODO:create a way to iterate through author list
     @Override
     public List<String> getAuthorList() {
-        List<LibraryApp> copyCollection = new ArrayList<>();
+        List<Book> copyCollection = new ArrayList<>();
         List<String> copyAuthorList = new ArrayList<>();
-        for(LibraryApp toCopy : fullCollection)
+        for(Book toCopy : fullCollection)
         {
          for(String copyAuthor : toCopy.getAuthors())
          {
@@ -91,13 +91,13 @@ public class LibraryInMemDAO implements LibraryDAO {
     }
 
     @Override
-    public LibraryApp getBookByAuthor(String author) throws NullAuthorException {
-        LibraryApp toReturn = null;
-        for(LibraryApp toCheck : fullCollection)
+    public Book getBookByAuthor(String author) throws NullAuthorException {
+        Book toReturn = null;
+        for(Book toCheck : fullCollection)
         {
             if(toCheck.getAuthors().equals(author))
             {
-                toReturn = new LibraryApp(toCheck);
+                toReturn = new Book(toCheck);
                 break;
             }
         }

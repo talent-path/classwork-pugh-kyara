@@ -4,7 +4,7 @@ package com.tp.libraryuserstory.controllers;
 import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
 import com.tp.libraryuserstory.exceptions.NullAuthorException;
 import com.tp.libraryuserstory.exceptions.NullTitleException;
-import com.tp.libraryuserstory.models.LibraryApp;
+import com.tp.libraryuserstory.models.Book;
 import com.tp.libraryuserstory.services.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,21 +19,21 @@ public class LibraryController {
     LibraryService service;
 
     @GetMapping("/book")
-    public List<LibraryApp> getCollection()
+    public List<Book> getCollection()
     {
         return service.getCollection();
     }
 
     @GetMapping("/book/{bookID}")
-    public LibraryApp getBookByID(@PathVariable Integer bookID)
+    public Book getBookByID(@PathVariable Integer bookID)
     {
         return service.getBookByID(bookID);
     }
 
     @PostMapping("/new")
-    public LibraryApp createLibrary()
+    public Book createLibrary()
     {
-        LibraryApp app = null;
+        Book app = null;
         try
         {
             app = service.createBook();
@@ -45,11 +45,32 @@ public class LibraryController {
     }
 
     @PutMapping
-    public ResponseEntity editBook(@RequestBody LibraryApp request)
+    public ResponseEntity editBook(@RequestBody Book request, Book editBook)
     {
-        service.editBook();
+        service.editBook(request.getBookID(),editBook);
         return null;
     }
+
+    @DeleteMapping("/delete/{bookID}")
+    public String deleteBook(@PathVariable Integer bookID)
+    {
+        try{
+
+            service.deleteBook(bookID);
+            return "Book with ID "+ bookID + " successfully deleted!";
+        }
+        catch(InvalidBookIDException ex)
+        {
+            return ex.getMessage();
+        }
+    }
+
+}
+
+
+
+
+// TO BE DELETED LATER
 
 //
 //    @PutMapping("/edittitle")
@@ -94,18 +115,3 @@ public class LibraryController {
 //        return ResponseEntity.ok(toReturn);
 //    }
 
-    @DeleteMapping("/delete/{bookID}")
-    public String deleteBook(@PathVariable Integer bookID)
-    {
-        try{
-
-            service.deleteBook(bookID);
-            return "Book with ID "+ bookID + " successfully deleted!";
-        }
-        catch(InvalidBookIDException ex)
-        {
-            return ex.getMessage();
-        }
-    }
-
-}

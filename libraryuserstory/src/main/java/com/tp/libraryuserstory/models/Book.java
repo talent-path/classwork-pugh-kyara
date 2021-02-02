@@ -3,7 +3,7 @@ package com.tp.libraryuserstory.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LibraryApp {
+public class Book {
     //in our library we have a book
     //those books contain these variables
     private Integer bookID;
@@ -15,7 +15,7 @@ public class LibraryApp {
 
     //adding a new book to the library;
     //must have at the very least an ID the other variables initialized to default values
-    public LibraryApp(Integer bookID, String title, String author)
+    public Book(Integer bookID, String title, String author)
 
     {
         this.bookID = bookID;
@@ -26,7 +26,7 @@ public class LibraryApp {
     }
 
     //to update or add to an existing book
-    public LibraryApp(Integer bookID, String title, List<String> authors, Integer year)
+    public Book(Integer bookID, String title, List<String> authors, Integer year)
     {
         this.bookID = bookID;
         this.title = title;
@@ -37,11 +37,12 @@ public class LibraryApp {
     }
 
     //copy constructor
-    public LibraryApp (LibraryApp that) {
+    public Book(Book that) {
         this.bookID = that.bookID;
         this.title = that.title;
         this.year = that.year;
-        this.authors = that.authors;
+        this.authors = new ArrayList<>();
+        this.authors.addAll(that.authors);
     }
 
     public Integer getBookID() {
