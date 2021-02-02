@@ -95,17 +95,28 @@ public class LibraryInMemDAO implements LibraryDAO {
     }
 
     @Override
-    public Book getBookByAuthor(String author) throws NullAuthorException {
-        Book toReturn = null;
+    public List<Book> getBookByAuthor(String author) throws NullAuthorException {
+        List<Book> toReturn = new ArrayList<>();
         for(Book toCheck : fullCollection)
         {
-            if(toCheck.getAuthors().equals(author))
-            {
-                toReturn = new Book(toCheck);
-                break;
+            for (int i = 0; i < fullCollection.size(); i++) {
+                if(toCheck.getAuthors().get(i).equals(author))
+                {
+                    toReturn.add(toCheck);
+                }
             }
         }
         return toReturn;
+    }
+
+    @Override
+    public Book getBookByTitle(String title) throws NullTitleException {
+        return null;
+    }
+
+    @Override
+    public Book getBookByYear(Integer author) throws NullYearException {
+        return null;
     }
 
     @Override

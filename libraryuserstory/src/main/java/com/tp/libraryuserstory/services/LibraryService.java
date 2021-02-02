@@ -26,7 +26,6 @@ public class LibraryService {
         //list of possible Book titles for testing
         //real authors and books they wrote should align together
         //not necessary but I just want a bit of organization
-
         int index = RNG.randomIndex(possibleBookTitles.length-1);
         String title = possibleBookTitles[index];
         List<String> author = new ArrayList<>();
@@ -69,9 +68,9 @@ public class LibraryService {
         return collection;
     }
 
-    public Book getBookByAuthor(String author) throws NullAuthorException{
-        Book collection = dao.getBookByAuthor(author);
-        return (collection);
+    public List<Book> getBookByAuthor(String author) throws NullAuthorException{
+        List<Book> collection = dao.getBookByAuthor(author);
+        return collection;
     }
 
 

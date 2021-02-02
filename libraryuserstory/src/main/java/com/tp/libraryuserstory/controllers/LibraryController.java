@@ -9,6 +9,7 @@ import com.tp.libraryuserstory.models.Book;
 import com.tp.libraryuserstory.services.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,19 @@ public class LibraryController {
     public List<Book> getCollection()
     {
         return service.getCollection();
+    }
+
+    @GetMapping("/book/author")
+    public ResponseEntity getCollection(@RequestBody String author)
+    {
+        List<Book> books = null;
+        try {
+            books = service.getBookByAuthor(author);
+        }
+        catch (NullAuthorException e){
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+       return ResponseEntity.ok(books);
     }
 
     @GetMapping("/book/{bookID}")
