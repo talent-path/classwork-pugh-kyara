@@ -5,7 +5,6 @@ import com.tp.libraryuserstory.exceptions.NullAuthorException;
 import com.tp.libraryuserstory.exceptions.NullTitleException;
 import com.tp.libraryuserstory.models.LibraryApp;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,6 @@ public class LibraryInMemDAO implements LibraryDAO {
        LibraryApp firstBook = new LibraryApp(100, "My Book", "Jane Doe");
        fullCollection.add(firstBook);
     }
-
 
     //create a new book
     @Override
@@ -106,70 +104,6 @@ public class LibraryInMemDAO implements LibraryDAO {
         return toReturn;
     }
 
-//    //edit a book ID given a specific ID
-//    @Override
-//    public void editBookID(LibraryApp app){
-//        int editIndex = -1;
-//        for (int i = 0; i < fullCollection.size(); i++) {
-//            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
-//            {
-//                fullCollection.set(i, new LibraryApp(app));
-//                break;
-//            }
-//        }
-//    }
-
-    //edits a book title given a book ID
-    public void editBookTitle(LibraryApp app, String title) {
-        int editIndex = -1;
-        for (int i = 0; i < fullCollection.size(); i++) {
-            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
-            {
-                editIndex = i;
-            }
-        }
-        if(editIndex!=-1)
-        {
-            fullCollection.get(editIndex).setTitle(title);
-        }
-
-    }
-
-
-    //edits a books author given an ID
-    @Override
-    public void editBookAuthor(LibraryApp app, List<String> author) {
-        int editIndex = -1;
-        for (int i = 0; i < fullCollection.size(); i++) {
-            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
-            {
-                editIndex = i;
-            }
-        }
-        if(editIndex!=-1)
-        {
-            fullCollection.get(editIndex).setAuthors(author);
-        }
-    }
-
-    //edits a book publish year based on a given ID
-    @Override
-    public void editBookYear(LibraryApp app, Integer year) {
-        int editIndex = -1;
-        for (int i = 0; i < fullCollection.size(); i++) {
-            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
-            {
-                editIndex = i;
-            }
-        }
-        if(editIndex!=-1)
-        {
-            fullCollection.get(editIndex).setYear(year);
-        }
-
-    }
-
-
     //remove a book at a given index
     @Override
     public void deleteBook(Integer bookID) throws InvalidBookIDException {
@@ -198,13 +132,59 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     }
 
-    public void updateBook(LibraryApp app)
-    {
-        for( int i = 0; i < fullCollection.size(); i++){
-            if( fullCollection.get(i).getBookID().equals(app.getBookID())){
-                //we found the game to update
-                fullCollection.set(i, new LibraryApp(app) );
-            }
-        }
-    }
 }
+
+
+
+//OLD EDIT METHODS TO BE DELETED LATER
+
+
+//    //edits a book title given a book ID
+//    public void editBookTitle(LibraryApp app, String title) {
+//        int editIndex = -1;
+//        for (int i = 0; i < fullCollection.size(); i++) {
+//            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
+//            {
+//                editIndex = i;
+//            }
+//        }
+//        if(editIndex!=-1)
+//        {
+//            fullCollection.get(editIndex).setTitle(title);
+//        }
+//
+//    }
+//
+//
+//    //edits a books author given an ID
+//    @Override
+//    public void editBookAuthor(LibraryApp app, List<String> author) {
+//        int editIndex = -1;
+//        for (int i = 0; i < fullCollection.size(); i++) {
+//            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
+//            {
+//                editIndex = i;
+//            }
+//        }
+//        if(editIndex!=-1)
+//        {
+//            fullCollection.get(editIndex).setAuthors(author);
+//        }
+//    }
+//
+//    //edits a book publish year based on a given ID
+//    @Override
+//    public void editBookYear(LibraryApp app, Integer year) {
+//        int editIndex = -1;
+//        for (int i = 0; i < fullCollection.size(); i++) {
+//            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
+//            {
+//                editIndex = i;
+//            }
+//        }
+//        if(editIndex!=-1)
+//        {
+//            fullCollection.get(editIndex).setYear(year);
+//        }
+//
+//    }

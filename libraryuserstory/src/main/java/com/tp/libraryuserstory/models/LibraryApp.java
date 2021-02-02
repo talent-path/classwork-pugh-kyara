@@ -9,8 +9,6 @@ public class LibraryApp {
     private Integer bookID;
     private String title;
     private Integer year;
-
-
     //can have more than one author
     private List<String> authors;
 

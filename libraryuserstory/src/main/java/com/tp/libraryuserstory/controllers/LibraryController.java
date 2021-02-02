@@ -4,10 +4,9 @@ package com.tp.libraryuserstory.controllers;
 import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
 import com.tp.libraryuserstory.exceptions.NullAuthorException;
 import com.tp.libraryuserstory.exceptions.NullTitleException;
-import com.tp.libraryuserstory.models.LibraryViewModel;
+import com.tp.libraryuserstory.models.LibraryApp;
 import com.tp.libraryuserstory.services.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,21 +19,21 @@ public class LibraryController {
     LibraryService service;
 
     @GetMapping("/book")
-    public List<LibraryViewModel> getCollection()
+    public List<LibraryApp> getCollection()
     {
         return service.getCollection();
     }
 
     @GetMapping("/book/{bookID}")
-    public LibraryViewModel getBookByID(@PathVariable Integer bookID)
+    public LibraryApp getBookByID(@PathVariable Integer bookID)
     {
         return service.getBookByID(bookID);
     }
 
     @PostMapping("/new")
-    public LibraryViewModel createLibrary()
+    public LibraryApp createLibrary()
     {
-        LibraryViewModel app = null;
+        LibraryApp app = null;
         try
         {
             app = service.createBook();
@@ -45,83 +44,55 @@ public class LibraryController {
         return app;
     }
 
-
-    @GetMapping
-    public ResponseEntity getBookByAuthor(@PathVariable String author)
+    @PutMapping
+    public ResponseEntity editBook(@RequestBody LibraryApp request)
     {
-        LibraryViewModel toReturn = null;
-        try {
-            toReturn = service.getBookByAuthor(author);
-        }
-        catch (NullAuthorException e)
-        {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        return ResponseEntity.ok(toReturn);
-
+        service.editBook();
+        return null;
     }
 
-//cannot get this to run as I need
-//    @PutMapping("/editid")
-//    public ResponseEntity editBookID(@RequestBody UpdateBookRequest request)
-//    {
 //
+//    @PutMapping("/edittitle")
+//    public ResponseEntity editBookTitle(@RequestBody LibraryApp request)
+//    {
 //        LibraryViewModel toReturn = null;
 //        try {
-//            toReturn = service.editBookID(request.getBookID(), request.getNewID());
+//            toReturn = service.se(request.getBookID());
+//        }
+//        catch (NullTitleException | InvalidBookIDException e)
+//        {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//        }
+//        return ResponseEntity.ok(toReturn);
+//    }
+//
+//    @PutMapping("/editauthor")
+//    public ResponseEntity editBookAuthor(@RequestBody LibraryApp request)
+//    {
+//        LibraryViewModel toReturn = null;
+//        try {
+//            toReturn = service.editBookAuthor(request.getBookID(), request.getAuthors());
+//        }
+//        catch(NullAuthorException | InvalidBookIDException e)
+//        {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//        }
+//        return ResponseEntity.ok(toReturn);
+//    }
+//
+//    @PutMapping("/edityear")
+//    public ResponseEntity editBookYear(@RequestBody LibraryApp request)
+//    {
+//        LibraryViewModel toReturn = null;
+//        try {
+//             toReturn = service.editBookYear(request.getBookID(), request.getYear());
 //        }
 //        catch (InvalidBookIDException e)
 //        {
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//        } catch (NullTitleException e) {
-//            e.printStackTrace();
-//        } catch (NullAuthorException e) {
-//            e.printStackTrace();
 //        }
 //        return ResponseEntity.ok(toReturn);
 //    }
-
-    @PutMapping("/edittitle")
-    public ResponseEntity editBookTitle(@RequestBody UpdateBookRequest request)
-    {
-        LibraryViewModel toReturn = null;
-        try {
-            toReturn = service.editBookTitle(request.getBookID(), request.getNewTitle());
-        }
-        catch (NullTitleException | InvalidBookIDException e)
-        {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        return ResponseEntity.ok(toReturn);
-    }
-
-    @PutMapping("/editauthor")
-    public ResponseEntity editBookAuthor(@RequestBody UpdateBookRequest request)
-    {
-        LibraryViewModel toReturn = null;
-        try {
-            toReturn = service.editBookAuthor(request.getBookID(), request.getAuthorsList());
-        }
-        catch(NullAuthorException | InvalidBookIDException e)
-        {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        return ResponseEntity.ok(toReturn);
-    }
-
-    @PutMapping("/edityear")
-    public ResponseEntity editBookYear(@RequestBody UpdateBookRequest request)
-    {
-        LibraryViewModel toReturn = null;
-        try {
-             service.editBookYear(request.getBookID(), request.getNewYear());
-        }
-        catch (InvalidBookIDException e)
-        {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        return ResponseEntity.ok(toReturn);
-    }
 
     @DeleteMapping("/delete/{bookID}")
     public String deleteBook(@PathVariable Integer bookID)
