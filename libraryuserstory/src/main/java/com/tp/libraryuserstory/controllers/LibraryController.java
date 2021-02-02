@@ -4,6 +4,7 @@ package com.tp.libraryuserstory.controllers;
 import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
 import com.tp.libraryuserstory.exceptions.NullAuthorException;
 import com.tp.libraryuserstory.exceptions.NullTitleException;
+import com.tp.libraryuserstory.exceptions.NullYearException;
 import com.tp.libraryuserstory.models.Book;
 import com.tp.libraryuserstory.services.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,15 @@ public class LibraryController {
     @GetMapping("/book/{bookID}")
     public Book getBookByID(@PathVariable Integer bookID)
     {
-        return service.getBookByID(bookID);
+        Book toReturn = null;
+        try {
+             toReturn = service.getBookByID(bookID);
+        }
+        catch (InvalidBookIDException e)
+        {
+            e.printStackTrace();
+        }
+        return toReturn;
     }
 
     @PostMapping("/new")
@@ -37,18 +46,26 @@ public class LibraryController {
         try
         {
             app = service.createBook();
-        }catch (NullAuthorException | NullTitleException e)
+        }catch (InvalidBookIDException | NullAuthorException | NullTitleException | NullYearException e)
         {
             e.printStackTrace();
         }
         return app;
     }
 
-    @PutMapping
-    public ResponseEntity editBook(@RequestBody Book request, Book editBook)
+    @PutMapping("/editbook")
+    public String editBook(@RequestBody Book request)
     {
-        service.editBook(request.getBookID(),editBook);
-        return null;
+        try{
+
+            service.editBook(request.getBookID(), request);
+            return "Book with ID "+ request.getBookID() + " successfully edited!";
+        }
+        catch(InvalidBookIDException ex)
+        {
+            return ex.getMessage();
+        }
+
     }
 
     @DeleteMapping("/delete/{bookID}")

@@ -4,11 +4,13 @@ package com.tp.libraryuserstory.services;
 import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
 import com.tp.libraryuserstory.exceptions.NullAuthorException;
 import com.tp.libraryuserstory.exceptions.NullTitleException;
+import com.tp.libraryuserstory.exceptions.NullYearException;
 import com.tp.libraryuserstory.models.Book;
 import com.tp.libraryuserstory.daos.LibraryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -18,19 +20,22 @@ public class LibraryService {
 
     String [] possibleBookTitles = {"Pride and Prejudice", "Good Omens", "Game of Thrones", "Crucible", "Hunger Games"};
     String [] possibleBookAuthors = {"Jane Austen", "Neil Gaiman", "George R.R. Martin", "Arthur Miller", "Suzanne Collins"};
-
-    public Book createBook() throws NullAuthorException, NullTitleException {
+    Integer [] possiblePubYear = {1813, 1990,1996, 1953, 2008};
+    public Book createBook() throws InvalidBookIDException, NullAuthorException, NullTitleException, NullYearException {
         //create a new book
         //list of possible Book titles for testing
         //real authors and books they wrote should align together
         //not necessary but I just want a bit of organization
+
         int index = RNG.randomIndex(possibleBookTitles.length-1);
         String title = possibleBookTitles[index];
-        String author = possibleBookAuthors[index];
+        List<String> author = new ArrayList<>();
+        author.add(possibleBookAuthors[index]);
+        Integer year = possiblePubYear[index];
 
         //insert the book into the dao
         //get the book ID back from DAO
-        int newBookID = dao.createBook(title,author);
+        int newBookID = dao.createBook(title,author,year);
         //return a view model of that book
         return this.getBookByID(newBookID);
     }
@@ -42,8 +47,16 @@ public class LibraryService {
         return fullCollection;
     }
 
-    public Book getBookByID(Integer bookID) {
-        Book collection = dao.getBookByID(bookID);
+    public Book getBookByID(Integer bookID) throws InvalidBookIDException{
+        List<Book> fullCollection = dao.getCollection();
+        Book collection = null;
+        for(int i =0; i< fullCollection.size();i++)
+        {
+            if(fullCollection.get(i).getBookID().equals(bookID))
+            {
+                collection = new Book(fullCollection.get(i));
+;            }
+        }
         return collection;
     }
 
@@ -53,12 +66,8 @@ public class LibraryService {
     }
 
 
-    public Book editBook(Integer bookID, Book editBook) {
-        Book collection = dao.getBookByID(bookID);
-        collection.setTitle(editBook.getTitle());
-        collection.setAuthors(editBook.getAuthors());
-        collection.setYear(editBook.getYear());
-        return collection;
+    public void editBook(Integer bookID, Book editBook) throws InvalidBookIDException {
+        dao.editBook(bookID, editBook);
     }
 
 

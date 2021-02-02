@@ -3,6 +3,7 @@ package com.tp.libraryuserstory.daos;
 import com.tp.libraryuserstory.exceptions.InvalidBookIDException;
 import com.tp.libraryuserstory.exceptions.NullAuthorException;
 import com.tp.libraryuserstory.exceptions.NullTitleException;
+import com.tp.libraryuserstory.exceptions.NullYearException;
 import com.tp.libraryuserstory.models.Book;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +23,7 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     //create a new book
     @Override
-    public int createBook(String title, String author) throws NullAuthorException, NullTitleException {
+    public int createBook(String title, List<String> author, Integer year) throws NullAuthorException, NullTitleException, NullYearException {
         if(title == null)
         {
             throw new NullTitleException("Cannot add a book with a null title!");
@@ -30,6 +31,10 @@ public class LibraryInMemDAO implements LibraryDAO {
         if(author == null)
         {
             throw new NullAuthorException("Cannot add a book with a null author!");
+        }
+        if(year ==  null)
+        {
+            throw new NullYearException("Cannot add a book with a null year");
         }
         int id = 0;
         for(Book toCheck : fullCollection )
@@ -40,16 +45,15 @@ public class LibraryInMemDAO implements LibraryDAO {
             }
         }
         id++;
-        Book bookToAdd = new Book(id,title,author);
+        Book bookToAdd = new Book(id,title,author,year);
         fullCollection.add(bookToAdd);
         return id;
     }
 
     //returns a specific book
     @Override
-    public Book getBookByID(Integer bookID) {
+    public Book getBookByID(Integer bookID) throws InvalidBookIDException{
         Book toReturn = null;
-
         for(Book toCheck : fullCollection)
         {
             if(toCheck.getBookID().equals(bookID))
@@ -58,7 +62,15 @@ public class LibraryInMemDAO implements LibraryDAO {
                 break;
             }
         }
-        return toReturn;
+        if(toReturn!=null)
+        {
+            return toReturn;
+        }
+        else
+        {
+            throw new InvalidBookIDException("Cannot find a book with ID "+ bookID +"!");
+        }
+
     }
 
     //returns full library collection
@@ -102,6 +114,11 @@ public class LibraryInMemDAO implements LibraryDAO {
             }
         }
         return toReturn;
+    }
+
+    @Override
+    public void editBook(Integer bookID, Book editBook) throws InvalidBookIDException {
+
     }
 
     //remove a book at a given index
