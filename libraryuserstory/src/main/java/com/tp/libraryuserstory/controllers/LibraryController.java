@@ -55,15 +55,14 @@ public class LibraryController {
         return app;
     }
 
-    @PutMapping("/editbook")
-    public String editBook(@RequestBody Integer bookID, @RequestBody Book request)
+    @PutMapping("/editbook/{bookID}")
+    public String editBook(@PathVariable Integer bookID, @RequestBody UpdateBookRequest book)
     {
         try{
-
-            service.editBook(bookID, request);
-            return "Book with ID "+ request.getBookID() + " successfully edited!";
+            service.editBook(bookID, book.getTitle(),book.getAuthors(),book.getYear());
+            return "Book with ID "+ bookID + " successfully edited!";
         }
-        catch(InvalidBookIDException ex)
+        catch(InvalidBookIDException | NullAuthorException | NullTitleException | NullYearException ex)
         {
             return ex.getMessage();
         }

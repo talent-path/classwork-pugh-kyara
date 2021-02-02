@@ -109,24 +109,41 @@ public class LibraryInMemDAO implements LibraryDAO {
     }
 
     @Override
-    public void editBook(Integer bookID, Book editBook) throws InvalidBookIDException {
+    public void editBook(Integer bookID, String newTitle, List<String>newAuthors, Integer newYear) throws InvalidBookIDException, NullAuthorException, NullTitleException,NullYearException {
         if(bookID == null)
         {
-            throw new InvalidBookIDException("Cannot edit a book with null ID");
+            throw new InvalidBookIDException("Cannot edit a book with null ID!");
         }
-        int editIndex = -1;
+        if(newTitle==null)
+        {
+            throw new NullTitleException("Cannot edit a book with a null title!");
+        }
+        if(newAuthors==null)
+        {
+            throw new NullAuthorException("Cannot edit a book with a null author(s)!");
+        }
+        if(newYear==null)
+        {
+            throw new NullYearException("Cannot edit a book with a null year!");
+        }
+        //create a new book and set values to new passed in values
+        Book toEdit = null;
+        //find the original book in the collection and replace it with teh new book
         for (int i = 0; i < fullCollection.size(); i++) {
             if(fullCollection.get(i).getBookID().equals(bookID))
             {
-                editIndex = i;
-                fullCollection.set(i,editBook);
+                toEdit = getBookByID(bookID);
+                toEdit.setTitle(newTitle);
+                toEdit.setAuthors(newAuthors);
+                toEdit.setYear(newYear);
+                fullCollection.set(i,toEdit);
                 break;
             }
         }
-        if(editIndex == -1)
+        //if that ID is not found
+        if(toEdit == null)
         {
             throw new InvalidBookIDException("Cannot find a book with ID "+bookID+"!");
-
         }
 
     }

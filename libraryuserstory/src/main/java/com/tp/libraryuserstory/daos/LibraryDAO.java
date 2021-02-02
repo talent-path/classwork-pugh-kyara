@@ -18,7 +18,7 @@ public interface LibraryDAO {
     //return a list of authors
     List<String> getAuthorList();
     Book getBookByAuthor(String author) throws NullAuthorException;
-    void editBook(Integer bookID, Book book) throws InvalidBookIDException;
+    void editBook(Integer bookID, String newTitle, List<String>newAuthors, Integer newYear) throws InvalidBookIDException, NullAuthorException, NullTitleException, NullYearException;
     //delete a book by ID
     void deleteBook(Integer bookID) throws InvalidBookIDException;
     void deleteAuthorByName(Integer bookID) throws NullAuthorException;

@@ -75,8 +75,8 @@ public class LibraryService {
     }
 
 
-    public void editBook(Integer bookID, Book editBook) throws InvalidBookIDException {
-        dao.editBook(bookID, editBook);
+    public void editBook(Integer bookID, String newTitle, List<String>newAuthors, Integer newYear) throws InvalidBookIDException, NullTitleException, NullYearException, NullAuthorException {
+        dao.editBook(bookID, newTitle, newAuthors, newYear);
     }
 
 
