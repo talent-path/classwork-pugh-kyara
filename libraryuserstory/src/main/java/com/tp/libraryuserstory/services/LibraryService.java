@@ -34,9 +34,9 @@ public class LibraryService {
 
         //insert the book into the dao
         //get the book ID back from DAO
-        int newBookID = dao.createBook(title,author,year);
+        Book newBook = dao.createBook(title,author,year);
         //return a view model of that book
-        return this.getBookByID(newBookID);
+        return newBook;
     }
 
 
@@ -88,50 +88,6 @@ public class LibraryService {
     public void deleteAuthorByName(Integer bookID, String author) throws InvalidBookIDException, NullAuthorException{
         dao.deleteAuthorByName(bookID);
     }
-
-
-
-//VIEW MODEL NOT NEEDED DELETE LATER
-
-    //    private LibraryViewModel convertModel(LibraryApp collection)
-//    {
-//        LibraryViewModel toReturn = new LibraryViewModel();
-//        toReturn.setBookID(collection.getBookID());
-//        toReturn.setTitle(collection.getTitle());
-//        toReturn.setAuthors(collection.getAuthors());
-//        toReturn.setYear(collection.getYear());
-//        return toReturn;
-//    }
-
-
-//OLD EDIT MODELS TO BE DELETED!
-
-
-    //    public LibraryViewModel editBookYear(Integer bookID, Integer newYear) throws InvalidBookIDException {
-//
-//        LibraryApp toEdit = dao.getBookByID(bookID);
-//        toEdit.setYear(newYear);
-//        dao.editBookYear(toEdit, newYear);
-//        return convertModel(toEdit);
-//
-//    }
-//
-//    public LibraryViewModel editBookAuthor(Integer bookID, List<String> newAuthors) throws NullAuthorException, InvalidBookIDException {
-//
-//        LibraryApp toEdit = dao.getBookByID(bookID);
-//        toEdit.setAuthors(newAuthors);
-//        dao.editBookAuthor(toEdit, newAuthors);
-//        return convertModel(toEdit);
-//    }
-//
-//    public LibraryViewModel editBookTitle(Integer bookID, String newTitle) throws InvalidBookIDException, NullTitleException{
-//
-//        LibraryApp toEdit = dao.getBookByID(bookID);
-//        toEdit.setTitle(newTitle);
-//        dao.editBookTitle(toEdit, newTitle);
-//        return convertModel(toEdit);
-//
-//    }
 
 
 }

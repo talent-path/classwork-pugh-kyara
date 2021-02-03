@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface LibraryDAO {
 
-    int createBook(String title, List<String> author, Integer year) throws NullAuthorException, NullTitleException, NullYearException;
+    Book createBook(String title, List<String> author, Integer year) throws NullAuthorException, NullTitleException, NullYearException;
     //retrieve a book by its given ID
     Book getBookByID(Integer bookID) throws InvalidBookIDException;
     //return entire book collection
@@ -26,10 +26,3 @@ public interface LibraryDAO {
     void deleteBook(Integer bookID) throws InvalidBookIDException;
     void deleteAuthorByName(Integer bookID) throws NullAuthorException;
 }
-
-//TO BE DELETED
-
-//make any changes to a book
-//    void editBookTitle(LibraryApp app, String title);
-//    void editBookAuthor(LibraryApp app, List<String> author) throws NullAuthorException;
-//    void editBookYear(LibraryApp app, Integer year);

@@ -12,7 +12,11 @@ public class Book {
     //can have more than one author
     private List<String> authors;
 
+    //default constructor
+    public Book()
+    {
 
+    }
     //adding a new book to the library;
     //must have at the very least an ID the other variables initialized to default values
     public Book(Integer bookID, String title, String author)

@@ -23,7 +23,7 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     //create a new book
     @Override
-    public int createBook(String title, List<String> author, Integer year) throws NullAuthorException, NullTitleException, NullYearException {
+    public Book createBook(String title, List<String> author, Integer year) throws NullAuthorException, NullTitleException, NullYearException {
         if(title == null)
         {
             throw new NullTitleException("Cannot add a book with a null title!");
@@ -47,7 +47,7 @@ public class LibraryInMemDAO implements LibraryDAO {
         id++;
         Book bookToAdd = new Book(id,title,author,year);
         fullCollection.add(bookToAdd);
-        return id;
+        return bookToAdd;
     }
 
     //returns a specific book
@@ -189,57 +189,3 @@ public class LibraryInMemDAO implements LibraryDAO {
 
 }
 
-
-
-//OLD EDIT METHODS TO BE DELETED LATER
-
-
-//    //edits a book title given a book ID
-//    public void editBookTitle(LibraryApp app, String title) {
-//        int editIndex = -1;
-//        for (int i = 0; i < fullCollection.size(); i++) {
-//            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
-//            {
-//                editIndex = i;
-//            }
-//        }
-//        if(editIndex!=-1)
-//        {
-//            fullCollection.get(editIndex).setTitle(title);
-//        }
-//
-//    }
-//
-//
-//    //edits a books author given an ID
-//    @Override
-//    public void editBookAuthor(LibraryApp app, List<String> author) {
-//        int editIndex = -1;
-//        for (int i = 0; i < fullCollection.size(); i++) {
-//            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
-//            {
-//                editIndex = i;
-//            }
-//        }
-//        if(editIndex!=-1)
-//        {
-//            fullCollection.get(editIndex).setAuthors(author);
-//        }
-//    }
-//
-//    //edits a book publish year based on a given ID
-//    @Override
-//    public void editBookYear(LibraryApp app, Integer year) {
-//        int editIndex = -1;
-//        for (int i = 0; i < fullCollection.size(); i++) {
-//            if(fullCollection.get(i).getBookID().equals(app.getBookID()))
-//            {
-//                editIndex = i;
-//            }
-//        }
-//        if(editIndex!=-1)
-//        {
-//            fullCollection.get(editIndex).setYear(year);
-//        }
-//
-//    }

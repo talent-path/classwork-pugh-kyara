@@ -23,12 +23,10 @@ public class LibraryInMemDAOTests {
     @Autowired
     LibraryInMemDAO testDAO;
 
-    List<String> authors = new ArrayList<>();
     //delete all books made and create 1 new one
     @BeforeEach
     public void setup() throws InvalidBookIDException {
 
-        authors.add("Jane Doe");
         testDAO.deleteBook(100);
     }
 
@@ -37,17 +35,38 @@ public class LibraryInMemDAOTests {
     @Test
     public void createBookGood() throws NullAuthorException, NullTitleException, NullYearException
     {
-        //Book firstBook = null;
-        int bookID = testDAO.createBook("My Book",authors,2009);
-        assertEquals(1,bookID);
-        int bookID2 = testDAO.createBook("My Book",authors,2009);
-        assertEquals(2,bookID2);
+        //create a book
+        Book book = new Book();
+        book.setTitle("My Book");
+        List<String> authors = new ArrayList<>();
+        authors.add("Jane Doe");
+        book.setAuthors(authors);
+        book.setYear(2021);
+
+        //create a 2nd book
+        Book book2 = new Book();
+        book2.setTitle("My 2nd Book");
+        List<String> authors2 = new ArrayList<>();
+        authors2.add("Jane Doe");
+        authors2.add("John Doe");
+        book2.setAuthors(authors2);
+        book2.setYear(2021);
+        Book testBook1 = testDAO.createBook(book.getTitle(),book.getAuthors(), book.getYear());
+        Book testBook2 = testDAO.createBook(book2.getTitle(),book2.getAuthors(), book2.getYear());
+        assertEquals(1,testBook1.getBookID());
+        assertEquals("My Book",testBook1.getTitle());
+        assertEquals("Jane Doe",testBook1.getAuthors().get(0));
+        assertEquals(2021,testBook1.getYear());
+        assertEquals(2,testBook2.getBookID());
+        assertEquals("My 2nd Book",testBook2.getTitle());
+        assertEquals("John Doe",testBook2.getAuthors().get(1));
+        assertEquals(2021,testBook2.getYear());
     }
 
     //Creation of a book with a null ID
     //goal is to get a InvalidBookIDException
     @Test
-    public void createBookNullID()
+    public void createBookNullID() throws InvalidBookIDException
     {
 
     }
@@ -55,7 +74,7 @@ public class LibraryInMemDAOTests {
     //Creation of a book with a null title
     //goal is to get a NullTitleException
     @Test
-    public void createBookNullTitle()
+    public void createBookNullTitle() throws NullTitleException
     {
 
     }
@@ -63,7 +82,7 @@ public class LibraryInMemDAOTests {
     //Creation of a book with a null ID
     //goal is to get a NullAuthorException
     @Test
-    public void createBookNullAuthor()
+    public void createBookNullAuthor() throws NullAuthorException
     {
 
     }
