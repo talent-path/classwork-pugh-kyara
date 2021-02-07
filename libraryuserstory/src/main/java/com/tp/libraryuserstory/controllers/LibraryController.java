@@ -40,6 +40,33 @@ public class LibraryController {
        return ResponseEntity.ok(books);
     }
 
+    @GetMapping("/book/title")
+    public ResponseEntity getBookByTitle(@RequestBody String title)
+    {
+        List<Book> books = null;
+        try {
+            books = service.getBookByTitle(title);
+        }
+        catch (NullTitleException e){
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+       return ResponseEntity.ok(books);
+    }
+
+    @GetMapping("/book/year")
+    public ResponseEntity getBookByTitle(@RequestBody Integer year)
+    {
+        List<Book> books = null;
+        try {
+            books = service.getBookByYear(year);
+        }
+        catch (NullYearException e){
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(books);
+    }
+
+
     @GetMapping("/book/{bookID}")
     public ResponseEntity getBookByID(@PathVariable Integer bookID)
     {
@@ -92,6 +119,20 @@ public class LibraryController {
             return "Book with ID "+ bookID + " successfully deleted!";
         }
         catch(InvalidBookIDException ex)
+        {
+            return ex.getMessage();
+        }
+    }
+
+    @DeleteMapping("/delete/author")
+    public String deleteBook(@RequestBody String author)
+    {
+        try{
+
+            service.deleteByAuthor(author);
+            return "Book with author "+ author + " successfully deleted!";
+        }
+        catch(NullAuthorException ex)
         {
             return ex.getMessage();
         }

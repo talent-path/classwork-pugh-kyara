@@ -34,12 +34,12 @@ public class PostgresLibraryDAO implements LibraryDAO {
     }
 
     @Override
-    public Book getBookByTitle(String title) throws NullTitleException {
+    public List<Book> getBookByTitle(String title) throws NullTitleException {
         return null;
     }
 
     @Override
-    public Book getBookByYear(Integer author) throws NullYearException {
+    public List<Book> getBookByYear(Integer author) throws NullYearException {
         return null;
     }
 
@@ -54,7 +54,13 @@ public class PostgresLibraryDAO implements LibraryDAO {
     }
 
     @Override
-    public void deleteAuthorByName(String author) throws NullAuthorException {
+    public void deleteBookByAuthor(String author) throws NullAuthorException {
 
     }
+
+    @Override
+    public void deleteBookByTitle(String title) throws NullTitleException {
+
+    }
+
 }

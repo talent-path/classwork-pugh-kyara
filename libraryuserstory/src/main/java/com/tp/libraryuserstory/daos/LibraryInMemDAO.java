@@ -75,7 +75,6 @@ public class LibraryInMemDAO implements LibraryDAO {
             throw new InvalidBookIDException("Cannot retrieve a book with ID "+bookID+"!");
         }
         return collection;
-
     }
 
     //returns full library collection
@@ -111,13 +110,45 @@ public class LibraryInMemDAO implements LibraryDAO {
     }
 
     @Override
-    public Book getBookByTitle(String title) throws NullTitleException {
-        return null;
+    public List<Book> getBookByTitle(String title) throws NullTitleException {
+        if(title == null)
+        {
+            throw new NullTitleException("Cannot retrieve a book with a null title!");
+        }
+        List<Book> toReturn = new ArrayList<>();
+        for(Book toCheck : fullCollection)
+        {
+            if(toCheck.getTitle().equals(title))
+            {
+                toReturn.add(new Book(toCheck));
+            }
+        }
+        if(toReturn.isEmpty())
+        {
+            throw new NullTitleException("Cannot find a book with title "+ title +"!");
+        }
+        return toReturn;
     }
 
     @Override
-    public Book getBookByYear(Integer author) throws NullYearException {
-        return null;
+    public List<Book> getBookByYear(Integer year) throws NullYearException {
+        if(year == null)
+        {
+            throw new NullYearException("Cannot retreive a book with null year!");
+        }
+        List<Book> toReturn = new ArrayList<>();
+        for(Book toCheck : fullCollection)
+        {
+            if(toCheck.getYear().equals(year))
+            {
+                toReturn.add(new Book(toCheck));
+            }
+        }
+        if(toReturn.isEmpty())
+        {
+            throw new NullYearException("Cannot find a book with year "+ year +"!");
+        }
+        return toReturn;
     }
 
     @Override
@@ -188,7 +219,12 @@ public class LibraryInMemDAO implements LibraryDAO {
     }
 
     @Override
-    public void deleteAuthorByName(String author) throws NullAuthorException {
+    public void deleteBookByAuthor(String author) throws NullAuthorException {
+
+    }
+
+    @Override
+    public void deleteBookByTitle(String title) throws NullTitleException {
 
     }
 

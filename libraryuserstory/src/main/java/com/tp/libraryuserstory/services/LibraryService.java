@@ -63,6 +63,15 @@ public class LibraryService {
         return collection;
     }
 
+    public List<Book> getBookByTitle(String title) throws NullTitleException {
+        List<Book> collection = dao.getBookByTitle(title);
+        return collection;
+    }
+    public List<Book> getBookByYear(Integer year) throws NullYearException {
+        List<Book> collection = dao.getBookByYear(year);
+        return collection;
+    }
+
 
     public void editBook(Integer bookID, String newTitle, List<String>newAuthors, Integer newYear) throws InvalidBookIDException, NullTitleException, NullYearException, NullAuthorException {
         dao.editBook(bookID, newTitle, newAuthors, newYear);
@@ -75,8 +84,8 @@ public class LibraryService {
     }
 
     //takes in book id and deletes specified author with an exact match
-    public void deleteAuthorByName(String author) throws InvalidBookIDException, NullAuthorException{
-        dao.deleteAuthorByName(author);
+    public void deleteByAuthor(String author) throws NullAuthorException{
+        dao.deleteBookByAuthor(author);
     }
 
 
