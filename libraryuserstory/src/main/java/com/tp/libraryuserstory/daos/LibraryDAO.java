@@ -24,4 +24,5 @@ public interface LibraryDAO {
     void deleteBook(Integer bookID) throws InvalidBookIDException;
     void deleteBookByAuthor(String author) throws NullAuthorException;
     void deleteBookByTitle(String title) throws NullTitleException;
+    void deleteBookByYear(Integer year) throws NullYearException;
 }

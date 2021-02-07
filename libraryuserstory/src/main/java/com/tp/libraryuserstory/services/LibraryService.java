@@ -89,4 +89,11 @@ public class LibraryService {
     }
 
 
+    public void deleteByTitle(String title) throws NullTitleException{
+        dao.deleteBookByTitle(title);
+    }
+
+    public void deleteByYear(Integer year) throws NullYearException {
+        dao.deleteBookByYear(year);
+    }
 }

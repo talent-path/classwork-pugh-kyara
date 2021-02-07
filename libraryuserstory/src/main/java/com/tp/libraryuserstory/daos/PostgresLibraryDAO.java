@@ -63,4 +63,9 @@ public class PostgresLibraryDAO implements LibraryDAO {
 
     }
 
+    @Override
+    public void deleteBookByYear(Integer year) throws NullYearException {
+
+    }
+
 }

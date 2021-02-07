@@ -138,6 +138,36 @@ public class LibraryController {
         }
     }
 
+
+    @DeleteMapping("/delete/title")
+    public String deleteByTitle(@RequestBody String title)
+    {
+        try{
+
+            service.deleteByTitle(title);
+            return "Book with title "+ title + " successfully deleted!";
+        }
+        catch(NullTitleException ex)
+        {
+            return ex.getMessage();
+        }
+    }
+
+    @DeleteMapping("/delete/year")
+    public String deleteByYear(@RequestBody Integer year)
+    {
+        try{
+
+            service.deleteByYear(year);
+            return "Book with year "+ year + " successfully deleted!";
+        }
+        catch(NullYearException ex)
+        {
+            return ex.getMessage();
+        }
+    }
+
+
 }
 
 
