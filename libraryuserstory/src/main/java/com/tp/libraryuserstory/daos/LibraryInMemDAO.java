@@ -218,86 +218,74 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     }
 
-
-    //i believe current methods will only delete the first instance of the passes value;
-    @Override
-    public void deleteBookByAuthor(String author) throws NullAuthorException {
-        if(author == null)
-        {
-            throw new NullAuthorException("Cannot delete a book with a null ID!");
-        }
-        int removeIndex = -1;
-        for(int i =0; i< fullCollection.size();i++)
-        {
-            if(fullCollection.get(i).getAuthors().contains(author))
-            {
-                removeIndex = i;
-                break;
-            }
-        }
-        if(removeIndex!=-1)
-        {
-            fullCollection.remove(removeIndex);
-        }
-        else
-        {
-            throw new NullAuthorException("Cannot find book with author "+ author +" to delete!");
-        }
-
-    }
-
-    @Override
-    public void deleteBookByTitle(String title) throws NullTitleException {
-        if(title == null)
-        {
-            throw new NullTitleException("Cannot delete a book with a null ID!");
-        }
-        int removeIndex = -1;
-        for(int i =0; i< fullCollection.size();i++)
-        {
-            if(fullCollection.get(i).getTitle().equals(title))
-            {
-                removeIndex = i;
-                break;
-            }
-        }
-        if(removeIndex!=-1)
-        {
-            fullCollection.remove(removeIndex);
-        }
-        else
-        {
-            throw new NullTitleException("Cannot find book with title "+ title +" to delete!");
-        }
-
-    }
-
-
-    @Override
-    public void deleteBookByYear(Integer year) throws NullYearException {
-        if(year == null)
-        {
-            throw new NullYearException("Cannot delete a book with a null ID!");
-        }
-        int removeIndex = -1;
-        for(int i =0; i< fullCollection.size();i++)
-        {
-            if(fullCollection.get(i).getYear().equals(year))
-            {
-                removeIndex = i;
-                break;
-            }
-        }
-        if(removeIndex!=-1)
-        {
-            fullCollection.remove(removeIndex);
-        }
-        else
-        {
-            throw new NullYearException("Cannot find book with year "+ year +" to delete!");
-        }
-
-    }
+//
+//    //i believe current methods will only delete the first instance of the passes value;
+//    @Override
+//    public void deleteBookByAuthor(String author) throws NullAuthorException {
+//        if(author == null)
+//        {
+//            throw new NullAuthorException("Cannot delete a book with a null ID!");
+//        }
+//        for (Book toRemove: fullCollection) {
+//            if (toRemove.getAuthors().contains(author)) {
+//                fullCollection.set(toRemove.getBookID().d)
+//            }
+//        }
+//
+//    }
+//
+//    @Override
+//    public void deleteBookByTitle(String title) throws NullTitleException {
+//        if(title == null)
+//        {
+//            throw new NullTitleException("Cannot delete a book with a null ID!");
+//        }
+//        int removeIndex = -1;
+//        for(int i =0; i< fullCollection.size();i++)
+//        {
+//            if(fullCollection.get(i).getTitle().equals(title))
+//            {
+//                removeIndex = i;
+//                break;
+//            }
+//        }
+//        if(removeIndex!=-1)
+//        {
+//            fullCollection.remove(removeIndex);
+//        }
+//        else
+//        {
+//            throw new NullTitleException("Cannot find book with title "+ title +" to delete!");
+//        }
+//
+//    }
+//
+//
+//    @Override
+//    public void deleteBookByYear(Integer year) throws NullYearException {
+//        if(year == null)
+//        {
+//            throw new NullYearException("Cannot delete a book with a null ID!");
+//        }
+//        int removeIndex = -1;
+//        for(int i =0; i< fullCollection.size();i++)
+//        {
+//            if(fullCollection.get(i).getYear().equals(year))
+//            {
+//                removeIndex = i;
+//                break;
+//            }
+//        }
+//        if(removeIndex!=-1)
+//        {
+//            fullCollection.remove(removeIndex);
+//        }
+//        else
+//        {
+//            throw new NullYearException("Cannot find book with year "+ year +" to delete!");
+//        }
+//
+//    }
 
 }
 

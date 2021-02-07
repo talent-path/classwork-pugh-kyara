@@ -124,49 +124,49 @@ public class LibraryController {
         }
     }
 
-    @DeleteMapping("/delete/author")
-    public String deleteBook(@RequestBody String author)
-    {
-        try{
-
-            service.deleteByAuthor(author);
-            return "Book with author "+ author + " successfully deleted!";
-        }
-        catch(NullAuthorException ex)
-        {
-            return ex.getMessage();
-        }
-    }
-
-
-    @DeleteMapping("/delete/title")
-    public String deleteByTitle(@RequestBody String title)
-    {
-        try{
-
-            service.deleteByTitle(title);
-            return "Book with title "+ title + " successfully deleted!";
-        }
-        catch(NullTitleException ex)
-        {
-            return ex.getMessage();
-        }
-    }
-
-    @DeleteMapping("/delete/year")
-    public String deleteByYear(@RequestBody Integer year)
-    {
-        try{
-
-            service.deleteByYear(year);
-            return "Book with year "+ year + " successfully deleted!";
-        }
-        catch(NullYearException ex)
-        {
-            return ex.getMessage();
-        }
-    }
-
+//    @DeleteMapping("/delete/author")
+//    public String deleteBook(@RequestBody String author)
+//    {
+//        try{
+//
+//            service.deleteByAuthor(author);
+//            return "Book with author "+ author + " successfully deleted!";
+//        }
+//        catch(NullAuthorException ex)
+//        {
+//            return ex.getMessage();
+//        }
+//    }
+//
+//
+//    @DeleteMapping("/delete/title")
+//    public String deleteByTitle(@RequestBody String title)
+//    {
+//        try{
+//
+//            service.deleteByTitle(title);
+//            return "Book with title "+ title + " successfully deleted!";
+//        }
+//        catch(NullTitleException ex)
+//        {
+//            return ex.getMessage();
+//        }
+//    }
+//
+//    @DeleteMapping("/delete/year")
+//    public String deleteByYear(@RequestBody Integer year)
+//    {
+//        try{
+//
+//            service.deleteByYear(year);
+//            return "Book with year "+ year + " successfully deleted!";
+//        }
+//        catch(NullYearException ex)
+//        {
+//            return ex.getMessage();
+//        }
+//    }
+//
 
 }
 

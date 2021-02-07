@@ -22,7 +22,7 @@ public interface LibraryDAO {
     void editBook(Integer bookID, String newTitle, List<String>newAuthors, Integer newYear) throws InvalidBookIDException, NullAuthorException, NullTitleException, NullYearException;
     //delete a book by ID
     void deleteBook(Integer bookID) throws InvalidBookIDException;
-    void deleteBookByAuthor(String author) throws NullAuthorException;
-    void deleteBookByTitle(String title) throws NullTitleException;
-    void deleteBookByYear(Integer year) throws NullYearException;
+//    void deleteBookByAuthor(String author) throws NullAuthorException;
+//    void deleteBookByTitle(String title) throws NullTitleException;
+//    void deleteBookByYear(Integer year) throws NullYearException;
 }

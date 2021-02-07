@@ -52,20 +52,20 @@ public class PostgresLibraryDAO implements LibraryDAO {
     public void deleteBook(Integer bookID) throws InvalidBookIDException {
 
     }
-
-    @Override
-    public void deleteBookByAuthor(String author) throws NullAuthorException {
-
-    }
-
-    @Override
-    public void deleteBookByTitle(String title) throws NullTitleException {
-
-    }
-
-    @Override
-    public void deleteBookByYear(Integer year) throws NullYearException {
-
-    }
+//
+//    @Override
+//    public void deleteBookByAuthor(String author) throws NullAuthorException {
+//
+//    }
+//
+//    @Override
+//    public void deleteBookByTitle(String title) throws NullTitleException {
+//
+//    }
+//
+//    @Override
+//    public void deleteBookByYear(Integer year) throws NullYearException {
+//
+//    }
 
 }

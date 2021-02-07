@@ -82,18 +82,18 @@ public class LibraryService {
     public void deleteBook(Integer bookID) throws InvalidBookIDException {
         dao.deleteBook(bookID);
     }
-
-    //takes in book id and deletes specified author with an exact match
-    public void deleteByAuthor(String author) throws NullAuthorException{
-        dao.deleteBookByAuthor(author);
-    }
-
-
-    public void deleteByTitle(String title) throws NullTitleException{
-        dao.deleteBookByTitle(title);
-    }
-
-    public void deleteByYear(Integer year) throws NullYearException {
-        dao.deleteBookByYear(year);
-    }
+//
+//    //takes in book id and deletes specified author with an exact match
+//    public void deleteByAuthor(String author) throws NullAuthorException{
+//        dao.deleteBookByAuthor(author);
+//    }
+//
+//
+//    public void deleteByTitle(String title) throws NullTitleException{
+//        dao.deleteBookByTitle(title);
+//    }
+//
+//    public void deleteByYear(Integer year) throws NullYearException {
+//        dao.deleteBookByYear(year);
+//    }
 }
