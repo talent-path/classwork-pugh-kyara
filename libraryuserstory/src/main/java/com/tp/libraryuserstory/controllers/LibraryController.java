@@ -28,14 +28,14 @@ public class LibraryController {
     }
 
     @GetMapping("/book/author")
-    public ResponseEntity getCollection(@RequestBody String author)
+    public ResponseEntity getAuthorCollection(@RequestBody String author)
     {
         List<Book> books = null;
         try {
             books = service.getBookByAuthor(author);
         }
         catch (NullAuthorException e){
-          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
        return ResponseEntity.ok(books);
     }
@@ -56,17 +56,17 @@ public class LibraryController {
     }
 
     @PostMapping("/new")
-    public Book createLibrary()
+    public Book createLibrary(@RequestBody Book book)
     {
-        Book app = null;
+        Book newBook = null;
         try
         {
-            app = service.createBook();
+            newBook = service.createBook(book);
         }catch (InvalidBookIDException | NullAuthorException | NullTitleException | NullYearException e)
         {
             e.printStackTrace();
         }
-        return app;
+        return newBook;
     }
 
     @PutMapping("/editbook/{bookID}")

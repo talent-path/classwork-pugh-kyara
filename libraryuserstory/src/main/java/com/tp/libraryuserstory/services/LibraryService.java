@@ -18,23 +18,30 @@ public class LibraryService {
     @Autowired
     LibraryDAO dao;
 
-    String [] possibleBookTitles = {"Pride and Prejudice", "Good Omens", "Game of Thrones", "Crucible", "Hunger Games"};
-    String [] possibleBookAuthors = {"Jane Austen", "Neil Gaiman", "George R.R. Martin", "Arthur Miller", "Suzanne Collins"};
-    Integer [] possiblePubYear = {1813, 1990,1996, 1953, 2008};
-    public Book createBook() throws InvalidBookIDException, NullAuthorException, NullTitleException, NullYearException {
-        //create a new book
-        //list of possible Book titles for testing
-        //real authors and books they wrote should align together
-        //not necessary but I just want a bit of organization
-        int index = RNG.randomIndex(possibleBookTitles.length-1);
-        String title = possibleBookTitles[index];
-        List<String> author = new ArrayList<>();
-        author.add(possibleBookAuthors[index]);
-        Integer year = possiblePubYear[index];
+//    String [] possibleBookTitles = {"Pride and Prejudice", "Good Omens", "Game of Thrones", "Crucible", "Hunger Games"};
+//    String [] possibleBookAuthors = {"Jane Austen", "Neil Gaiman", "George R.R. Martin", "Arthur Miller", "Suzanne Collins"};
+//    Integer [] possiblePubYear = {1813, 1990,1996, 1953, 2008};
+//    public Book createBook() throws InvalidBookIDException, NullAuthorException, NullTitleException, NullYearException {
+//        //create a new book
+//        //list of possible Book titles for testing
+//        //real authors and books they wrote should align together
+//        //not necessary but I just want a bit of organization
+//        int index = RNG.randomIndex(possibleBookTitles.length-1);
+//        String title = possibleBookTitles[index];
+//        List<String> author = new ArrayList<>();
+//        author.add(possibleBookAuthors[index]);
+//        Integer year = possiblePubYear[index];
+//
+//        //insert the book into the dao
+//        //get the book ID back from DAO
+//        Book newBook = dao.createBook(title,author,year);
+//        //return a view model of that book
+//        return newBook;
+//    }
 
-        //insert the book into the dao
-        //get the book ID back from DAO
-        Book newBook = dao.createBook(title,author,year);
+    public Book createBook(Book book) throws InvalidBookIDException, NullAuthorException, NullTitleException, NullYearException {
+
+        Book newBook = dao.createBook(book);
         //return a view model of that book
         return newBook;
     }
@@ -47,25 +54,8 @@ public class LibraryService {
     }
 
     public Book getBookByID(Integer bookID) throws InvalidBookIDException{
-
-        if(bookID == null)
-        {
-            throw new InvalidBookIDException("Cannot retrieve a book with a null ID!");
-        }
-        List<Book> fullCollection = dao.getCollection();
-        Book collection = null;
-        for(int i =0; i< fullCollection.size();i++)
-        {
-            if(fullCollection.get(i).getBookID().equals(bookID))
-            {
-                collection = new Book(fullCollection.get(i));
-;            }
-        }
-        if(collection == null)
-        {
-            throw new InvalidBookIDException("Cannot retrieve a book with ID "+bookID+"!");
-        }
-        return collection;
+       Book toReturn = dao.getBookByID(bookID);
+       return toReturn;
     }
 
     public List<Book> getBookByAuthor(String author) throws NullAuthorException{
@@ -85,8 +75,8 @@ public class LibraryService {
     }
 
     //takes in book id and deletes specified author with an exact match
-    public void deleteAuthorByName(Integer bookID, String author) throws InvalidBookIDException, NullAuthorException{
-        dao.deleteAuthorByName(bookID);
+    public void deleteAuthorByName(String author) throws InvalidBookIDException, NullAuthorException{
+        dao.deleteAuthorByName(author);
     }
 
 

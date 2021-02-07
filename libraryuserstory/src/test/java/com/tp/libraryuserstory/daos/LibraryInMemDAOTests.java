@@ -32,6 +32,7 @@ public class LibraryInMemDAOTests {
 
 
     //creation of a book with no issues
+    //everything is assigned properly
     @Test
     public void createBookGood() throws NullAuthorException, NullTitleException, NullYearException
     {
@@ -51,8 +52,12 @@ public class LibraryInMemDAOTests {
         authors2.add("John Doe");
         book2.setAuthors(authors2);
         book2.setYear(2021);
-        Book testBook1 = testDAO.createBook(book.getTitle(),book.getAuthors(), book.getYear());
-        Book testBook2 = testDAO.createBook(book2.getTitle(),book2.getAuthors(), book2.getYear());
+
+        //assign books created
+        Book testBook1 = testDAO.createBook(book);
+        Book testBook2 = testDAO.createBook(book2);
+
+        //assert tests
         assertEquals(1,testBook1.getBookID());
         assertEquals("My Book",testBook1.getTitle());
         assertEquals("Jane Doe",testBook1.getAuthors().get(0));
@@ -63,21 +68,21 @@ public class LibraryInMemDAOTests {
         assertEquals(2021,testBook2.getYear());
     }
 
-    //Creation of a book with a null ID
-    //goal is to get a InvalidBookIDException
-    @Test
-    public void createBookNullID() throws InvalidBookIDException
-    {
-
-    }
-
     //Creation of a book with a null title
     //goal is to get a NullTitleException
     @Test
-    public void createBookNullTitle() throws NullTitleException
+    public void createBookNullTitle() throws NullAuthorException, NullTitleException, NullYearException
     {
-
+        //create a book with a null ID
+        Book book = new Book();
+        List<String> authors = new ArrayList<>();
+        authors.add("Jane Doe");
+        book.setTitle(null);
+        book.setYear(2020);
+       // Book toTest = testDAO.createBook(book.getTitle(),book.getAuthors(), book.getYear());
+        assertThrows(NullTitleException.class, ()-> testDAO.createBook(book));
     }
+
 
     //Creation of a book with a null ID
     //goal is to get a NullAuthorException

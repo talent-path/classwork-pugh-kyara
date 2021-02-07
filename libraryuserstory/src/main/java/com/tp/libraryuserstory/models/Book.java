@@ -35,7 +35,7 @@ public class Book {
         this.bookID = bookID;
         this.title = title;
         this.year = year;
-        this.authors = authors;
+       this.authors.addAll(authors);
     }
 
     //copy constructor

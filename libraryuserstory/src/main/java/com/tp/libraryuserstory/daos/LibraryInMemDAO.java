@@ -17,22 +17,23 @@ public class LibraryInMemDAO implements LibraryDAO {
 
     public LibraryInMemDAO()
     {
-       Book firstBook = new Book(100, "My Book", "Jane Doe");
-       fullCollection.add(firstBook);
+////        test book to add
+//       Book firstBook = new Book(100, "My Book", "Jane Doe");
+//       fullCollection.add(firstBook);
     }
 
     //create a new book
     @Override
-    public Book createBook(String title, List<String> author, Integer year) throws NullAuthorException, NullTitleException, NullYearException {
-        if(title == null)
+    public Book createBook(Book book) throws NullAuthorException, NullTitleException, NullYearException {
+        if(book.getTitle() == null)
         {
             throw new NullTitleException("Cannot add a book with a null title!");
         }
-        if(author == null)
+        if(book.getAuthors() == null)
         {
             throw new NullAuthorException("Cannot add a book with a null author!");
         }
-        if(year ==  null)
+        if(book.getYear() ==  null)
         {
             throw new NullYearException("Cannot add a book with a null year");
         }
@@ -45,24 +46,36 @@ public class LibraryInMemDAO implements LibraryDAO {
             }
         }
         id++;
-        Book bookToAdd = new Book(id,title,author,year);
-        fullCollection.add(bookToAdd);
-        return bookToAdd;
-    }
+
+        Book copyBook = new Book(book);
+        copyBook.setBookID(id);
+        fullCollection.add(copyBook);
+        return new Book(copyBook);
+      }
+
 
     //returns a specific book
     @Override
     public Book getBookByID(Integer bookID) throws InvalidBookIDException{
-        Book toReturn = null;
-        for(Book toCheck : fullCollection)
+
+        if(bookID == null)
         {
-            if(toCheck.getBookID().equals(bookID))
+            throw new InvalidBookIDException("Cannot retrieve a book with a null ID!");
+        }
+        Book collection = null;
+        for(int i =0; i< fullCollection.size();i++)
+        {
+            if(fullCollection.get(i).getBookID().equals(bookID))
             {
-                toReturn = new Book(toCheck);
-                break;
+                collection = new Book(fullCollection.get(i));
             }
         }
-        return toReturn;
+        if(collection == null)
+        {
+            throw new InvalidBookIDException("Cannot retrieve a book with ID "+bookID+"!");
+        }
+        return collection;
+
     }
 
     //returns full library collection
@@ -75,36 +88,24 @@ public class LibraryInMemDAO implements LibraryDAO {
         }
         return copyCollection;
     }
-
-
-    //returns a list of authors
-    //TODO:create a way to iterate through author list
-    @Override
-    public List<String> getAuthorList() {
-        List<Book> copyCollection = new ArrayList<>();
-        List<String> copyAuthorList = new ArrayList<>();
-        for(Book toCopy : fullCollection)
-        {
-         for(String copyAuthor : toCopy.getAuthors())
-         {
-             copyAuthorList.add(copyAuthor);
-         }
-        }
-
-        return copyAuthorList;
-    }
-
+    
     @Override
     public List<Book> getBookByAuthor(String author) throws NullAuthorException {
+        if(author == null)
+        {
+            throw new NullAuthorException("Cannot retrieve a book with null author");
+        }
         List<Book> toReturn = new ArrayList<>();
         for(Book toCheck : fullCollection)
         {
-            for (int i = 0; i < fullCollection.size(); i++) {
-                if(toCheck.getAuthors().get(i).equals(author))
-                {
-                    toReturn.add(toCheck);
-                }
+            if(toCheck.getAuthors().contains(author))
+            {
+                toReturn.add(new Book(toCheck));
             }
+        }
+        if(toReturn.isEmpty())
+        {
+            throw new NullAuthorException("No book with author "+author+" could be found!");
         }
         return toReturn;
     }
@@ -162,6 +163,10 @@ public class LibraryInMemDAO implements LibraryDAO {
     //remove a book at a given index
     @Override
     public void deleteBook(Integer bookID) throws InvalidBookIDException {
+        if(bookID == null)
+        {
+            throw new InvalidBookIDException("Cannot delete a book with a null ID!");
+        }
         int removeIndex = -1;
         for(int i =0; i< fullCollection.size();i++)
         {
@@ -183,7 +188,7 @@ public class LibraryInMemDAO implements LibraryDAO {
     }
 
     @Override
-    public void deleteAuthorByName(Integer bookID) throws NullAuthorException {
+    public void deleteAuthorByName(String author) throws NullAuthorException {
 
     }
 
