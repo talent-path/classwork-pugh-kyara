@@ -16,7 +16,7 @@ public class Game {
 
     }
 
-    //creating a new game
+    //creating a new game or editing a game
     public Game(Integer gameID, String title, Integer releaseDate, String category)
     {
         this.gameID = gameID;
