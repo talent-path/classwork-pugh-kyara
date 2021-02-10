@@ -2,9 +2,7 @@ package com.tp.gamemanagementsystem.daos;
 
 import com.tp.gamemanagementsystem.daos.mappers.GameIDMapper;
 import com.tp.gamemanagementsystem.daos.mappers.GameMapper;
-import com.tp.gamemanagementsystem.exceptions.InvalidGameIDException;
-import com.tp.gamemanagementsystem.exceptions.NullGameIDException;
-import com.tp.gamemanagementsystem.exceptions.NullYearException;
+import com.tp.gamemanagementsystem.exceptions.*;
 import com.tp.gamemanagementsystem.models.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -55,13 +53,33 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public List<Game> getGameByPlatform() {
-        return null;
+    public List<Game> getGameByPlatform(String platform) throws NullPlatformException {
+        if(platform == null)
+        {
+            throw new NullPlatformException("Cannot retrieve a game with a null platform!");
+        }
+        List<Game> toReturn = null;
+        toReturn = template.query("SELECT * FROM \"Games\" WHERE \"year\" = \'" + platform + "\'", new GameMapper());
+        if(toReturn.isEmpty())
+        {
+            throw new NullPlatformException("Cannot retrieve a game on platform "+platform+"!");
+        }
+        return toReturn;
     }
 
     @Override
-    public List<Game> getGameByCategory() {
-        return null;
+    public List<Game> getGameByCategory(String category) throws NullCategoryException {
+        if(category == null)
+        {
+            throw new NullCategoryException("Cannot retrieve a game with a null category!");
+        }
+        List<Game> toReturn = null;
+        toReturn = template.query("SELECT * FROM \"Games\" WHERE \"category\" = \'" + category + "\'", new GameMapper());
+        if(toReturn.isEmpty())
+        {
+            throw new NullCategoryException("Cannot retrieve a game with the category "+category+"!");
+        }
+        return toReturn;
     }
 
     @Override

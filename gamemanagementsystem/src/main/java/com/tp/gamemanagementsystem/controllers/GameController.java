@@ -1,6 +1,7 @@
 package com.tp.gamemanagementsystem.controllers;
 
 import com.tp.gamemanagementsystem.exceptions.InvalidGameIDException;
+import com.tp.gamemanagementsystem.exceptions.NullCategoryException;
 import com.tp.gamemanagementsystem.exceptions.NullGameIDException;
 import com.tp.gamemanagementsystem.exceptions.NullYearException;
 import com.tp.gamemanagementsystem.models.Game;
@@ -18,7 +19,7 @@ public class GameController {
     GameManagementService service;
 
     @PostMapping("/newgame")
-    public Game getGameCollection(@RequestBody Game newGame)
+    public Game createGame(@RequestBody Game newGame)
     {
         return service.createGame(newGame);
     }
@@ -51,6 +52,20 @@ public class GameController {
             game = service.getGameByYear(year);
         }
         catch (NullYearException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(game);
+    }
+
+    @GetMapping("game/category")
+    public ResponseEntity getGameByCategory(@RequestBody String category)
+    {
+        List<Game> game =null;
+        try {
+            game = service.getGameByCategory(category);
+        }
+        catch (NullCategoryException e)
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

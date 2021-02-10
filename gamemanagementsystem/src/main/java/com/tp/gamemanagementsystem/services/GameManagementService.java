@@ -2,6 +2,7 @@ package com.tp.gamemanagementsystem.services;
 
 import com.tp.gamemanagementsystem.daos.GameDAO;
 import com.tp.gamemanagementsystem.exceptions.InvalidGameIDException;
+import com.tp.gamemanagementsystem.exceptions.NullCategoryException;
 import com.tp.gamemanagementsystem.exceptions.NullGameIDException;
 import com.tp.gamemanagementsystem.exceptions.NullYearException;
 import com.tp.gamemanagementsystem.models.Game;
@@ -33,5 +34,9 @@ public class GameManagementService {
 
     public List<Game> getGameByYear(Integer year) throws NullYearException {
         return dao.getGameByYear(year);
+    }
+
+    public List<Game> getGameByCategory(String category) throws NullCategoryException {
+        return dao.getGameByCategory(category);
     }
 }
