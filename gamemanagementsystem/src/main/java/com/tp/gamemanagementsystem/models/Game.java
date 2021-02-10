@@ -6,7 +6,7 @@ public class Game {
 
     private Integer gameID;
     private String title;
-    private Integer releaseYear;
+    private Integer year;
     private String category;
 
 
@@ -17,11 +17,11 @@ public class Game {
     }
 
     //creating a new game or editing a game
-    public Game(Integer gameID, String title, Integer releaseDate, String category)
+    public Game(Integer gameID, String title, Integer year, String category)
     {
         this.gameID = gameID;
         this.title = title;
-        this.releaseYear = releaseDate;
+        this.year = year;
         this.category = category;
 
 
@@ -32,7 +32,7 @@ public class Game {
     {
         this.gameID = that.gameID;
         this.title = that.title;
-        this.releaseYear = that.releaseYear;
+        this.year = that.year;
         this.category = that.category;
     }
 
@@ -54,11 +54,11 @@ public class Game {
     }
 
     public Integer getReleaseYear() {
-        return releaseYear;
+        return year;
     }
 
-    public void setReleaseYear(Integer releaseYear) {
-        this.releaseYear = releaseYear;
+    public void setReleaseYear(Integer year) {
+        this.year = year;
     }
 
     public String getCategory() {

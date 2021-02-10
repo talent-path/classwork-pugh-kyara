@@ -21,4 +21,11 @@ public class GameManagementService {
     }
 
 
+    public Game createGame(Game newGame) {
+        return dao.createGame(newGame);
+    }
+
+    public List<Game> getGameByYear(Integer year) {
+        return dao.getGameByYear(year);
+    }
 }
