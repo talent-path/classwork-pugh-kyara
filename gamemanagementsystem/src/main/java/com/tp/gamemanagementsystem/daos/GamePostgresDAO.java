@@ -2,8 +2,12 @@ package com.tp.gamemanagementsystem.daos;
 
 import com.tp.gamemanagementsystem.daos.mappers.GameIDMapper;
 import com.tp.gamemanagementsystem.daos.mappers.GameMapper;
+import com.tp.gamemanagementsystem.exceptions.InvalidGameIDException;
+import com.tp.gamemanagementsystem.exceptions.NullGameIDException;
+import com.tp.gamemanagementsystem.exceptions.NullYearException;
 import com.tp.gamemanagementsystem.models.Game;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -34,8 +38,19 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public Game getGameByID(Integer gameID) {
-        Game toReturn = template.queryForObject("SELECT * FROM \"Games\" WHERE \"gameID\" = \'"+gameID+"\'", new GameMapper());
+    public Game getGameByID(Integer gameID) throws NullGameIDException, InvalidGameIDException {
+        if(gameID == null)
+        {
+            throw new NullGameIDException("Cannot find a game with a null ID");
+        }
+        Game toReturn = null;
+        try {
+            toReturn = template.queryForObject("SELECT * FROM \"Games\" WHERE \"gameID\" = \'" + gameID + "\'", new GameMapper());
+        }
+        catch(EmptyResultDataAccessException e)
+        {
+            throw new InvalidGameIDException("Cannot find game with ID "+ gameID+"!", e);
+        }
         return toReturn;
     }
 
@@ -50,8 +65,17 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public List<Game> getGameByYear(Integer year) {
-        List<Game> toReturn = template.query("SELECT * FROM \"Games\" WHERE \"year\" = \'"+year+"\'", new GameMapper());
+    public List<Game> getGameByYear(Integer year) throws NullYearException {
+        if(year == null)
+        {
+            throw new NullYearException("Cannot retrieve a game with a null year!");
+        }
+        List<Game> toReturn = null;
+        toReturn = template.query("SELECT * FROM \"Games\" WHERE \"year\" = \'" + year + "\'", new GameMapper());
+        if(toReturn.isEmpty())
+        {
+            throw new NullYearException("Cannot retrieve a game with year "+year+"!");
+        }
         return toReturn;
     }
 

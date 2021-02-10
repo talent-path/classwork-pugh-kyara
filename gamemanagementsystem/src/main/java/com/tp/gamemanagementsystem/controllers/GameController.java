@@ -1,8 +1,13 @@
 package com.tp.gamemanagementsystem.controllers;
 
+import com.tp.gamemanagementsystem.exceptions.InvalidGameIDException;
+import com.tp.gamemanagementsystem.exceptions.NullGameIDException;
+import com.tp.gamemanagementsystem.exceptions.NullYearException;
 import com.tp.gamemanagementsystem.models.Game;
 import com.tp.gamemanagementsystem.services.GameManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,16 +29,32 @@ public class GameController {
         return service.getGameCollection();
     }
 
-    @GetMapping("/game/{gameID}")
-    public Game getGameByID(@PathVariable Integer gameID)
+    @GetMapping("/game/id")
+    public ResponseEntity getGameByID(@RequestBody Integer gameID)
     {
-        return service.getGameByID(gameID);
+        Game game =null;
+        try {
+            game = service.getGameByID(gameID);
+        }
+        catch (InvalidGameIDException | NullGameIDException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(game);
     }
 
-    @GetMapping("/game/year/{year}")
-    public List<Game> getGameByYear(@PathVariable Integer year)
+    @GetMapping("/game/year")
+    public ResponseEntity getGameByYear(@RequestBody Integer year)
     {
-        return service.getGameByYear(year);
+        List<Game> game =null;
+        try {
+            game = service.getGameByYear(year);
+        }
+        catch (NullYearException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(game);
     }
 
 }
