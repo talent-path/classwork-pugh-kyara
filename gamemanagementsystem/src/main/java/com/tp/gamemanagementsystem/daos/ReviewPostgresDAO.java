@@ -2,12 +2,14 @@ package com.tp.gamemanagementsystem.daos;
 
 import com.tp.gamemanagementsystem.models.Review;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@Profile({"mainApp","DAOTesting"})
 public class ReviewPostgresDAO implements ReviewDAO {
 
     @Autowired

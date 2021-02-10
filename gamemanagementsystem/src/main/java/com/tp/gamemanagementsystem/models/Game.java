@@ -9,6 +9,8 @@ public class Game {
     private Integer releaseYear;
     private String category;
 
+    private Platform gamePlatform;
+
 
     //empty default constructor for testing
     public Game()
@@ -69,19 +71,12 @@ public class Game {
         this.category = category;
     }
 
-//    public List<String> getPlatform() {
-//        return platform;
-//    }
-//
-//    public void setPlatform(List<String> platform) {
-//        this.platform = platform;
-//    }
-////
-////    public Integer getRating() {
-////        return rating;
-////    }
-////
-////    public void setRating(Integer rating) {
-////        this.rating = rating;
-////    }
+    public Platform getGamePlatform() {
+        return gamePlatform;
+    }
+
+    public void setGamePlatform(Platform gamePlatform) {
+        this.gamePlatform = gamePlatform;
+    }
+
 }

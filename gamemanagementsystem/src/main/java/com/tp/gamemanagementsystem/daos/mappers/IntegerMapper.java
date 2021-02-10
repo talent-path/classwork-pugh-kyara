@@ -6,10 +6,14 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GameIDMapper implements RowMapper<Integer> {
-
+public class IntegerMapper implements RowMapper<Integer> {
+    String colName;
+    public IntegerMapper(String colName)
+    {
+        this.colName = colName;
+    }
     @Override
     public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
-        return resultSet.getInt("gameID");
+        return resultSet.getInt(colName);
     }
 }

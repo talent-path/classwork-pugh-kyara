@@ -1,10 +1,11 @@
 package com.tp.gamemanagementsystem.daos;
 
-import com.tp.gamemanagementsystem.daos.mappers.GameIDMapper;
+import com.tp.gamemanagementsystem.daos.mappers.IntegerMapper;
 import com.tp.gamemanagementsystem.daos.mappers.GameMapper;
 import com.tp.gamemanagementsystem.exceptions.*;
 import com.tp.gamemanagementsystem.models.Game;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +14,7 @@ import java.util.List;
 
 
 @Component
+@Profile({"mainApp","DAOTesting"})
 public class GamePostgresDAO implements GameDAO {
 
     @Autowired
@@ -21,13 +23,15 @@ public class GamePostgresDAO implements GameDAO {
 
     @Override
     public List<Game> getGameCollection() {
-        List<Game> allGames = template.query("SELECT \"gameID\", \"title\", \"category\", \"year\" FROM \"Games\""+";", new GameMapper());
+        List<Game> allGames = template.query("SELECT \"Games\".\"gameID\", \"title\", \"category\", \"year\", \"Games\".\"platformID\",\"name\" FROM \"Games\"\n"+
+                "INNER JOIN \"Platforms\" ON \"Platforms\".\"platformID\"=\"Games\".\"platformID\""
+                , new GameMapper());
         return allGames;
     }
 
     @Override
     public Game createGame(Game newGame) {
-        Integer gameID = template.queryForObject( "INSERT INTO \"Games\" (\"title\", \"category\", \"year\") VALUES (?, ?, ?) RETURNING \"gameID\"", new GameIDMapper(),
+        Integer gameID = template.queryForObject( "INSERT INTO \"Games\" (\"title\", \"category\", \"year\",\"platformID\") VALUES (?, ?, ?, ?) RETURNING \"gameID\"", new IntegerMapper("gameID"),
                 newGame.getTitle(),
                 newGame.getCategory(),
                 newGame.getReleaseYear());
@@ -103,7 +107,12 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public void deleteGame(Integer gameID) {
+    public void deleteGame(Integer gameID) throws NullGameIDException{
+        if(gameID == null)
+        {
+            throw new NullGameIDException("Cannot delete a game with a null ID");
+
+        }
 
     }
 }

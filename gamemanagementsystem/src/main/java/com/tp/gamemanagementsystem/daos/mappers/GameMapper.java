@@ -1,6 +1,7 @@
 package com.tp.gamemanagementsystem.daos.mappers;
 
 import com.tp.gamemanagementsystem.models.Game;
+import com.tp.gamemanagementsystem.models.Platform;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -15,6 +16,11 @@ public class GameMapper implements RowMapper<Game> {
         gameMap.setTitle(resultSet.getString("title"));
         gameMap.setCategory(resultSet.getString("category"));
         gameMap.setReleaseYear(resultSet.getInt("year"));
+
+        Platform gamePlatform = new Platform();
+        gamePlatform.setPlatformID(resultSet.getInt("platformID"));
+        gamePlatform.setName(resultSet.getString("name"));
+        gameMap.setGamePlatform(gamePlatform);
 
         return gameMap;
     }
