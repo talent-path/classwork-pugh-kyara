@@ -2,6 +2,7 @@ package com.tp.gamemanagementsystem.daos;
 
 import com.tp.gamemanagementsystem.daos.mappers.IntegerMapper;
 import com.tp.gamemanagementsystem.daos.mappers.GameMapper;
+import com.tp.gamemanagementsystem.daos.mappers.PartialGameMapper;
 import com.tp.gamemanagementsystem.exceptions.*;
 import com.tp.gamemanagementsystem.models.Game;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,13 +77,32 @@ public class GamePostgresDAO implements GameDAO {
             throw new NullYearException("Cannot retrieve a game with a null year!");
         }
         List<Game> toReturn = null;
-        toReturn = template.query("SELECT * FROM \"Games\" WHERE \"year\" = \'" + year + "\'", new GameMapper());
+        toReturn = template.query("SELECT * FROM \"Games\" WHERE \"year\" = \'" + year + "\'", new PartialGameMapper());
         if(toReturn.isEmpty())
         {
             throw new NullYearException("Cannot retrieve a game with year "+year+"!");
         }
         return toReturn;
     }
+
+//
+//    @Override
+//    public List<Game> getGameByYear(Integer year) throws NullYearException {
+//        if(year == null)
+//        {
+//            throw new NullYearException("Cannot retrieve a game with a null year!");
+//        }
+//        List<Game> toReturn = null;
+//        toReturn = template.query("SELECT *,\"Platforms\".\"platformID\",\"name\" FROM \"Games\"\n"+
+//                "INNER JOIN \"GamePlatforms\" ON \"GamePlatforms\".\"gameID\" = \"Games\".\"gameID\"\n"+
+//                "INNER JOIN \"Platforms\" ON \"Platforms\".\"platformID\" = \"GamePlatforms\".\"platformID\"\n"+
+//                "WHERE \"year\" = \'" + year + "\'", new GameMapper());
+//        if(toReturn.isEmpty())
+//        {
+//            throw new NullYearException("Cannot retrieve a game with year "+year+"!");
+//        }
+//        return toReturn;
+//    }
 
     @Override
     public void editGame(Integer gameID, String title, Integer releaseDate, String category, List<String> platform) {
