@@ -10,12 +10,12 @@ import java.util.List;
 public interface GameDAO {
 
     Game createGame(Game game);
-    Game getGameByID(Integer gameID) throws NullGameIDException, InvalidGameIDException;
+    Game getGameByID(Integer gameID) throws NullIDException, InvalidIDException;
     List<Game> getGameCollection();
     List<Game> getGameByPlatform(String platform) throws NullPlatformException;
     List<Game> getGameByCategory(String category) throws NullCategoryException;
     List<Game> getGameByYear(Integer year) throws NullYearException;
-    void editGame(Integer gameID, String title, Integer releaseDate, String category, List<String> platform) throws NullGameIDException, InvalidGameIDException;
-    void deleteGame(Integer gameID) throws NullGameIDException;
+    void editGame(Integer gameID, String title, Integer releaseDate, String category, List<String> platform) throws NullIDException, InvalidIDException;
+    void deleteGame(Integer gameID) throws NullIDException;
 
 }

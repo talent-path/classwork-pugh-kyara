@@ -16,7 +16,7 @@ public class GameInMemDAO implements GameDAO{
     }
 
     @Override
-    public Game getGameByID(Integer gameID) throws NullGameIDException, InvalidGameIDException {
+    public Game getGameByID(Integer gameID) throws NullIDException, InvalidIDException {
         throw new UnsupportedOperationException();
 
     }
@@ -46,13 +46,13 @@ public class GameInMemDAO implements GameDAO{
     }
 
     @Override
-    public void editGame(Integer gameID, String title, Integer releaseDate, String category, List<String> platform) throws NullGameIDException, InvalidGameIDException {
+    public void editGame(Integer gameID, String title, Integer releaseDate, String category, List<String> platform) throws NullIDException, InvalidIDException {
         throw new UnsupportedOperationException();
 
     }
 
     @Override
-    public void deleteGame(Integer gameID) throws NullGameIDException {
+    public void deleteGame(Integer gameID) throws NullIDException {
         throw new UnsupportedOperationException();
 
     }

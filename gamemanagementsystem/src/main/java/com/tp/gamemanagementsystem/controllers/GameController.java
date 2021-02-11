@@ -1,10 +1,11 @@
 package com.tp.gamemanagementsystem.controllers;
 
-import com.tp.gamemanagementsystem.exceptions.InvalidGameIDException;
+import com.tp.gamemanagementsystem.exceptions.InvalidIDException;
 import com.tp.gamemanagementsystem.exceptions.NullCategoryException;
-import com.tp.gamemanagementsystem.exceptions.NullGameIDException;
+import com.tp.gamemanagementsystem.exceptions.NullIDException;
 import com.tp.gamemanagementsystem.exceptions.NullYearException;
 import com.tp.gamemanagementsystem.models.Game;
+import com.tp.gamemanagementsystem.models.Platform;
 import com.tp.gamemanagementsystem.services.GameManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class GameController {
         try {
             game = service.getGameByID(gameID);
         }
-        catch (InvalidGameIDException | NullGameIDException e)
+        catch (InvalidIDException | NullIDException e)
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

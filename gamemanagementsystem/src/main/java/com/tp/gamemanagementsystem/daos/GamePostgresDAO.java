@@ -23,15 +23,13 @@ public class GamePostgresDAO implements GameDAO {
 
     @Override
     public List<Game> getGameCollection() {
-        List<Game> allGames = template.query("SELECT \"Games\".\"gameID\", \"title\", \"category\", \"year\", \"Games\".\"platformID\",\"name\" FROM \"Games\"\n"+
-                "INNER JOIN \"Platforms\" ON \"Platforms\".\"platformID\"=\"Games\".\"platformID\""
-                , new GameMapper());
+        List<Game> allGames = template.query("SELECT \"Games\".\"gameID\", \"title\", \"category\", \"year\", \"Games\" FROM \"Games\"", new GameMapper());
         return allGames;
     }
 
     @Override
     public Game createGame(Game newGame) {
-        Integer gameID = template.queryForObject( "INSERT INTO \"Games\" (\"title\", \"category\", \"year\",\"platformID\") VALUES (?, ?, ?, ?) RETURNING \"gameID\"", new IntegerMapper("gameID"),
+        Integer gameID = template.queryForObject( "INSERT INTO \"Games\" (\"title\", \"category\", \"year\",) VALUES (?, ?, ?) RETURNING \"gameID\"", new IntegerMapper("gameID"),
                 newGame.getTitle(),
                 newGame.getCategory(),
                 newGame.getReleaseYear());
@@ -40,10 +38,10 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public Game getGameByID(Integer gameID) throws NullGameIDException, InvalidGameIDException {
+    public Game getGameByID(Integer gameID) throws NullIDException, InvalidIDException {
         if(gameID == null)
         {
-            throw new NullGameIDException("Cannot find a game with a null ID");
+            throw new NullIDException("Cannot find a game with a null ID");
         }
         Game toReturn = null;
         try {
@@ -51,7 +49,7 @@ public class GamePostgresDAO implements GameDAO {
         }
         catch(EmptyResultDataAccessException e)
         {
-            throw new InvalidGameIDException("Cannot find game with ID "+ gameID+"!", e);
+            throw new InvalidIDException("Cannot find game with ID "+ gameID+"!", e);
         }
         return toReturn;
     }
@@ -107,10 +105,10 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public void deleteGame(Integer gameID) throws NullGameIDException{
+    public void deleteGame(Integer gameID) throws NullIDException {
         if(gameID == null)
         {
-            throw new NullGameIDException("Cannot delete a game with a null ID");
+            throw new NullIDException("Cannot delete a game with a null ID");
 
         }
 
