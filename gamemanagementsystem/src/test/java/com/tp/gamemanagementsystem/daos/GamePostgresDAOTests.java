@@ -37,24 +37,21 @@ public class GamePostgresDAOTests {
     @Test
     public void addGameTest()
     {
-//        Platform dreamCast = new Platform();
-//        dreamCast.setPlatformID(1);
-//
-//        Game newGame = new Game();
-//        newGame.setGamePlatform(dreamCast);
-//        newGame.setTitle("Sonic Adventure");
-//        newGame.setCategory("RPG");
-//        newGame.setReleaseYear(1998);
-//
-//        Game toReturn = testDAO.createGame(newGame);
-//
-//        assertEquals(1,toReturn.getGameID());
-//        assertEquals("Sonic Adventure",toReturn.getTitle());
-//        assertEquals(1,toReturn.getGamePlatform().getPlatformID());
-//
-//        List<Game> allGames = testDAO.getGameCollection();
-//        assertEquals(1,allGames.get(0).getGameID());
-//        assertEquals("Sonic Adventure",allGames.get(0).getTitle());
-//        assertEquals(1, allGames.get(0).getGamePlatform().getPlatformID());
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+
+        Game newGame = new Game();
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(1998);
+
+        Game toReturn = testDAO.createGame(newGame);
+
+        assertEquals(1,toReturn.getGameID());
+        assertEquals("Sonic Adventure",toReturn.getTitle());
+
+        List<Game> allGames = testDAO.getGameCollection();
+        assertEquals(1,allGames.get(0).getGameID());
+        assertEquals("Sonic Adventure",allGames.get(0).getTitle());
     }
 }

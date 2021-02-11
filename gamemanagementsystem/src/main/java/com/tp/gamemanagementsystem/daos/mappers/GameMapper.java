@@ -17,11 +17,6 @@ public class GameMapper implements RowMapper<Game> {
         gameMap.setCategory(resultSet.getString("category"));
         gameMap.setReleaseYear(resultSet.getInt("year"));
 
-        Platform gamePlatform = new Platform();
-        gamePlatform.setPlatformID(resultSet.getInt("platformID"));
-        gamePlatform.setName(resultSet.getString("name"));
-        gameMap.setGamePlatform(gamePlatform);
-
         return gameMap;
     }
 

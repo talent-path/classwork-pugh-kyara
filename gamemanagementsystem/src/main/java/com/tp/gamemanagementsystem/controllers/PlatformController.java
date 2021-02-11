@@ -21,6 +21,7 @@ public class PlatformController {
     @Autowired
     GameManagementService service;
 
+    //get the platform by its ID
     @GetMapping("platform/id")
     public ResponseEntity getPlatformByID(@RequestBody Integer platID)
     {
