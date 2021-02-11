@@ -55,21 +55,6 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public List<Game> getGameByPlatform(String platform) throws NullPlatformException {
-        if(platform == null)
-        {
-            throw new NullPlatformException("Cannot retrieve a game with a null platform!");
-        }
-        List<Game> toReturn = null;
-        toReturn = template.query("SELECT * FROM \"Games\" WHERE \"year\" = \'" + platform + "\'", new GameMapper());
-        if(toReturn.isEmpty())
-        {
-            throw new NullPlatformException("Cannot retrieve a game on platform "+platform+"!");
-        }
-        return toReturn;
-    }
-
-    @Override
     public List<Game> getGameByCategory(String category) throws NullCategoryException {
         if(category == null)
         {

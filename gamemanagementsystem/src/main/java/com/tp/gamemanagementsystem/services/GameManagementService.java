@@ -48,4 +48,9 @@ public class GameManagementService {
     public Platform getPlatformByID(Integer platID) throws NullIDException, InvalidIDException{
         return platdao.getPlatformByID(platID);
     }
+
+    public List<Game> getGamesByPlatformID(Platform somePlatform) throws NullIDException, InvalidIDException {
+        return platdao.getGamesByPlatformID(somePlatform);
+
+    }
 }

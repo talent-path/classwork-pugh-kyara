@@ -45,14 +45,14 @@ public class GameController {
         return ResponseEntity.ok(game);
     }
 
-    @GetMapping("/game/year")
-    public ResponseEntity getGameByYear(@RequestBody Integer year)
+    @GetMapping("game/title")
+    public ResponseEntity getGameByTitle(@RequestBody String title)
     {
         List<Game> game =null;
         try {
-            game = service.getGameByYear(year);
+            game = service.getGameByCategory(title);
         }
-        catch (NullYearException e)
+        catch (NullCategoryException e)
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -67,6 +67,21 @@ public class GameController {
             game = service.getGameByCategory(category);
         }
         catch (NullCategoryException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(game);
+    }
+
+
+    @GetMapping("/game/year")
+    public ResponseEntity getGameByYear(@RequestBody Integer year)
+    {
+        List<Game> game =null;
+        try {
+            game = service.getGameByYear(year);
+        }
+        catch (NullYearException e)
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
