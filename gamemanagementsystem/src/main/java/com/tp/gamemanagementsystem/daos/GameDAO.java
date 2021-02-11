@@ -12,7 +12,6 @@ public interface GameDAO {
     Game createGame(Game game);
     Game getGameByID(Integer gameID) throws NullIDException, InvalidIDException;
     List<Game> getGameCollection();
-    List<Game> getGameByPlatform(String platform) throws NullPlatformException;
     List<Game> getGameByCategory(String category) throws NullCategoryException;
     List<Game> getGameByYear(Integer year) throws NullYearException;
     void editGame(Integer gameID, String title, Integer releaseDate, String category, List<String> platform) throws NullIDException, InvalidIDException;

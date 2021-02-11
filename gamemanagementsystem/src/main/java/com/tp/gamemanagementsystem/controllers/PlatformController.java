@@ -2,6 +2,8 @@ package com.tp.gamemanagementsystem.controllers;
 
 import com.tp.gamemanagementsystem.exceptions.InvalidIDException;
 import com.tp.gamemanagementsystem.exceptions.NullIDException;
+import com.tp.gamemanagementsystem.exceptions.NullPlatformException;
+import com.tp.gamemanagementsystem.exceptions.NullTitleException;
 import com.tp.gamemanagementsystem.models.Game;
 import com.tp.gamemanagementsystem.models.Platform;
 import com.tp.gamemanagementsystem.services.GameManagementService;
@@ -34,14 +36,29 @@ public class PlatformController {
     }
 
     //get all the games on one platform by the platform's ID
-    @GetMapping("platform/games")
-    public ResponseEntity getPlatformGamesByID(@RequestBody Platform somePlatform)
+    @GetMapping("platform/games/id")
+    public ResponseEntity getPlatformGamesByID(@RequestBody Integer platID)
     {
         List<Game> allGames = null;
         try {
-            allGames = service.getGamesByPlatformID(somePlatform);
+            allGames = service.getGamesByPlatformID(platID);
         }
         catch (InvalidIDException | NullIDException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(allGames);
+    }
+
+    //get all the games on one platform by the platform's name
+    @GetMapping("platform/games/platname")
+    public ResponseEntity getPlatformGamesByID(@RequestBody String name)
+    {
+        List<Game> allGames = null;
+        try {
+            allGames = service.getGamesByPlatformName(name);
+        }
+        catch (NullTitleException e)
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

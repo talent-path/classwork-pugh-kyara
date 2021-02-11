@@ -27,11 +27,6 @@ public class GameInMemDAO implements GameDAO{
 
     }
 
-    @Override
-    public List<Game> getGameByPlatform(String platform) throws NullPlatformException {
-        throw new UnsupportedOperationException();
-
-    }
 
     @Override
     public List<Game> getGameByCategory(String category) throws NullCategoryException {

@@ -2,10 +2,7 @@ package com.tp.gamemanagementsystem.services;
 
 import com.tp.gamemanagementsystem.daos.GameDAO;
 import com.tp.gamemanagementsystem.daos.PlatformDAO;
-import com.tp.gamemanagementsystem.exceptions.InvalidIDException;
-import com.tp.gamemanagementsystem.exceptions.NullCategoryException;
-import com.tp.gamemanagementsystem.exceptions.NullIDException;
-import com.tp.gamemanagementsystem.exceptions.NullYearException;
+import com.tp.gamemanagementsystem.exceptions.*;
 import com.tp.gamemanagementsystem.models.Game;
 import com.tp.gamemanagementsystem.models.Platform;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +46,13 @@ public class GameManagementService {
         return platdao.getPlatformByID(platID);
     }
 
-    public List<Game> getGamesByPlatformID(Platform somePlatform) throws NullIDException, InvalidIDException {
-        return platdao.getGamesByPlatformID(somePlatform);
+    public List<Game> getGamesByPlatformID(Integer platID) throws NullIDException, InvalidIDException {
+        return platdao.getGamesByPlatformID(platID);
+
+    }
+
+    public List<Game> getGamesByPlatformName(String name) throws NullTitleException {
+        return platdao.getGamesByPlatformName(name);
 
     }
 }
