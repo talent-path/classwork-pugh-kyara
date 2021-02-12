@@ -2,6 +2,7 @@ package com.tp.gamemanagementsystem.daos;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.tp.gamemanagementsystem.exceptions.InvalidIDException;
 import com.tp.gamemanagementsystem.exceptions.NullIDException;
 import com.tp.gamemanagementsystem.exceptions.NullTitleException;
 import com.tp.gamemanagementsystem.models.Platform;
@@ -47,9 +48,13 @@ public class PlatformPostgresDAOTests {
     }
 
     @Test
-    public void deletePlatform()
+    public void deletePlatform() throws NullIDException, InvalidIDException
     {
-        assertTrue(false);
+
+        assertEquals(1, testDAO.getPlatformByID(1).getPlatformID());
+        assertEquals("Gamecube", testDAO.getPlatformByID(1).getName());
+        testDAO.deletePlatform(1);
+        assertThrows(InvalidIDException.class, ()->testDAO.getPlatformByID(1));
     }
 
     @Test

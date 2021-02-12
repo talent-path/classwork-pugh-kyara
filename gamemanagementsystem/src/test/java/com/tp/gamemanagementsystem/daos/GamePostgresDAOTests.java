@@ -358,11 +358,11 @@ public class GamePostgresDAOTests {
         List<Integer> platforms = new ArrayList<>();
         platforms.add(1);
         platforms.add(2);
-        Game newGame = testDAO.createGame("Sonic Adventure", "RPG",1998, platforms);
-        assertEquals(1,newGame.getGameID());
-        assertEquals("Sonic Adventure",newGame.getTitle());
-        testDAO.deleteGame(newGame.getGameID());
-        assertThrows(InvalidIDException.class, ()->testDAO.getGameByID(newGame.getGameID()));
+        testDAO.createGame("Sonic Adventure", "RPG",1998, platforms);
+        assertEquals(1,testDAO.getGameByID(1).getGameID());
+        assertEquals("Sonic Adventure",testDAO.getGameByID(1).getTitle());
+        testDAO.deleteGame(1);
+        assertThrows(InvalidIDException.class, ()->testDAO.getGameByID(1));
     }
 
     @Test
