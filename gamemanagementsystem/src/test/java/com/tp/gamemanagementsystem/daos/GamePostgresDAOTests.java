@@ -73,7 +73,7 @@ public class GamePostgresDAOTests {
         newGame.setCategory("RPG");
         newGame.setReleaseYear(1998);
 
-        Game toReturn = testDAO.createGameAlt(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms);
+        Game toReturn = testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms);
 
         assertEquals(1,toReturn.getGameID());
         assertEquals("Sonic Adventure",toReturn.getTitle());

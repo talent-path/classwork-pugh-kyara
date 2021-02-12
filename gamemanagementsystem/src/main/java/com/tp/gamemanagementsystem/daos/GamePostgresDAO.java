@@ -30,17 +30,7 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public Game createGame(Game newGame) {
-        Integer gameID = template.queryForObject( "INSERT INTO \"Games\" (\"title\", \"category\", \"year\") VALUES (?, ?, ?) RETURNING \"gameID\"", new IntegerMapper("gameID"),
-                newGame.getTitle(),
-                newGame.getCategory(),
-                newGame.getReleaseYear());
-        newGame.setGameID(gameID);
-        return newGame;
-    }
-
-    @Override
-    public Game createGameAlt(String title,String category, Integer year, List<Integer> platforms) throws InvalidIDException {
+    public Game createGame(String title, String category, Integer year, List<Integer> platforms) throws InvalidIDException {
         Game newGame = new Game();
         Integer gameID = template.queryForObject( "INSERT INTO \"Games\" (\"title\", \"category\", \"year\") VALUES (?, ?, ?) RETURNING \"gameID\"", new IntegerMapper("gameID"),
                 title,

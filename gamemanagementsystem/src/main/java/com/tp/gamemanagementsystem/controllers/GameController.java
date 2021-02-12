@@ -5,7 +5,6 @@ import com.tp.gamemanagementsystem.exceptions.NullCategoryException;
 import com.tp.gamemanagementsystem.exceptions.NullIDException;
 import com.tp.gamemanagementsystem.exceptions.NullYearException;
 import com.tp.gamemanagementsystem.models.Game;
-import com.tp.gamemanagementsystem.models.Platform;
 import com.tp.gamemanagementsystem.services.GameManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +24,7 @@ public class GameController {
     {
         Game toReturn = null;
         try {
-            toReturn = service.createGameAlt(request.getGameID(), request.getTitle(), request.getCategory(),request.getReleaseYear(), request.getPlatforms());
+            toReturn = service.createGame(request.getGameID(), request.getTitle(), request.getCategory(),request.getReleaseYear(), request.getPlatforms());
         }catch (InvalidIDException e)
         {
             e.getMessage();

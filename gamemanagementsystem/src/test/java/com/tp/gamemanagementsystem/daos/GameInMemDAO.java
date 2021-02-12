@@ -10,13 +10,9 @@ import java.util.List;
 @Component
 @Profile("serviceTest")
 public class GameInMemDAO implements GameDAO{
-    @Override
-    public Game createGame(Game game) {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
-    public Game createGameAlt(String title,String category, Integer year, List<Integer> platforms) {
+    public Game createGame(String title, String category, Integer year, List<Integer> platforms) {
         return null;
     }
 

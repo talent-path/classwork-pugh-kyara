@@ -28,10 +28,8 @@ public class GameManagementService {
             return game;
     }
 
-
-    public Game createGame(Game newGame) {
-
-        return dao.createGame(newGame);
+    public Game createGame(Integer gameID, String title, String category, Integer year, List<Integer> platforms) throws InvalidIDException {
+        return dao.createGame(title, category, year, platforms);
     }
 
     public List<Game> getGameByYear(Integer year) throws NullYearException {
@@ -56,7 +54,5 @@ public class GameManagementService {
 
     }
 
-    public Game createGameAlt(Integer gameID, String title,String category, Integer year, List<Integer> platforms) throws InvalidIDException {
-        return dao.createGameAlt(title, category, year, platforms);
-    }
+
 }
