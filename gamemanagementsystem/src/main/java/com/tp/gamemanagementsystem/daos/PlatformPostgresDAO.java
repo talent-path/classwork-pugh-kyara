@@ -35,9 +35,14 @@ public class PlatformPostgresDAO implements PlatformDAO {
                 name);
         newPlatform.setPlatformID(platformID);
         newPlatform.setName(name);
-        return  newPlatform;
+        return newPlatform;
     }
 
+
+    @Override
+    public List<Platform> getAllPlatforms() {
+        return null;
+    }
 
     public Platform getPlatformByID(Integer platformID) throws NullIDException, InvalidIDException
     {
@@ -89,5 +94,15 @@ public class PlatformPostgresDAO implements PlatformDAO {
             throw new NullTitleException("Cannot retrieve a game with platform name "+name+"!");
         }
         return allGames;
+    }
+
+    @Override
+    public void deletePlatform(Integer platID) throws NullIDException{
+
+    }
+
+    @Override
+    public void updatePlatformName(String name) throws NullTitleException{
+
     }
 }

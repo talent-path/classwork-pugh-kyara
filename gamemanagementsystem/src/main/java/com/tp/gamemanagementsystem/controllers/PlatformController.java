@@ -10,9 +10,7 @@ import com.tp.gamemanagementsystem.services.GameManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,14 @@ import java.util.List;
 public class PlatformController {
     @Autowired
     GameManagementService service;
+
+    //get the platform by its ID
+    @GetMapping("platforms/")
+    public List<Platform> getAllPlatforms()
+    {
+        return service.getAllPlatforms();
+    }
+
 
     //get the platform by its ID
     @GetMapping("platform/id")
@@ -65,4 +71,34 @@ public class PlatformController {
         }
         return ResponseEntity.ok(allGames);
     }
+
+    @PostMapping("/newplatform")
+    public Platform addPlatform(String name)
+    {
+        Platform newPlatform = null;
+        try
+        {
+            newPlatform = service.addPlatform(name);
+        }
+        catch (NullTitleException e)
+        {
+            e.getMessage();
+        }
+        return newPlatform;
+    }
+
+    @DeleteMapping("/delete/platform")
+    public String deletePlatform(Integer platID)
+    {
+        try
+        {
+            service.deletePlatform(platID);
+        }
+        catch (NullIDException e)
+        {
+            return e.getMessage();
+        }
+        return "Platform successfully deleted!";
+    }
+
 }

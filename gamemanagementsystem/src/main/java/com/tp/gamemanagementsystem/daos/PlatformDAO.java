@@ -10,8 +10,11 @@ import com.tp.gamemanagementsystem.models.Platform;
 import java.util.List;
 
 public interface PlatformDAO {
+    List<Platform> getAllPlatforms();
     Platform getPlatformByID(Integer platID) throws NullIDException, InvalidIDException;
-
     List<Game> getGamesByPlatformID(Integer platID) throws NullIDException, InvalidIDException;
     List<Game> getGamesByPlatformName(String name) throws NullTitleException;
+    Platform addPlatform(String name) throws NullTitleException;
+    void deletePlatform(Integer platID) throws NullIDException;
+    void updatePlatformName(String name) throws NullTitleException;
 }

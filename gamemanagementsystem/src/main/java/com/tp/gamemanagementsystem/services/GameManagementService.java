@@ -61,4 +61,16 @@ public class GameManagementService {
     public void editGame(Integer gameID, String title, String category, Integer year) throws NullIDException, InvalidIDException, NullTitleException, NullYearException, NullCategoryException{
         dao.editGame(gameID, title, category, year);
     }
+
+    public List<Platform> getAllPlatforms() {
+        return platdao.getAllPlatforms();
+    }
+
+    public void deletePlatform(Integer platID) throws NullIDException{
+        platdao.deletePlatform(platID);
+    }
+
+    public Platform addPlatform(String name) throws NullTitleException{
+        return platdao.addPlatform(name);
+    }
 }
