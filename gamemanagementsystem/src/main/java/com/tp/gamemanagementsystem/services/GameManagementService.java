@@ -55,4 +55,8 @@ public class GameManagementService {
         return platdao.getGamesByPlatformName(name);
 
     }
+
+    public Game createGameAlt(Game newGame, List<Integer> platforms) throws InvalidIDException {
+        return dao.createGameAlt(newGame,platforms);
+    }
 }

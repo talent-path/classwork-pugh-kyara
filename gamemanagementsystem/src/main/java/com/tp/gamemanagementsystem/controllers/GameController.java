@@ -20,9 +20,16 @@ public class GameController {
     GameManagementService service;
 
     @PostMapping("/newgame")
-    public Game createGame(@RequestBody Game newGame)
+    public Game createGame(@RequestBody Game newGame, @RequestBody List<Integer> platforms)
     {
-        return service.createGame(newGame);
+        Game toReturn = null;
+        try {
+            toReturn = service.createGameAlt(newGame, platforms);
+        }catch (InvalidIDException e)
+        {
+            e.getMessage();
+        }
+        return toReturn;
     }
 
     @GetMapping("/game")

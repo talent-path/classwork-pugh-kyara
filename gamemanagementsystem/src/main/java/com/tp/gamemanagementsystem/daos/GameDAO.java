@@ -10,6 +10,7 @@ import java.util.List;
 public interface GameDAO {
 
     Game createGame(Game game);
+    public Game createGameAlt(Game newGame, List<Integer> platformList) throws InvalidIDException;
     Game getGameByID(Integer gameID) throws NullIDException, InvalidIDException;
     List<Game> getGameCollection();
     List<Game> getGameByCategory(String category) throws NullCategoryException;

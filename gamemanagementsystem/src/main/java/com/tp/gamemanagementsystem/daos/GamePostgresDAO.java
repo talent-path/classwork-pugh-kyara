@@ -1,11 +1,13 @@
 package com.tp.gamemanagementsystem.daos;
 
+import com.tp.gamemanagementsystem.daos.mappers.GamePlatformMapper;
 import com.tp.gamemanagementsystem.daos.mappers.IntegerMapper;
 import com.tp.gamemanagementsystem.daos.mappers.GameMapper;
 import com.tp.gamemanagementsystem.exceptions.*;
 import com.tp.gamemanagementsystem.models.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,6 +36,25 @@ public class GamePostgresDAO implements GameDAO {
                 newGame.getCategory(),
                 newGame.getReleaseYear());
         newGame.setGameID(gameID);
+        return newGame;
+    }
+
+    @Override
+    public Game createGameAlt(Game newGame, List<Integer> platformList) throws InvalidIDException {
+        Integer gameID = template.queryForObject( "INSERT INTO \"Games\" (\"title\", \"category\", \"year\") VALUES (?, ?, ?) RETURNING \"gameID\"", new IntegerMapper("gameID"),
+                newGame.getTitle(),
+                newGame.getCategory(),
+                newGame.getReleaseYear());
+        newGame.setGameID(gameID);
+            for (int i = 0; i < platformList.size(); i++) {
+                try {
+                    template.query("INSERT INTO \"GamePlatforms\" (\"platformID\",\"gameID\") VALUES (?, ?) RETURNING \"platformID\",\"gameID\"", new GamePlatformMapper(),
+                            platformList.get(i),
+                            newGame.getGameID());
+                }catch (DataIntegrityViolationException e) {
+                    throw new InvalidIDException("Cannot add a game on a platform with ID " + platformList.get(i)+"!");
+                }
+            }
         return newGame;
     }
 
