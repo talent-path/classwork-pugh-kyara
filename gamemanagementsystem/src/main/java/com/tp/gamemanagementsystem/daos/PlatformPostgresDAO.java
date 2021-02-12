@@ -1,6 +1,7 @@
 package com.tp.gamemanagementsystem.daos;
 
 import com.tp.gamemanagementsystem.daos.mappers.GameMapper;
+import com.tp.gamemanagementsystem.daos.mappers.IntegerMapper;
 import com.tp.gamemanagementsystem.daos.mappers.PlatformMapper;
 import com.tp.gamemanagementsystem.exceptions.InvalidIDException;
 import com.tp.gamemanagementsystem.exceptions.NullIDException;
@@ -22,6 +23,21 @@ public class PlatformPostgresDAO implements PlatformDAO {
 
     @Autowired
     JdbcTemplate template;
+
+    public Platform addPlatform(String name) throws NullTitleException
+    {
+        if(name == null)
+        {
+            throw new NullTitleException("Cannot add a platform with a null name!");
+        }
+        Platform newPlatform = new Platform();
+        Integer platformID = template.queryForObject( "INSERT INTO \"Platforms\" (\"name\") VALUES (?) RETURNING \"platformID\"", new IntegerMapper("platformID"),
+                name);
+        newPlatform.setPlatformID(platformID);
+        newPlatform.setName(name);
+        return  newPlatform;
+    }
+
 
     public Platform getPlatformByID(Integer platformID) throws NullIDException, InvalidIDException
     {

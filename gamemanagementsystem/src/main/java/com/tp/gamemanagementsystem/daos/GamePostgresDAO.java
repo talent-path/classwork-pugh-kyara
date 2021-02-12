@@ -3,8 +3,10 @@ package com.tp.gamemanagementsystem.daos;
 import com.tp.gamemanagementsystem.daos.mappers.GamePlatformMapper;
 import com.tp.gamemanagementsystem.daos.mappers.IntegerMapper;
 import com.tp.gamemanagementsystem.daos.mappers.GameMapper;
+import com.tp.gamemanagementsystem.daos.mappers.PlatformMapper;
 import com.tp.gamemanagementsystem.exceptions.*;
 import com.tp.gamemanagementsystem.models.Game;
+import com.tp.gamemanagementsystem.models.Platform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -136,7 +138,7 @@ public class GamePostgresDAO implements GameDAO {
         //update game with new info
         try {
 //            toEdit = template.queryForObject("SELECT * FROM \"Games\" WHERE \"gameID\" = \'" + gameID + "\'", new GameMapper());
-            template.update("UPDATE \"Games\" SET \"title\" = ? , \"category\" = ? , \"year\" = ? WHERE \"gameID\" = " + gameID);
+            template.update("UPDATE \"Games\" SET \"title\" = \'"+title+"\' , \"category\" = \'"+category+"\' , \"year\" = \'"+ releaseDate+ "\' WHERE \"gameID\" = \'" + gameID+"\';");
         } catch (EmptyResultDataAccessException e) {
             throw new InvalidIDException("Cannot make changes to a game with ID " + gameID + "!");
         }

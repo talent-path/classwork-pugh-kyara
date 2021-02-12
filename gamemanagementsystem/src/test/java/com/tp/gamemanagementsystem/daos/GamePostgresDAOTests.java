@@ -303,7 +303,9 @@ public class GamePostgresDAOTests {
         List<Integer> platforms2 = new ArrayList<>();
         platforms.add(1);
         platforms.add(2);
-        platforms.add(3);
+        Platform mobile = new Platform();
+        mobile.setPlatformID(3);
+        platforms2.add(3);
         testDAO.createGame("Sonic Adventure", "RPG",1998, platforms);
         testDAO.editGame(1,"Pokemon Go", "Simulation",2016,platforms2);
 
