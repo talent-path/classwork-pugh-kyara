@@ -303,6 +303,9 @@ public class GamePostgresDAOTests {
         List<Integer> platforms2 = new ArrayList<>();
         platforms.add(1);
         platforms.add(2);
+
+        template.update( "INSERT INTO \"Platforms\" (\"name\") VALUES ('Mobile')" );
+
         Platform mobile = new Platform();
         mobile.setPlatformID(3);
         platforms2.add(3);
