@@ -110,6 +110,20 @@ public class GamePostgresDAOTests {
     }
 
     @Test
+    public void addGameInvalidPlatforms()
+    {
+        List<Integer> platforms = new ArrayList<>();
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+        platforms.add(3);
+        Game newGame = new Game();
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(1998);
+        assertThrows(InvalidIDException.class,()-> testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms));
+    }
+
+    @Test
     public void addGameNullPlatforms()
     {
         List<Integer> platforms = new ArrayList<>();
@@ -148,4 +162,141 @@ public class GamePostgresDAOTests {
         assertEquals("Sonic Adventure", testDAO.getGameByID(1).getTitle());
         assertEquals("Sonic Adventure 2",testDAO.getGameByID(2).getTitle());
     }
+
+    @Test
+    public void getGameByIDNull() throws InvalidIDException, NullIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    {
+        List<Integer> platforms = new ArrayList<>();
+        List<Integer> platforms2 = new ArrayList<>();
+        Game newGame = new Game();
+        newGame.setGameID(null);
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(1998);
+
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+        Platform PS4 = new Platform();
+        PS4.setPlatformID(2);
+        platforms.add(1);
+        platforms.add(2);
+        testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms);
+        assertEquals("Sonic Adventure", testDAO.getGameByID(1).getTitle());
+        assertThrows(NullIDException.class,()->testDAO.getGameByID(null));
+    }
+
+    @Test
+    public void getGameByIDInvalid() throws InvalidIDException, NullIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    {
+        List<Integer> platforms = new ArrayList<>();
+        List<Integer> platforms2 = new ArrayList<>();
+        Game newGame = new Game();
+        newGame.setGameID(null);
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(1998);
+
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+        Platform PS4 = new Platform();
+        PS4.setPlatformID(2);
+        platforms.add(1);
+        platforms.add(2);
+        testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms);
+        assertEquals("Sonic Adventure", testDAO.getGameByID(1).getTitle());
+        assertThrows(InvalidIDException.class,()->testDAO.getGameByID(2).getTitle());
+    }
+
+    @Test
+    public void getGameByCategoryTest() throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    {
+        List<Integer> platforms = new ArrayList<>();
+        List<Integer> platforms2 = new ArrayList<>();
+        Game newGame = new Game();
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(1998);
+
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+        Platform PS4 = new Platform();
+        PS4.setPlatformID(2);
+        platforms.add(1);
+        platforms.add(2);
+        testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms);
+
+        Game game2 = new Game();
+        game2.setTitle("Sonic Adventure 2");
+        game2.setCategory("RPG");
+        game2.setReleaseYear(2000);
+        platforms2.add(2);
+        testDAO.createGame(game2.getTitle(),game2.getCategory(),game2.getReleaseYear(),platforms2);
+
+        Game game3 = new Game();
+        game3.setTitle("SMITE");
+        game3.setCategory("MOBA");
+        game3.setReleaseYear(2012);
+        testDAO.createGame(game3.getTitle(),game3.getCategory(),game3.getReleaseYear(),platforms2);
+
+        assertEquals("Sonic Adventure", testDAO.getGameByCategory("RPG").get(0).getTitle());
+        assertEquals("Sonic Adventure 2",testDAO.getGameByCategory("RPG").get(1).getTitle());
+        assertEquals("SMITE",testDAO.getGameByCategory("MOBA").get(0).getTitle());
+    }
+
+    @Test
+    public void getGameByCategoryTestInvalidCat()
+    {
+        assertThrows(NullCategoryException.class,()-> testDAO.getGameByCategory("MMORPG"));
+    }
+
+    @Test
+    public void getGameByCategoryTestNull()
+    {
+        assertThrows(NullCategoryException.class,()-> testDAO.getGameByCategory(null));
+    }
+
+    @Test
+    public void getGameByYearTest() throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    {
+        List<Integer> platforms = new ArrayList<>();
+        List<Integer> platforms2 = new ArrayList<>();
+        Game newGame = new Game();
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(1998);
+
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+        Platform PS4 = new Platform();
+        PS4.setPlatformID(2);
+        platforms.add(1);
+        platforms.add(2);
+        testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms);
+
+        Game game2 = new Game();
+        game2.setTitle("Sonic Adventure 2");
+        game2.setCategory("RPG");
+        game2.setReleaseYear(2000);
+        platforms2.add(2);
+        testDAO.createGame(game2.getTitle(),game2.getCategory(),game2.getReleaseYear(),platforms2);
+
+        assertEquals("Sonic Adventure", testDAO.getGameByYear(1998).get(0).getTitle());
+        assertEquals("Sonic Adventure 2",testDAO.getGameByYear(2000).get(0).getTitle());
+    }
+
+    @Test
+    public void getGameByYearInvalidYear()
+    {
+        assertThrows(NullYearException.class,()-> testDAO.getGameByYear(1995));
+    }
+
+    @Test
+    public void getGameByYearNull()
+    {
+        assertThrows(NullYearException.class,()-> testDAO.getGameByYear(null));
+    }
+
+
+
+
 }
