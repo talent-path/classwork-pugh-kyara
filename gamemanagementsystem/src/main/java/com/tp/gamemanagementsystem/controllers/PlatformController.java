@@ -20,7 +20,7 @@ public class PlatformController {
     GameManagementService service;
 
     //get the platform by its ID
-    @GetMapping("platforms/")
+    @GetMapping("/platforms")
     public List<Platform> getAllPlatforms()
     {
         return service.getAllPlatforms();
@@ -28,7 +28,7 @@ public class PlatformController {
 
 
     //get the platform by its ID
-    @GetMapping("platform/id")
+    @GetMapping("/platform/id")
     public ResponseEntity getPlatformByID(@RequestBody Integer platID)
     {
         Platform plat = null;
@@ -43,7 +43,7 @@ public class PlatformController {
     }
 
     //get all the games on one platform by the platform's ID
-    @GetMapping("platform/games/id")
+    @GetMapping("/platform/games/id")
     public ResponseEntity getPlatformGamesByID(@RequestBody Integer platID)
     {
         List<Game> allGames = null;
@@ -58,7 +58,7 @@ public class PlatformController {
     }
 
     //get all the games on one platform by the platform's name
-    @GetMapping("platform/games/platname")
+    @GetMapping("/platform/games/platname")
     public ResponseEntity getPlatformGamesByID(@RequestBody String name)
     {
         List<Game> allGames = null;
@@ -85,6 +85,20 @@ public class PlatformController {
             e.getMessage();
         }
         return newPlatform;
+    }
+
+    @PutMapping("/edit/platform")
+    public String updatePlatform(Integer platID, String name )
+    {
+        try
+        {
+            service.updatePlatform(platID,name);
+        }
+        catch (NullIDException | NullTitleException e)
+        {
+            e.getMessage();
+        }
+        return "Platform successfully updated!";
     }
 
     @DeleteMapping("/delete/platform")

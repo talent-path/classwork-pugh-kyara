@@ -38,10 +38,10 @@ public class PlatformPostgresDAO implements PlatformDAO {
         return newPlatform;
     }
 
-
     @Override
     public List<Platform> getAllPlatforms() {
-        return null;
+        List<Platform> allPlats = template.query("SELECT \"platformID\", \"name\" FROM \"Platforms\"", new PlatformMapper());
+        return allPlats;
     }
 
     public Platform getPlatformByID(Integer platformID) throws NullIDException, InvalidIDException
@@ -98,11 +98,24 @@ public class PlatformPostgresDAO implements PlatformDAO {
 
     @Override
     public void deletePlatform(Integer platID) throws NullIDException{
-
+        if(platID==null)
+        {
+            throw new NullIDException("Cannot delete a platform with a null ID!");
+        }
+        template.update("DELETE FROM \"GamePlatforms\" WHERE \"platformID\"="+platID);
+        template.update("DELETE FROM \"Platforms\" WHERE \"platformID\"="+platID);
     }
 
     @Override
-    public void updatePlatformName(String name) throws NullTitleException{
-
+    public void updatePlatformName(Integer platID, String name) throws NullTitleException, NullIDException {
+        if(platID == null)
+        {
+            throw new NullIDException("Cannot edit a platform with a null ID!");
+        }
+        if(name == null)
+        {
+            throw  new NullTitleException("Cannot edit a platform with a null name!");
+        }
+        template.update("UPDATE \"Platforms\" SET \"name\" = \'" + name + "\' WHERE \"platformID\" = \'" + platID + "\';");
     }
 }

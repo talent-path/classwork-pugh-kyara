@@ -27,7 +27,7 @@ public class GamePostgresDAO implements GameDAO {
 
     @Override
     public List<Game> getGameCollection() {
-        List<Game> allGames = template.query("SELECT \"Games\".\"gameID\", \"title\", \"category\", \"year\", \"Games\" FROM \"Games\"", new GameMapper());
+        List<Game> allGames = template.query("SELECT \"Games\".\"gameID\", \"title\", \"category\", \"year\" FROM \"Games\"", new GameMapper());
         return allGames;
     }
 

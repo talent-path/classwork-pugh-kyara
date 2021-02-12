@@ -73,4 +73,8 @@ public class GameManagementService {
     public Platform addPlatform(String name) throws NullTitleException{
         return platdao.addPlatform(name);
     }
+
+    public void updatePlatform(Integer platID, String name) throws NullTitleException, NullIDException {
+        platdao.updatePlatformName(platID, name);
+    }
 }

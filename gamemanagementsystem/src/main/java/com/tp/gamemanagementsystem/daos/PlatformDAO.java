@@ -16,5 +16,5 @@ public interface PlatformDAO {
     List<Game> getGamesByPlatformName(String name) throws NullTitleException;
     Platform addPlatform(String name) throws NullTitleException;
     void deletePlatform(Integer platID) throws NullIDException;
-    void updatePlatformName(String name) throws NullTitleException;
+    void updatePlatformName(Integer platID, String name) throws NullTitleException, NullIDException;
 }

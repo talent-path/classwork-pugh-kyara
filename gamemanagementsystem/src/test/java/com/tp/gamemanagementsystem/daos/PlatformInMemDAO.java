@@ -45,7 +45,7 @@ public class PlatformInMemDAO implements PlatformDAO{
     }
 
     @Override
-    public void updatePlatformName(String name) throws NullTitleException{
+    public void updatePlatformName(Integer platID, String name) throws NullTitleException, NullIDException{
 
     }
 }
