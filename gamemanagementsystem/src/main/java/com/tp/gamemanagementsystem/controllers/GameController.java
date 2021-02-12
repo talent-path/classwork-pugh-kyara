@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import requests.CreateGameRequest;
 
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class GameController {
     GameManagementService service;
 
     @PostMapping("/newgame")
-    public Game createGame(@RequestBody Game newGame, @RequestBody List<Integer> platforms)
+    public Game createGame(@RequestBody CreateGameRequest request)
     {
         Game toReturn = null;
         try {
-            toReturn = service.createGameAlt(newGame, platforms);
+            toReturn = service.createGameAlt(request.getGameID(), request.getTitle(), request.getCategory(),request.getReleaseYear(), request.getPlatforms());
         }catch (InvalidIDException e)
         {
             e.getMessage();

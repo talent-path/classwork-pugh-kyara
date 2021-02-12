@@ -16,7 +16,7 @@ public class GameInMemDAO implements GameDAO{
     }
 
     @Override
-    public Game createGameAlt(Game newGame, List<Integer> platformList) {
+    public Game createGameAlt(String title,String category, Integer year, List<Integer> platforms) {
         return null;
     }
 

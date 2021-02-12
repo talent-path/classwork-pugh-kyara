@@ -56,7 +56,7 @@ public class GameManagementService {
 
     }
 
-    public Game createGameAlt(Game newGame, List<Integer> platforms) throws InvalidIDException {
-        return dao.createGameAlt(newGame,platforms);
+    public Game createGameAlt(Integer gameID, String title,String category, Integer year, List<Integer> platforms) throws InvalidIDException {
+        return dao.createGameAlt(title, category, year, platforms);
     }
 }

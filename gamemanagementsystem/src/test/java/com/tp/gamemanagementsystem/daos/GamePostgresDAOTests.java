@@ -30,7 +30,7 @@ public class GamePostgresDAOTests {
     {
         template.update("TRUNCATE \"GamePlatforms\", \"Reviews\", \"Games\", \"Platforms\" RESTART IDENTITY;");
 
-        template.update( "INSERT INTO \"Platforms\" (\"name\") VALUES ('SEGA Dreamcast')" );
+        template.update( "INSERT INTO \"Platforms\" (\"name\") VALUES ('SEGA Dreamcast'), ('Playstation 5')" );
     }
 
 
@@ -62,17 +62,18 @@ public class GamePostgresDAOTests {
     {
         Platform dreamCast = new Platform();
         dreamCast.setPlatformID(1);
+        Platform PS4 = new Platform();
+        PS4.setPlatformID(2);
 
         List<Integer> platforms = new ArrayList<>();
         platforms.add(1);
         platforms.add(2);
-        platforms.add(3);
         Game newGame = new Game();
         newGame.setTitle("Sonic Adventure");
         newGame.setCategory("RPG");
         newGame.setReleaseYear(1998);
 
-        Game toReturn = testDAO.createGameAlt(newGame,platforms);
+        Game toReturn = testDAO.createGameAlt(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms);
 
         assertEquals(1,toReturn.getGameID());
         assertEquals("Sonic Adventure",toReturn.getTitle());

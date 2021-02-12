@@ -40,19 +40,23 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public Game createGameAlt(Game newGame, List<Integer> platformList) throws InvalidIDException {
+    public Game createGameAlt(String title,String category, Integer year, List<Integer> platforms) throws InvalidIDException {
+        Game newGame = new Game();
         Integer gameID = template.queryForObject( "INSERT INTO \"Games\" (\"title\", \"category\", \"year\") VALUES (?, ?, ?) RETURNING \"gameID\"", new IntegerMapper("gameID"),
-                newGame.getTitle(),
-                newGame.getCategory(),
-                newGame.getReleaseYear());
+                title,
+                category,
+                year);
         newGame.setGameID(gameID);
-            for (int i = 0; i < platformList.size(); i++) {
+        newGame.setReleaseYear(year);
+        newGame.setTitle(title);
+        newGame.setCategory(category);
+            for (int i = 0; i < platforms.size(); i++) {
                 try {
                     template.query("INSERT INTO \"GamePlatforms\" (\"platformID\",\"gameID\") VALUES (?, ?) RETURNING \"platformID\",\"gameID\"", new GamePlatformMapper(),
-                            platformList.get(i),
+                            platforms.get(i),
                             newGame.getGameID());
                 }catch (DataIntegrityViolationException e) {
-                    throw new InvalidIDException("Cannot add a game on a platform with ID " + platformList.get(i)+"!");
+                    throw new InvalidIDException("Cannot add a game on a platform with ID " + platforms.get(i)+"!");
                 }
             }
         return newGame;
