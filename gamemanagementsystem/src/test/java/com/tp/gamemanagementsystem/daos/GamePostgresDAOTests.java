@@ -363,6 +363,22 @@ public class GamePostgresDAOTests {
         assertThrows(InvalidIDException.class, ()->testDAO.editGame(4,"Cool Game","RPG",2020,platforms));
     }
 
+    @Test
+    public void deleteGameTest() throws InvalidIDException, NullIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    {
+        List<Integer> platforms = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        Game newGame = testDAO.createGame("Sonic Adventure", "RPG",1998, platforms);
+        assertEquals(1,newGame.getGameID());
+        assertEquals("Sonic Adventure",newGame.getTitle());
+        testDAO.deleteGame(newGame.getGameID());
+        assertThrows(InvalidIDException.class, ()->testDAO.getGameByID(newGame.getGameID()));
+    }
 
-
+    @Test
+    public void deleteGameNullID()  {
+        assertThrows(NullIDException.class,()->testDAO.deleteGame(null));
+    }
+    
 }

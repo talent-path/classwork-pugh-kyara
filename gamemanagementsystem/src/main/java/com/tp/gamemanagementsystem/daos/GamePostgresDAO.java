@@ -164,17 +164,9 @@ public class GamePostgresDAO implements GameDAO {
         {
             throw new NullIDException("Cannot delete a game with a null ID");
         }
-        try {
-            template.update("DELETE FROM \"GamePlatforms\" WHERE \"gameID\"="+gameID);
-            template.update("DELETE FROM \"Reviews\" WHERE \"gameID\"="+gameID);
-            template.update("DELETE FROM \"Games\" WHERE \"gameID\"="+gameID);
-        }
-        catch (EmptyResultDataAccessException e)
-        {
-            throw new InvalidIDException("Cannot delete a game with ID "+gameID+"!");
-
-        }
-
+        template.update("DELETE FROM \"GamePlatforms\" WHERE \"gameID\"="+gameID);
+        template.update("DELETE FROM \"Reviews\" WHERE \"gameID\"="+gameID);
+        template.update("DELETE FROM \"Games\" WHERE \"gameID\"="+gameID);
 
     }
 }
