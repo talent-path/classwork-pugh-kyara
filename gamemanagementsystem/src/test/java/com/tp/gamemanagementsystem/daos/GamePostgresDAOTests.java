@@ -34,31 +34,8 @@ public class GamePostgresDAOTests {
     }
 
 
-//    //testing if game is added with no issues
-//    // with all values provided properly
-//    @Test
-//    public void addGameTest()
-//    {
-//        Platform dreamCast = new Platform();
-//        dreamCast.setPlatformID(1);
-//
-//        Game newGame = new Game();
-//        newGame.setTitle("Sonic Adventure");
-//        newGame.setCategory("RPG");
-//        newGame.setReleaseYear(1998);
-//
-//        Game toReturn = testDAO.createGame(newGame);
-//
-//        assertEquals(1,toReturn.getGameID());
-//        assertEquals("Sonic Adventure",toReturn.getTitle());
-//
-//        List<Game> allGames = testDAO.getGameCollection();
-//        assertEquals(1,allGames.get(0).getGameID());
-//        assertEquals("Sonic Adventure",allGames.get(0).getTitle());
-//    }
-
     @Test
-    public void addGameAltTest() throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    public void addGameTest() throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
     {
         Platform dreamCast = new Platform();
         dreamCast.setPlatformID(1);
@@ -141,5 +118,34 @@ public class GamePostgresDAOTests {
         newGame.setCategory("RPG");
         newGame.setReleaseYear(1998);
         assertThrows(NullPlatformException.class,()-> testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms));
+    }
+
+    @Test
+    public void getGameByIDTest() throws InvalidIDException, NullIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    {
+        List<Integer> platforms = new ArrayList<>();
+        List<Integer> platforms2 = new ArrayList<>();
+        Game newGame = new Game();
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(1998);
+
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+        Platform PS4 = new Platform();
+        PS4.setPlatformID(2);
+        platforms.add(1);
+        platforms.add(2);
+        testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms);
+
+        Game game2 = new Game();
+        game2.setTitle("Sonic Adventure 2");
+        game2.setCategory("RPG");
+        game2.setReleaseYear(2000);
+        platforms2.add(2);
+        testDAO.createGame(game2.getTitle(),game2.getCategory(),game2.getReleaseYear(),platforms2);
+
+        assertEquals("Sonic Adventure", testDAO.getGameByID(1).getTitle());
+        assertEquals("Sonic Adventure 2",testDAO.getGameByID(2).getTitle());
     }
 }
