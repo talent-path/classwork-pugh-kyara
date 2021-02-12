@@ -28,7 +28,7 @@ public class GameManagementService {
             return game;
     }
 
-    public Game createGame(Integer gameID, String title, String category, Integer year, List<Integer> platforms) throws InvalidIDException {
+    public Game createGame(Integer gameID, String title, String category, Integer year, List<Integer> platforms) throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException {
         return dao.createGame(title, category, year, platforms);
     }
 

@@ -30,7 +30,23 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public Game createGame(String title, String category, Integer year, List<Integer> platforms) throws InvalidIDException {
+    public Game createGame(String title, String category, Integer year, List<Integer> platforms) throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException {
+        if(title == null)
+        {
+            throw new NullTitleException("Cannot create a game with a null title!");
+        }
+        if(category == null)
+        {
+            throw new NullCategoryException("Cannot create a game with a null category!");
+        }
+        if(year == null)
+        {
+            throw new NullYearException("Cannot create a game with a null year!");
+        }
+        if(platforms.isEmpty())
+        {
+            throw new NullPlatformException("Cannot create a game with a null platform!");
+        }
         Game newGame = new Game();
         Integer gameID = template.queryForObject( "INSERT INTO \"Games\" (\"title\", \"category\", \"year\") VALUES (?, ?, ?) RETURNING \"gameID\"", new IntegerMapper("gameID"),
                 title,

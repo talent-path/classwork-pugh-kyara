@@ -22,7 +22,7 @@ public class GameController {
         Game toReturn = null;
         try {
             toReturn = service.createGame(request.getGameID(), request.getTitle(), request.getCategory(),request.getReleaseYear(), request.getPlatforms());
-        }catch (InvalidIDException e)
+        }catch (InvalidIDException | NullTitleException| NullCategoryException| NullYearException| NullPlatformException e)
         {
             e.getMessage();
         }

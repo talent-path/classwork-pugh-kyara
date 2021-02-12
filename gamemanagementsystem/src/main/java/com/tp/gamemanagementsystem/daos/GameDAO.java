@@ -9,7 +9,7 @@ import java.util.List;
 @Profile({"mainApp","DAOTesting"})
 public interface GameDAO {
 
-    public Game createGame(String title, String category, Integer year, List<Integer> platforms) throws InvalidIDException;
+    public Game createGame(String title, String category, Integer year, List<Integer> platforms) throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException;
     Game getGameByID(Integer gameID) throws NullIDException, InvalidIDException;
     List<Game> getGameCollection();
     List<Game> getGameByCategory(String category) throws NullCategoryException;

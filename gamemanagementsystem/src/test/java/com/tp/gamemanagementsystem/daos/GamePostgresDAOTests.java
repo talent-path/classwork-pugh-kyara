@@ -2,7 +2,7 @@ package com.tp.gamemanagementsystem.daos;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.tp.gamemanagementsystem.exceptions.InvalidIDException;
+import com.tp.gamemanagementsystem.exceptions.*;
 import com.tp.gamemanagementsystem.models.Game;
 import com.tp.gamemanagementsystem.models.Platform;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,7 +58,7 @@ public class GamePostgresDAOTests {
 //    }
 
     @Test
-    public void addGameAltTest() throws InvalidIDException
+    public void addGameAltTest() throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
     {
         Platform dreamCast = new Platform();
         dreamCast.setPlatformID(1);
@@ -81,5 +81,65 @@ public class GamePostgresDAOTests {
         List<Game> allGames = testDAO.getGameCollection();
         assertEquals(1,allGames.get(0).getGameID());
         assertEquals("Sonic Adventure",allGames.get(0).getTitle());
+    }
+
+    @Test
+    public void addGameNullTitle()
+    {
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+
+        List<Integer> platforms = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        Game newGame = new Game();
+        newGame.setTitle(null);
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(1998);
+        assertThrows(NullTitleException.class,()-> testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms));
+    }
+
+    @Test
+    public void addGameNullCategory()
+    {
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+
+        List<Integer> platforms = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        Game newGame = new Game();
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory(null);
+        newGame.setReleaseYear(1998);
+        assertThrows(NullCategoryException.class,()-> testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms));
+
+    }
+
+    @Test
+    public void addGameNullYear()
+    {
+        Platform dreamCast = new Platform();
+        dreamCast.setPlatformID(1);
+
+        List<Integer> platforms = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        Game newGame = new Game();
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(null);
+        assertThrows(NullYearException.class,()-> testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms));
+    }
+
+    @Test
+    public void addGameNullPlatforms()
+    {
+        List<Integer> platforms = new ArrayList<>();
+        Game newGame = new Game();
+        newGame.setTitle("Sonic Adventure");
+        newGame.setCategory("RPG");
+        newGame.setReleaseYear(1998);
+        assertThrows(NullPlatformException.class,()-> testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms));
     }
 }
