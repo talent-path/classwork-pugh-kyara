@@ -310,7 +310,7 @@ public class GamePostgresDAOTests {
         mobile.setPlatformID(3);
         platforms2.add(3);
         testDAO.createGame("Sonic Adventure", "RPG",1998, platforms);
-        testDAO.editGame(1,"Pokemon Go", "Simulation",2016,platforms2);
+        testDAO.editGame(1,"Pokemon Go", "Simulation",2016);
 
     }
 
@@ -320,7 +320,7 @@ public class GamePostgresDAOTests {
         List<Integer> platforms = new ArrayList<>();
         platforms.add(1);
         platforms.add(2);
-        assertThrows(NullTitleException.class, ()->testDAO.editGame(1,null,"RPG",2000,platforms));
+        assertThrows(NullTitleException.class, ()->testDAO.editGame(1,null,"RPG",2000));
     }
 
     @Test
@@ -329,7 +329,7 @@ public class GamePostgresDAOTests {
         List<Integer> platforms = new ArrayList<>();
         platforms.add(1);
         platforms.add(2);
-        assertThrows(NullCategoryException.class, ()->testDAO.editGame(1,"Cool Game",null ,2020,platforms));
+        assertThrows(NullCategoryException.class, ()->testDAO.editGame(1,"Cool Game",null ,2020));
 
     }
 
@@ -339,7 +339,7 @@ public class GamePostgresDAOTests {
         List<Integer> platforms = new ArrayList<>();
         platforms.add(1);
         platforms.add(2);
-        assertThrows(NullYearException.class, ()->testDAO.editGame(1,"Cool Game","RPG",null,platforms));
+        assertThrows(NullYearException.class, ()->testDAO.editGame(1,"Cool Game","RPG",null));
 
     }
 
@@ -349,18 +349,7 @@ public class GamePostgresDAOTests {
         List<Integer> platforms = new ArrayList<>();
         platforms.add(1);
         platforms.add(2);
-        assertThrows(NullIDException.class, ()->testDAO.editGame(null,"Cool Game","RPG",2020,platforms));
-    }
-
-    @Test
-    public void editGameInvalidID() throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
-    {
-        List<Integer> platforms = new ArrayList<>();
-        platforms.add(1);
-        platforms.add(2);
-        testDAO.createGame("Sonic Adventure", "RPG",1998, platforms);
-
-        assertThrows(InvalidIDException.class, ()->testDAO.editGame(4,"Cool Game","RPG",2020,platforms));
+        assertThrows(NullIDException.class, ()->testDAO.editGame(null,"Cool Game","RPG",2020));
     }
 
     @Test
@@ -380,5 +369,5 @@ public class GamePostgresDAOTests {
     public void deleteGameNullID()  {
         assertThrows(NullIDException.class,()->testDAO.deleteGame(null));
     }
-    
+
 }

@@ -92,20 +92,20 @@ public class GameController {
         return ResponseEntity.ok(game);
     }
 
-    @PutMapping("/edit/game/")
-    public String editGame(@RequestBody CreateGameRequest request)
+    @PutMapping("/edit/game")
+    public String editGame(@RequestBody Game editGame)
     {
         try {
-            service.editGame(request.getGameID(),request.getTitle(),request.getCategory(),request.getReleaseYear(), request.getPlatforms());
+            service.editGame(editGame.getGameID(),editGame.getTitle(),editGame.getCategory(),editGame.getReleaseYear());
         }
-        catch (InvalidIDException | NullIDException | NullPlatformException| NullYearException | NullTitleException | NullCategoryException e)
+        catch (InvalidIDException | NullIDException | NullYearException | NullTitleException | NullCategoryException e)
         {
             return e.getMessage();
         }
-        return "Game successfully deleted!";
+        return "Game successfully edited!";
     }
 
-    @DeleteMapping("/delete/game/")
+    @DeleteMapping("/delete/game")
     public String deleteGame(@RequestBody Integer gameID)
     {
         try {
