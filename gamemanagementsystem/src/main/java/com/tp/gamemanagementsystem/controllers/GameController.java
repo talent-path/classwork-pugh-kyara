@@ -1,9 +1,6 @@
 package com.tp.gamemanagementsystem.controllers;
 
-import com.tp.gamemanagementsystem.exceptions.InvalidIDException;
-import com.tp.gamemanagementsystem.exceptions.NullCategoryException;
-import com.tp.gamemanagementsystem.exceptions.NullIDException;
-import com.tp.gamemanagementsystem.exceptions.NullYearException;
+import com.tp.gamemanagementsystem.exceptions.*;
 import com.tp.gamemanagementsystem.models.Game;
 import com.tp.gamemanagementsystem.services.GameManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +90,32 @@ public class GameController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
         return ResponseEntity.ok(game);
+    }
+
+    @PutMapping("/edit/game/")
+    public String editGame(@RequestBody CreateGameRequest request)
+    {
+        try {
+            service.editGame(request.getGameID(),request.getTitle(),request.getCategory(),request.getReleaseYear(), request.getPlatforms());
+        }
+        catch (InvalidIDException | NullIDException | NullPlatformException| NullYearException | NullTitleException | NullCategoryException e)
+        {
+            return e.getMessage();
+        }
+        return "Game successfully deleted!";
+    }
+
+    @DeleteMapping("/delete/game/")
+    public String deleteGame(@RequestBody Integer gameID)
+    {
+        try {
+            service.deleteGame(gameID);
+        }
+        catch (InvalidIDException | NullIDException e)
+        {
+            return e.getMessage();
+        }
+        return "Game successfully deleted!";
     }
 
 }

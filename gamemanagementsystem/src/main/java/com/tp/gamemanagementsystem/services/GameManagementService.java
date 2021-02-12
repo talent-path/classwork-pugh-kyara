@@ -54,5 +54,11 @@ public class GameManagementService {
 
     }
 
+    public void deleteGame(Integer gameID) throws NullIDException,InvalidIDException {
+         dao.deleteGame(gameID);
+    }
 
+    public void editGame(Integer gameID, String title, String category, Integer year, List<Integer> platforms) throws NullIDException, InvalidIDException, NullTitleException, NullYearException, NullCategoryException, NullPlatformException{
+        dao.editGame(gameID, title, category, year, platforms);
+    }
 }

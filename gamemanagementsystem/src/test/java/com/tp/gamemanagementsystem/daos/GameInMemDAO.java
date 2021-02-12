@@ -42,7 +42,7 @@ public class GameInMemDAO implements GameDAO{
     }
 
     @Override
-    public void editGame(Integer gameID, String title, Integer releaseDate, String category, List<Integer> platform) throws NullIDException, InvalidIDException {
+    public void editGame(Integer gameID, String title,  String category, Integer releaseDate, List<Integer> platform) throws NullIDException, InvalidIDException {
         throw new UnsupportedOperationException();
 
     }

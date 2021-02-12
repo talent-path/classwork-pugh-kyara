@@ -100,38 +100,63 @@ public class GamePostgresDAO implements GameDAO {
     }
 
     @Override
-    public void editGame(Integer gameID, String title, Integer releaseDate, String category, List<Integer> platform) throws NullIDException, InvalidIDException, NullTitleException, NullYearException, NullCategoryException, NullPlatformException{
-        if(gameID == null)
-        {
+    public void editGame(Integer gameID, String title, String category, Integer releaseDate, List<Integer> platforms) throws NullIDException, InvalidIDException, NullTitleException, NullYearException, NullCategoryException, NullPlatformException {
+        if (gameID == null) {
             throw new NullIDException("Cannot edit a game with a null ID!");
         }
-        if(title == null)
-        {
+        if (title == null) {
             throw new NullTitleException("Cannot edit a game with a null title!");
         }
-        if(releaseDate == null)
-        {
+        if (releaseDate == null) {
             throw new NullYearException("Cannot edit a game with a null release year!");
         }
-        if(category == null)
-        {
+        if (category == null) {
             throw new NullCategoryException("Cannot edit a game with a null category!");
         }
-        if(platform.isEmpty())
-        {
+        if (platforms.isEmpty()) {
             throw new NullPlatformException("Game must be on at least one (1) platform!");
         }
 
+        //update game with new info
+        try {
+//            toEdit = template.queryForObject("SELECT * FROM \"Games\" WHERE \"gameID\" = \'" + gameID + "\'", new GameMapper());
+            template.update("UPDATE \"Games\" SET \"title\" = ? , \"category\" = ?, \"year\" = ? WHERE \"gameID\" = " + gameID);
+        } catch (EmptyResultDataAccessException e) {
+            throw new InvalidIDException("Cannot make changes to a game with ID " + gameID + "!");
+        }
+        //insert new platforms
+            for (int i = 0; i < platforms.size(); i++) {
+                try {
+                    template.query("INSERT INTO \"GamePlatforms\" (\"platformID\",\"gameID\") VALUES (?, ?) RETURNING \"platformID\",\"gameID\"", new GamePlatformMapper(),
+                            platforms.get(i),
+                            gameID);
+                    template.update("UPDATE \"GamePlatforms\" SET \"gameID\" = "+gameID+" WHERE \"platformID\" = " + platforms.get(i));
+                } catch (DataIntegrityViolationException e)
+                {
+                    throw new InvalidIDException("Cannot add a game on a platform with ID " + platforms.get(i)+"!");
+
+                }
+            }
 
     }
 
     @Override
-    public void deleteGame(Integer gameID) throws NullIDException {
+    public void deleteGame(Integer gameID) throws NullIDException, InvalidIDException {
         if(gameID == null)
         {
             throw new NullIDException("Cannot delete a game with a null ID");
+        }
+        try {
+            template.update("DELETE FROM \"GamePlatforms\" WHERE \"gameID\"="+gameID);
+            template.update("DELETE FROM \"Reviews\" WHERE \"gameID\"="+gameID);
+            template.update("DELETE FROM \"Games\" WHERE \"gameID\"="+gameID);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            throw new InvalidIDException("Cannot delete a game with ID "+gameID+"!");
 
         }
+
 
     }
 }
