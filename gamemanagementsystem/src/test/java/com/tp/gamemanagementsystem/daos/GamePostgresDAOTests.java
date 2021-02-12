@@ -296,6 +296,67 @@ public class GamePostgresDAOTests {
         assertThrows(NullYearException.class,()-> testDAO.getGameByYear(null));
     }
 
+    @Test
+    public void editGameTest() throws InvalidIDException,NullIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    {
+        List<Integer> platforms = new ArrayList<>();
+        List<Integer> platforms2 = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        platforms.add(3);
+        testDAO.createGame("Sonic Adventure", "RPG",1998, platforms);
+        testDAO.editGame(1,"Pokemon Go", "Simulation",2016,platforms2);
+
+    }
+
+    @Test
+    public void editGameNullTitle()
+    {
+        List<Integer> platforms = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        assertThrows(NullTitleException.class, ()->testDAO.editGame(1,null,"RPG",2000,platforms));
+    }
+
+    @Test
+    public void editGameNullCategory()
+    {
+        List<Integer> platforms = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        assertThrows(NullCategoryException.class, ()->testDAO.editGame(1,"Cool Game",null ,2020,platforms));
+
+    }
+
+    @Test
+    public void editGameNullYear()
+    {
+        List<Integer> platforms = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        assertThrows(NullYearException.class, ()->testDAO.editGame(1,"Cool Game","RPG",null,platforms));
+
+    }
+
+    @Test
+    public void editGameNullID()
+    {
+        List<Integer> platforms = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        assertThrows(NullIDException.class, ()->testDAO.editGame(null,"Cool Game","RPG",2020,platforms));
+    }
+
+    @Test
+    public void editGameInvalidID() throws InvalidIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    {
+        List<Integer> platforms = new ArrayList<>();
+        platforms.add(1);
+        platforms.add(2);
+        testDAO.createGame("Sonic Adventure", "RPG",1998, platforms);
+
+        assertThrows(InvalidIDException.class, ()->testDAO.editGame(4,"Cool Game","RPG",2020,platforms));
+    }
 
 
 

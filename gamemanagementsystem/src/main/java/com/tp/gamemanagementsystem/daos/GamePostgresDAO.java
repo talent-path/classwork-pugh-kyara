@@ -136,7 +136,7 @@ public class GamePostgresDAO implements GameDAO {
         //update game with new info
         try {
 //            toEdit = template.queryForObject("SELECT * FROM \"Games\" WHERE \"gameID\" = \'" + gameID + "\'", new GameMapper());
-            template.update("UPDATE \"Games\" SET \"title\" = ? , \"category\" = ?, \"year\" = ? WHERE \"gameID\" = " + gameID);
+            template.update("UPDATE \"Games\" SET \"title\" = ? , \"category\" = ? , \"year\" = ? WHERE \"gameID\" = " + gameID);
         } catch (EmptyResultDataAccessException e) {
             throw new InvalidIDException("Cannot make changes to a game with ID " + gameID + "!");
         }
