@@ -3,9 +3,6 @@ package requests;
 public class UpdateReviewRequest {
     Integer reviewID;
     String review;
-
-
-
     Integer rating;
 
     public Integer getReviewID() {

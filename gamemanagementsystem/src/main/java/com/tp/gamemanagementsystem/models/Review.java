@@ -7,6 +7,7 @@ public class Review {
     private String reviewText;
     private Integer rating;
     private Integer gameID;
+    private String title;
 
 
     //default constructor for testing
@@ -73,4 +74,11 @@ public class Review {
         this.gameID = gameID;
     }
 
+    public String getGameTitle() {
+       return title;
+    }
+
+    public void setGameTitle(String title) {
+        this.title = title;
+    }
 }
