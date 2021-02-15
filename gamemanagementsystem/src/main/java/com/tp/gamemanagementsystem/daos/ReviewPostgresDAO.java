@@ -129,7 +129,7 @@ public class ReviewPostgresDAO implements ReviewDAO {
         {
             throw new NullIDException("Cannot delete a review with a null ID!");
         }
-        template.update("DELETE FROM \"Reviews\" WHERE \"reviewID\"="+reviewID);
+        template.update("DELETE FROM \"Reviews\" WHERE \"reviewID\"= ?",reviewID);
     }
 
     @Override
@@ -142,7 +142,7 @@ public class ReviewPostgresDAO implements ReviewDAO {
         {
             throw new NullReviewException("You cannot make an empty review");
         }
-        template.update("UPDATE \"Reviews\" SET \"reviewText\" = "+review+", \"rating\" = "+rating+" WHERE \"reviewID\"="+reviewID);
+        template.update("UPDATE \"Reviews\" SET \"reviewText\" = ? , \"rating\" = ? WHERE \"reviewID\"= ?",review,rating,reviewID);
 
     }
 }

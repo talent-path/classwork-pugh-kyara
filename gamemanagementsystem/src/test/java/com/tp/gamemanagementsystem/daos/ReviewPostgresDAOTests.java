@@ -82,6 +82,9 @@ public class ReviewPostgresDAOTests {
         assertEquals("The game is really fun and the music is amazing!",testDAO.getReviewByID(1).getReviewText());
         assertEquals(8,testDAO.getReviewByID(1).getRating());
         testDAO.editReview(1,"Edited: Turns out this game is much better than I thought! I can't give it a high enough score!",10);
+        assertEquals(1,testDAO.getReviewByID(1).getGameID());
+        assertEquals("Edited: Turns out this game is much better than I thought! I can't give it a high enough score!",testDAO.getReviewByID(1).getReviewText());
+        assertEquals(10,testDAO.getReviewByID(1).getRating());
     }
 
     @Test
