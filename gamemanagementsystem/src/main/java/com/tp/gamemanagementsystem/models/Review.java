@@ -6,6 +6,8 @@ public class Review {
     private String reviewTitle;
     private String reviewText;
     private Integer rating;
+    private Integer gameID;
+
 
     //default constructor for testing
     public Review()
@@ -61,6 +63,14 @@ public class Review {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public Integer getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(Integer gameID) {
+        this.gameID = gameID;
     }
 
 }

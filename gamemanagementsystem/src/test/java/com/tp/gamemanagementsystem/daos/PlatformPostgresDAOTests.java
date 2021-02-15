@@ -61,8 +61,23 @@ public class PlatformPostgresDAOTests {
     public void deletePlatformNullID()
     {
         assertThrows(NullIDException.class, ()->testDAO.deletePlatform(null));
+    }
+
+    @Test
+    public void editPlatform()
+    {
 
     }
 
+    @Test
+    public void editPlatformNullID()
+    {
+        assertThrows(NullIDException.class, ()-> testDAO.updatePlatformName(null,"Cooler Name"));
+    }
 
+    @Test
+    public void editPlatformNullName()
+    {
+        assertThrows(NullTitleException.class, ()-> testDAO.updatePlatformName(1,null));
+    }
 }

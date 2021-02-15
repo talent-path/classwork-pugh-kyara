@@ -14,12 +14,6 @@ public class PlatformMapper implements RowMapper<Platform> {
         platMap.setPlatformID(resultSet.getInt("platformID"));
         platMap.setName(resultSet.getString("name"));
 
-//        Game consoleGames = new Game();
-//        consoleGames.setGameID(resultSet.getInt("gameID"));
-//        consoleGames.setTitle(resultSet.getString("title"));
-//        consoleGames.setCategory(resultSet.getString("category"));
-//        consoleGames.setReleaseYear(resultSet.getInt("year"));
-//        platMap.setAllGames(consoleGames);
         return platMap;
     }
 }

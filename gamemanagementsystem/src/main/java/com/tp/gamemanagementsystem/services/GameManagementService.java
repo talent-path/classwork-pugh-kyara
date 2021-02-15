@@ -2,9 +2,11 @@ package com.tp.gamemanagementsystem.services;
 
 import com.tp.gamemanagementsystem.daos.GameDAO;
 import com.tp.gamemanagementsystem.daos.PlatformDAO;
+import com.tp.gamemanagementsystem.daos.ReviewDAO;
 import com.tp.gamemanagementsystem.exceptions.*;
 import com.tp.gamemanagementsystem.models.Game;
 import com.tp.gamemanagementsystem.models.Platform;
+import com.tp.gamemanagementsystem.models.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,9 @@ public class GameManagementService {
 
     @Autowired
     PlatformDAO platdao;
+
+    @Autowired
+    ReviewDAO reviewdao;
 
     public List<Game> getGameCollection() {
         return dao.getGameCollection();
@@ -76,5 +81,26 @@ public class GameManagementService {
 
     public void updatePlatform(Integer platID, String name) throws NullTitleException, NullIDException {
         platdao.updatePlatformName(platID, name);
+    }
+
+
+    public List<Review> getReviewsByGameName(String title) throws NullTitleException{
+        return reviewdao.getReviewsByGameName(title);
+    }
+
+    public List<Review> getReviewsByGameID(Integer gameID) throws NullIDException, InvalidIDException {
+        return reviewdao.getReviewsByGameID(gameID);
+    }
+
+    public List<Review> getAllReviews() {
+        return reviewdao.getAllReviews();
+    }
+
+    public void deleteReview(Integer reviewID) throws NullIDException{
+        reviewdao.deleteReview(reviewID);
+    }
+
+    public void editReview(Integer reviewID, String review) throws NullIDException, NullReviewException{
+        reviewdao.editReview(reviewID, review);
     }
 }
