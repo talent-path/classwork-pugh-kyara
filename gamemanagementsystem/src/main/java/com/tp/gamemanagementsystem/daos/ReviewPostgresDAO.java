@@ -23,6 +23,25 @@ public class ReviewPostgresDAO implements ReviewDAO {
     @Autowired
     JdbcTemplate template;
 
+    public Review getReviewByID(Integer reviewID) throws InvalidIDException, NullIDException
+    {
+        if(reviewID == null)
+        {
+            throw new NullIDException("Cannot get a review with a null ID!");
+        }
+        Review someReview = null;
+        try
+        {
+           someReview = template.queryForObject("SELECT * FROM \"Reviews\"\n" +
+                    "WHERE \"reviewID\"= ?", new ReviewMapper(),reviewID);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            throw new InvalidIDException("Cannot find a review with ID "+reviewID+"!");
+        }
+        return someReview;
+    }
+
     @Override
     public Review makeReview(String reviewTitle, String review, Integer rating, Integer gameID) throws NullTitleException, NullReviewException, NullIDException, InvalidIDException{
         if(gameID == null)
@@ -114,7 +133,7 @@ public class ReviewPostgresDAO implements ReviewDAO {
     }
 
     @Override
-    public void editReview(Integer reviewID, String review)throws NullIDException, NullReviewException {
+    public void editReview(Integer reviewID, String review, Integer rating)throws NullIDException, NullReviewException {
         if(reviewID==null)
         {
             throw new NullIDException("Cannot edit a review with a null ID!");
@@ -123,7 +142,7 @@ public class ReviewPostgresDAO implements ReviewDAO {
         {
             throw new NullReviewException("You cannot make an empty review");
         }
-        template.update("UPDATE \"Reviews\" SET \"reviewText\" = "+review+" WHERE \"reviewID\"="+reviewID);
+        template.update("UPDATE \"Reviews\" SET \"reviewText\" = "+review+", \"rating\" = "+rating+" WHERE \"reviewID\"="+reviewID);
 
     }
 }

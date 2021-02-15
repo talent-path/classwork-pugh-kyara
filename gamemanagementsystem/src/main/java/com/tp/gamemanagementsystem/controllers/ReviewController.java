@@ -84,7 +84,7 @@ public class ReviewController {
         List<Review> allReviews = null;
         try
         {
-            service.editReview(request.getReviewID(), request.getReview());
+            service.editReview(request.getReviewID(), request.getReview(), request.getRating());
         }
         catch(NullIDException | NullReviewException e)
         {

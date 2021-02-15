@@ -30,7 +30,7 @@ public class ReviewInMemDAO implements ReviewDAO {
     }
 
     @Override
-    public void editReview(Integer reviewID, String review) throws NullIDException, NullReviewException {
+    public void editReview(Integer reviewID, String review, Integer rating) throws NullIDException, NullReviewException {
 
     }
 

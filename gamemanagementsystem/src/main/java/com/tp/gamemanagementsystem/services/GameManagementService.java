@@ -100,8 +100,8 @@ public class GameManagementService {
         reviewdao.deleteReview(reviewID);
     }
 
-    public void editReview(Integer reviewID, String review) throws NullIDException, NullReviewException{
-        reviewdao.editReview(reviewID, review);
+    public void editReview(Integer reviewID, String review, Integer rating) throws NullIDException, NullReviewException{
+        reviewdao.editReview(reviewID, review, rating);
     }
 
     public Review makeReview(String title, String reviewText, Integer rating, Integer gameID) throws  NullIDException, NullTitleException, NullReviewException, InvalidIDException{

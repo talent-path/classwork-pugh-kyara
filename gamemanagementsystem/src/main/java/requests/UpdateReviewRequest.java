@@ -4,6 +4,10 @@ public class UpdateReviewRequest {
     Integer reviewID;
     String review;
 
+
+
+    Integer rating;
+
     public Integer getReviewID() {
         return reviewID;
     }
@@ -18,5 +22,13 @@ public class UpdateReviewRequest {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }
