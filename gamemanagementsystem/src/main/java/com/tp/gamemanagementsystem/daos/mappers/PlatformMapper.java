@@ -13,7 +13,6 @@ public class PlatformMapper implements RowMapper<Platform> {
         Platform platMap = new Platform();
         platMap.setPlatformID(resultSet.getInt("platformID"));
         platMap.setName(resultSet.getString("name"));
-
         return platMap;
     }
 }

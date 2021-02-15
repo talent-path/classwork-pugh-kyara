@@ -164,24 +164,8 @@ public class GamePostgresDAOTests {
     }
 
     @Test
-    public void getGameByIDNull() throws InvalidIDException, NullIDException, NullTitleException, NullCategoryException, NullYearException, NullPlatformException
+    public void getGameByIDNull()
     {
-        List<Integer> platforms = new ArrayList<>();
-        List<Integer> platforms2 = new ArrayList<>();
-        Game newGame = new Game();
-        newGame.setGameID(null);
-        newGame.setTitle("Sonic Adventure");
-        newGame.setCategory("RPG");
-        newGame.setReleaseYear(1998);
-
-        Platform dreamCast = new Platform();
-        dreamCast.setPlatformID(1);
-        Platform PS4 = new Platform();
-        PS4.setPlatformID(2);
-        platforms.add(1);
-        platforms.add(2);
-        testDAO.createGame(newGame.getTitle(),newGame.getCategory(),newGame.getReleaseYear(),platforms);
-        assertEquals("Sonic Adventure", testDAO.getGameByID(1).getTitle());
         assertThrows(NullIDException.class,()->testDAO.getGameByID(null));
     }
 

@@ -37,7 +37,7 @@ public class ReviewPostgresDAOTests {
     @Test
     public void addReviewNullTitle()
     {
-        assertThrows(NullReviewException.class,()->testDAO.makeReview(null,"My brand new review!",8, 1 ));
+        assertThrows(NullTitleException.class,()->testDAO.makeReview(null,"My brand new review!",8, 1 ));
 
     }
 
@@ -58,7 +58,7 @@ public class ReviewPostgresDAOTests {
     @Test
     public void editReviewTest()
     {
-        
+
     }
 
     @Test

@@ -7,9 +7,9 @@ import com.tp.gamemanagementsystem.exceptions.NullTitleException;
 import com.tp.gamemanagementsystem.models.Review;
 import com.tp.gamemanagementsystem.services.GameManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import requests.UpdateReviewRequest;
 
 import java.util.List;
@@ -27,6 +27,22 @@ public class ReviewController {
 
         List<Review> allReviews = service.getAllReviews();
         return allReviews;
+    }
+
+    //reviews by game ID
+    @PostMapping("add/review")
+    public ResponseEntity makeReview(@RequestBody Review review)
+    {
+        Review newReview = null;
+        try
+        {
+            newReview = service.makeReview(review.getReviewTitle(), review.getReviewText(),review.getRating(), review.getGameID());
+        }
+        catch(NullIDException | InvalidIDException | NullTitleException | NullReviewException e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(newReview);
     }
 
     //reviews by game ID
@@ -62,7 +78,7 @@ public class ReviewController {
     }
 
     //edit a game review by the review ID
-    @GetMapping("/delete/review")
+    @PutMapping("/edit/review")
     public String editReview(@RequestBody UpdateReviewRequest request)
     {
         List<Review> allReviews = null;
@@ -78,7 +94,7 @@ public class ReviewController {
     }
 
     //delete a game review by the review ID
-    @GetMapping("/delete/review")
+    @DeleteMapping("/delete/review")
     public String deleteReview(@RequestBody Integer reviewID)
     {
         try

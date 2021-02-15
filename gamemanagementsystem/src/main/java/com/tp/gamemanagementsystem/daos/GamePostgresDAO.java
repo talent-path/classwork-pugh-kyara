@@ -60,7 +60,7 @@ public class GamePostgresDAO implements GameDAO {
         newGame.setCategory(category);
             for (int i = 0; i < platforms.size(); i++) {
                 try {
-                    template.query("INSERT INTO \"GamePlatforms\" (\"platformID\",\"gameID\") VALUES (?, ?)", new GamePlatformMapper(),
+                    template.query("INSERT INTO \"GamePlatforms\" (\"platformID\",\"gameID\") VALUES (?, ?) RETURNING \"platformID\",\"gameID\"", new GamePlatformMapper(),
                             platforms.get(i),
                             newGame.getGameID());
                 }catch (DataIntegrityViolationException e) {

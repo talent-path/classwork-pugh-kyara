@@ -64,9 +64,13 @@ public class PlatformPostgresDAOTests {
     }
 
     @Test
-    public void editPlatform()
+    public void editPlatform() throws InvalidIDException, NullIDException, NullTitleException
     {
-
+        Platform somePlat = testDAO.getPlatformByID(1);
+        assertEquals("Gamecube",somePlat.getName());
+        testDAO.updatePlatformName(1,"Cooler Gamecube");
+        somePlat.setName(testDAO.getPlatformByID(1).getName());
+        assertEquals("Cooler Gamecube",somePlat.getName());
     }
 
     @Test

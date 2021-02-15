@@ -103,4 +103,8 @@ public class GameManagementService {
     public void editReview(Integer reviewID, String review) throws NullIDException, NullReviewException{
         reviewdao.editReview(reviewID, review);
     }
+
+    public Review makeReview(String title, String reviewText, Integer rating, Integer gameID) throws  NullIDException, NullTitleException, NullReviewException, InvalidIDException{
+      return reviewdao.makeReview(title, reviewText, rating, gameID);
+    }
 }
