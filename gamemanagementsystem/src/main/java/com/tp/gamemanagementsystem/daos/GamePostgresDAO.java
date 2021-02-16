@@ -94,10 +94,24 @@ public class GamePostgresDAO implements GameDAO {
             throw new NullCategoryException("Cannot retrieve a game with a null category!");
         }
         List<Game> toReturn = null;
-        toReturn = template.query("SELECT * FROM \"Games\" WHERE \"category\" = \'" + category + "\'", new GameMapper());
+        toReturn = template.query("SELECT * FROM \"Games\" WHERE \"category\" = ?", new GameMapper(),category);
         if(toReturn.isEmpty())
         {
             throw new NullCategoryException("Cannot retrieve a game with the category "+category+"!");
+        }
+        return toReturn;
+    }
+    @Override
+    public List<Game> getGameByTitle(String title) throws NullTitleException {
+        if(title == null)
+        {
+            throw new NullTitleException("Cannot retrieve a game with a null category!");
+        }
+        List<Game> toReturn = null;
+        toReturn = template.query("SELECT * FROM \"Games\" WHERE \"title\" = ?", new GameMapper(),title);
+        if(toReturn.isEmpty())
+        {
+            throw new NullTitleException("Cannot retrieve a game with the title "+title+"!");
         }
         return toReturn;
     }
