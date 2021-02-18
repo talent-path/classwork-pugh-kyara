@@ -1,0 +1,10 @@
+div.guessBox{
+    width: 100px; 
+    height: 100px; 
+    display: inline-block; 
+    border: 10px solid black; 
+    font-size: 50px; 
+    font-style: oblique; 
+    text-align: center; 
+    vertical-align: top;
+}
