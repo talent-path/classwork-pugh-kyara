@@ -8,33 +8,38 @@ function checkGuess()
     let numToArr = Array.from(String(guessedNum),Number)
     console.log(guessedNum);
     console.log(numToArr);
-    fillBoxes(guessedNum);
-    
-    for(let i=0;i<4;i++)
+    if(numToArr.length<4||numToArr.length>4)
     {
-        //if a number matches and is in the right position display green bg
-        if(numToGuess[i]===numToArr[i])
-        {
-            document.getElementById("box"+(i+1)).style.backgroundColor = "green";
-        }
-         //if a number matches and is in the wrong position display yellow bg 
-        else if((numToGuess[i]!==numToArr[i])&&numToGuess.includes(numToArr[i]))
-        {
-            document.getElementById("box"+(i+1)).style.backgroundColor  = "yellow";
-
-        }
-        //if a number doesn't match at all red bg 
-        else
-        {
-            document.getElementById("box"+(i+1)).style.backgroundColor = "red";
-
-        }
-
+        alert("Your number must have 4 digits!");
     }
-    //if all the numbers are guessed correctly display message
-    if(allGreen(numToArr))
-    {
-        alert("You guessed the number!");
+    else{
+        fillBoxes(guessedNum);
+        for(let i=0;i<4;i++)
+        {
+            //if a number matches and is in the right position display green bg
+            if(numToGuess[i]===numToArr[i])
+            {
+                document.getElementById("box"+(i+1)).style.backgroundColor = "green";
+            }
+            //if a number matches and is in the wrong position display yellow bg 
+            else if((numToGuess[i]!==numToArr[i])&&numToGuess.includes(numToArr[i]))
+            {
+                document.getElementById("box"+(i+1)).style.backgroundColor  = "yellow";
+
+            }
+            //if a number doesn't match at all red bg 
+            else
+            {
+                document.getElementById("box"+(i+1)).style.backgroundColor = "red";
+
+            }
+
+        }
+        //if all the numbers are guessed correctly display message
+        if(allGreen(numToArr))
+        {
+            alert("You guessed the number!");
+        }
     }
 }
 
