@@ -1,25 +1,43 @@
 let numToGuess = generateNum();
 
+
 function checkGuess()
 {
     let guessedNum = document.getElementById("guessField").value;
+    //change the guess number to an array and store into a new variable
+    let numToArr = Array.from(String(guessedNum),Number)
     console.log(guessedNum);
+    console.log(numToArr);
     fillBoxes(guessedNum);
     
-    //if a number matches and is in the right position display green bg
+    for(let i=0;i<4;i++)
+    {
+        //if a number matches and is in the right position display green bg
+        if(numToGuess[i]===numToArr[i])
+        {
+            document.getElementById("box"+(i+1)).style.backgroundColor = "green";
+        }
+         //if a number matches and is in the wrong position display yellow bg 
+        else if((numToGuess[i]!==numToArr[i])&&numToGuess.includes(numToArr[i]))
+        {
+            document.getElementById("box"+(i+1)).style.backgroundColor  = "yellow";
 
-    document.getElementById("box1").style.backgroundColor = "green";
+        }
+        //if a number doesn't match at all red bg 
+        else
+        {
+            document.getElementById("box"+(i+1)).style.backgroundColor = "red";
 
-    //if a number matches and is in the wrong position display yellow bg 
-    document.getElementById("box3").style.backgroundColor  = "yellow";
+        }
 
-    //if a number doesn't match at all red bg 
-    document.getElementById("box2").style.backgroundColor = "red";
-
-
+    }
+    if(allGreen(numToArr))
+    {
+        alert("You guessed the number!");
+    }
 }
 
-//fill boxes with the numbers entered by the guesser
+//fill boxes with the numbers entered by the guesses
 function fillBoxes(guessedNum)
 {
     document.getElementById("box1").innerText = Math.floor(Math.floor(guessedNum/1000));
@@ -30,9 +48,9 @@ function fillBoxes(guessedNum)
 }
 
 //if all the numbers are guessed correctly
-function allGreen()
+function allGreen(numberArray)
 {
-
+    return numToGuess === numberArray;
 }
 
 
@@ -54,12 +72,13 @@ function generateNum()
             i++;
         }
     }
-    console.log(numArr);
+    //console.log(numArr);
     //joins all elements of the array
-    let guessNum = numArr.join('');
+    //let guessNum = numArr.join('');
     //changes the string to a number
-    guessNum = parseInt(guessNum);
-    return guessNum;
+    //guessNum = parseInt(guessNum);
+    //return guessNum;
+    return numArr;
 }
 
 
