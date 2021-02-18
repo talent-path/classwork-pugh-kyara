@@ -31,7 +31,7 @@ function checkGuess()
         }
 
     }
-    //if all the numbers are guessed correctly
+    //if all the numbers are guessed correctly display message
     if(allGreen(numToArr))
     {
         alert("You guessed the number!");
@@ -48,7 +48,7 @@ function fillBoxes(guessedNum)
 
 }
 
-//if all the numbers are guessed correctly
+//if all the numbers are guessed correctly return true
 function allGreen(numberArray)
 {
     for(let i = 0;i<4;i++)
@@ -90,9 +90,19 @@ function generateNum()
     return numArr;
 }
 
+function resetElements()
+{
+    for(let i = 1; i<5;i++)
+    {
+        document.getElementById("box"+i).style.backgroundColor  = "white";
+        document.getElementById("box"+i).innerText = " ";
+
+    }
+}
 
 //reset this game
 function reset()
 {
+    resetElements();
     numToGuess = generateNum();
 }
