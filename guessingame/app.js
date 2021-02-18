@@ -1,19 +1,32 @@
 let numToGuess = generateNum();
 
-function checkGuess(guessedNum)
+function checkGuess()
 {
+    let guessedNum = document.getElementById("guessField").value;
+    console.log(guessedNum);
+    fillBoxes(guessedNum);
     
     //if a number matches and is in the right position display green bg
+
+    document.getElementById("box1").style.backgroundColor = "green";
+
     //if a number matches and is in the wrong position display yellow bg 
+    document.getElementById("box3").style.backgroundColor  = "yellow";
+
     //if a number doesn't match at all red bg 
+    document.getElementById("box2").style.backgroundColor = "red";
+
 
 }
 
 //fill boxes with the numbers entered by the guesser
-function fillBoxes()
+function fillBoxes(guessedNum)
 {
+    document.getElementById("box1").innerText = Math.floor(Math.floor(guessedNum/1000));
+    document.getElementById("box2").innerText = Math.floor(guessedNum%1000/100);
+    document.getElementById("box3").innerText = Math.floor(guessedNum%100/10);
+    document.getElementById("box4").innerText = Math.floor(guessedNum%10);
 
-    
 }
 
 //if all the numbers are guessed correctly
@@ -41,6 +54,7 @@ function generateNum()
             i++;
         }
     }
+    console.log(numArr);
     //joins all elements of the array
     let guessNum = numArr.join('');
     //changes the string to a number
