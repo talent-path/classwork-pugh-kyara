@@ -31,6 +31,7 @@ function checkGuess()
         }
 
     }
+    //if all the numbers are guessed correctly
     if(allGreen(numToArr))
     {
         alert("You guessed the number!");
@@ -50,7 +51,15 @@ function fillBoxes(guessedNum)
 //if all the numbers are guessed correctly
 function allGreen(numberArray)
 {
-    return numToGuess === numberArray;
+    for(let i = 0;i<4;i++)
+    {
+        if(numberArray[i]!==numToGuess[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 
