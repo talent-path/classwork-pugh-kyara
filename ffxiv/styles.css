@@ -1,0 +1,28 @@
+body{
+align-content: center;
+}
+
+#charName{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#charTitlePrefix
+{
+  margin-bottom: 1px;
+}
+
+#charTitleSuffix
+{
+    margin-top: 1px;
+}
+
+#charTitle{
+    display: inline;
+}
+
+#charServer{
+    display: inline;
+    margin-left: 10px;
+}
+
