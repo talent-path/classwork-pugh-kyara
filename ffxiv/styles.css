@@ -2,6 +2,39 @@ body{
 align-content: center;
 }
 
+h1{
+    font-family: fantasy;
+    margin-bottom: 2px;
+}
+
+#charInfo
+{
+    display: table-cell;
+}
+
+#mountInfo{
+    display: table-cell;
+    padding-left: 40px;
+}
+
+
+#profileFrame
+{
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: 8px;
+}
+
+#namePlate
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#charProfile{
+    border-radius: 50%;
+}
+
 #charName{
     margin-top: 0px;
     margin-bottom: 0px;
@@ -9,12 +42,13 @@ align-content: center;
 
 #charTitlePrefix
 {
-  margin-bottom: 1px;
+  margin-bottom: 0px;
 }
 
 #charTitleSuffix
 {
-    margin-top: 1px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 #charTitle{
@@ -24,5 +58,40 @@ align-content: center;
 #charServer{
     display: inline;
     margin-left: 10px;
+}
+
+#charPortrait{
+     display: none;
+}
+
+#charPortrait[src]{
+    border: 0px;
+    border-radius: 25px;
+    display: block;
+    width: 264px;
+    height: 360px;
+}
+
+#currentClassText{
+    font-family: fantasy;
+    margin: 0px;
+    display: none;
+}
+
+#currClass{
+    display: inline;
+    margin: 0px;
+    font-family: fantasy;
+
+}
+
+#currClassIMG{
+    display: none;
+}
+
+#currClassIMG[src]{
+    width: 20px;
+    height: 20px;
+    margin: 0px;
 }
 
