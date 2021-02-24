@@ -1,20 +1,44 @@
 body{
-align-content: center;
+    background-color: azure;
+}
+
+div{
+    margin-top: 10px;
+    position: relative;
+
+}
+
+#header{
+    text-align: center;
 }
 
 h1{
-    font-family: fantasy;
+    font-family: New;
+    font-size: 50px;
     margin-bottom: 2px;
 }
+
 
 #charInfo
 {
     display: table-cell;
+    height: 550px;
+    width: 550px;
+    padding-left: 50px;
+    top: 50%;
 }
 
 #mountInfo{
     display: table-cell;
-    padding-left: 40px;
+    padding-left: 50px;
+    height: 550px;
+    width: 550px;
+    top: 50%;
+}
+
+#mountDesc
+{
+    word-wrap: break-word;
 }
 
 
@@ -91,7 +115,12 @@ h1{
 
 #currClassIMG[src]{
     width: 20px;
+    display: inline;
     height: 20px;
     margin: 0px;
 }
 
+#mountPic[src]
+{
+    align-content: center;
+}

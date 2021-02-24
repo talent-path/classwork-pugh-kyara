@@ -6,9 +6,10 @@
     <title>FFXIV Data</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body >
+    <h1 id= "header">FFXIV CHARACTER AND MOUNT DATA SOURCE</h1><br> 
     <div id= "charInfo">
-        <h1>Enter a Character Name</h1>
+        <h1>ENTER A CHARACTER NAME</h1>
         <input id="searchChar" placeholder="Enter name..." type="text">
         <select id="serverSelect">
             <option value="" disabled selected>Select Server</option>
@@ -34,15 +35,18 @@
     </div>
 
     <div id="mountInfo">
-        <h1>Enter a Mount Name</h1>
-        <input id="searchMount" placeholder="Enter name..." type="text">
-        <button onclick="getMount();">Search</button>
-
+        <div>
+            <h1>ENTER A MOUNT ID</h1>
+            <input id="searchMount" placeholder="Enter ID..." type="number">
+            <button onclick="getMount();">Search</button>
+        </div><br>
+        <div id="mountDiv">
+            <img id="mountPic"> 
+            <p id = "mountDesc"></p>
+        </div>
     </div>
    
   
-
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="app.js" ></script>
 </body>

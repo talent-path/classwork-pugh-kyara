@@ -1,6 +1,7 @@
 //list of ffxiv servers to choose from
 const servers = ["Adamantoise","Aegis","Alexander","Anima","Asura","Atomos","Bahamut","Balmung","Behemoth","Belias","Brynhildr","Cactuar","Carbuncle","Cerberus","Chocobo","Coeurl","Diabolos","Durandal","Excalibur","Exodus","Faerie","Famfrit","Fenrir","Garuda","Gilgamesh","Goblin","Gungnir","Hades","Hyperion","Ifrit","Ixion","Jenova","Kujata","Lamia","Leviathan","Lich","Louisoix","Malboro","Mandragora","Masamune","Mateus","Midgardsormr","Moogle","Odin","Omega","Pandaemonium","Phoenix","Ragnarok","Ramuh","Ridill","Sargatanas","Shinryu","Shiva","Siren","Tiamat","Titan","Tonberry","Typhon","Ultima","Ultros","Unicorn","Valefor","Yojimbo","Zalera","Zeromus","Zodiark","Spriggan","Twintania","HongYuHai","ShenYiZhiDi","LaNuoXiYa","HuanYingQunDao","MengYaChi","YuZhouHeYin","WoXianXiRan","ChenXiWangZuo","BaiYinXiang","BaiJinHuanXiang","ShenQuanHen","ChaoFengTing","LvRenZhanQiao","FuXiaoZhiJian","Longchaoshendian","MengYuBaoJing","ZiShuiZhanQiao","YanXia","JingYuZhuangYuan","MoDuNa","HaiMaoChaWu","RouFengHaiWan","HuPoYuan"]
 populateList();
+var junction_font = new FontFace('New', 'url(fonts/FinalFantasy-aa4m.ttf)')
 // // character retrieving url (used to get character ID)
 // const idURL = `https://xivapi.com/character/search?name=${charName}&server=${serverName}&private_key=054354dfd01b48cfb6d88493e6ba759952ec9f0201724b709622e3bad27bbeea`
 
@@ -81,10 +82,35 @@ const getCharacter = function()
 
 let getMount = function()
 {
-    $.get(`https://xivapi.com/mount`)
-    
+    const mountID= $("#searchMount").val();
+
+    $.get(`https://xivapi.com/mount/${mountID}?private_key=054354dfd01b48cfb6d88493e6ba759952ec9f0201724b709622e3bad27bbeea`, function(data, textStatus, jqXQR)
+    {
+        mountURL = `https://xivapi.com${data.Icon}`
+        $("#mountDesc").text(data.DescriptionEnhanced); 
+        $("#mountPic").attr("src",mountURL);    
+    }
+    );
+
 
 }
+
+let getMount2 = function()
+{
+    const mountID= $("#searchMount").val();
+
+    $.get(`https://xivapi.com/mount?columns=Name&private_key=054354dfd01b48cfb6d88493e6ba759952ec9f0201724b709622e3bad27bbeea
+    `, function(data, textStatus, jqXQR)
+    {
+        mountURL = `https://xivapi.com${data.Icon}`
+        $("#mountDesc").text(data.DescriptionEnhanced); 
+        $("#mountPic").attr("src",mountURL);    
+    }
+    );
+
+
+}
+
 
 // POPULATE MY SERVER SELECTION FROM JSON
 function populateList()
