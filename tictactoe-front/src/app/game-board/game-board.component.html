@@ -1,0 +1,9 @@
+<div class="gameBorder" >
+        <game-square
+        *ngFor="let row of board.board; let spot = index" 
+        [isXTurn] = "board.isXTurn"
+        [spot] = "spot"
+        [squareInput] = "row"
+        (spotClickEvent) = "onSpotClicked($event)">
+        </game-square>
+</div>

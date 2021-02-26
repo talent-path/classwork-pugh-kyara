@@ -1,0 +1,20 @@
+.playerSquare
+{
+    min-height: 100%;
+    min-width: 100%;
+    border: 2px solid black;
+}
+
+.square{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow: hidden;
+}
+
+.square img 
+{
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+}
