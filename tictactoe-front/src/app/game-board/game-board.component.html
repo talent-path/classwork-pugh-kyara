@@ -1,7 +1,10 @@
 <div class="gameBorder" >
-        <game-square
-        
-        [spotClickEvent] = "onSpotClicked($event)"
-        >
-        </game-square>
+        <div class="rowDiv" *ngFor="let row of board.squares; index as r">
+                <game-square
+                *ngFor="let s of row; index as c"
+                [tokenPiece] = "s"[row]="r"[col]="c"
+                (spotClickEvent) = "onSpotClicked($event)">
+                </game-square>
+        </div>
+       
 </div>

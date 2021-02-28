@@ -15,7 +15,8 @@ export class GameSquareComponent implements OnInit {
   imgSrc: string = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
   @Output() spotClickEvent: EventEmitter<Position> = new EventEmitter<Position>();
   @Input() row: number=0;
-  @Input() col: number=0 ;
+  @Input() col: number=0;
+  @Input() tokenPiece : PlayerToken;
   // this.imgSrc = "./assets/LetterX.png"
   // this.imgSrc = "./assets/LetterO.png"
   

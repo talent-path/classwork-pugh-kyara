@@ -4,6 +4,7 @@ import { Position } from '../tictactoe/Position';
 import { Move } from '../tictactoe/Move';
 import { Player, PlayerToken } from '../tictactoe/Player';
 
+
 @Component({
   selector: 'game-board',
   templateUrl: './game-board.component.html',
@@ -27,6 +28,10 @@ export class GameBoardComponent implements OnInit {
       {
         this.spotSelected = spot;
       }
+    }
+    else
+    {
+     this.spotSelected = null; 
     }
 
   }
