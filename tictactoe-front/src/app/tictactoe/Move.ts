@@ -1,5 +1,6 @@
-import { Position } from "@angular/compiler";
+import { Position } from "./Position";
+import {PlayerToken} from "./Player"
 
 export interface Move{
-    to:Position;
+    to: Position;
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TicTacToeGame } from '../tictactoe/tictactoe'
+import { Board, TTTBoard } from '../tictactoe/Board'
+import { Position } from '../tictactoe/Position';
+import { Move } from '../tictactoe/Move';
+import { Player, PlayerToken } from '../tictactoe/Player';
 
 @Component({
   selector: 'game-board',
@@ -8,25 +11,24 @@ import { TicTacToeGame } from '../tictactoe/tictactoe'
 })
 export class GameBoardComponent implements OnInit {
 
-  board: TicTacToeGame = new TicTacToeGame();
-
+  board: Board = new TTTBoard();
+  spotSelected: Position = null;
  
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onSpotClicked(spot:number):void
-  {
-    console.log(spot);
-    console.log(this.board.isXTurn);
-    let someSpot = this.board.board[spot];
-    //if the spot click is empty that is the new chosen spot
-    if(!someSpot)
+  onSpotClicked(spot:Position):void{
+    let spotAtPos: Player = this.board.tokenAt(spot);
+    if(spotAtPos !==null)
     {
-        // this.board.board[spot] = this.board.isXTurn ? "X" : "O";
-        this.board.chooseSpace(spot)    
-    }  
+      if(this.board.isXturn || !this.board.isXturn)
+      {
+        this.spotSelected = spot;
+      }
+    }
+
   }
 
 }
