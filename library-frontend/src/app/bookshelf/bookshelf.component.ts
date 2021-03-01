@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Book} from '../bookclass/Book'
+import {LibraryService} from '../library.service'
 
 @Component({
   selector: 'app-bookshelf',
@@ -9,11 +10,15 @@ import {Book} from '../bookclass/Book'
 export class BookshelfComponent implements OnInit {
 
   books: Book[];
-  constructor() { 
-    this.books = [{bookID:1, title:"TEST", authors:["Me"], year:2021}];
+  constructor(private libservice: LibraryService) { 
+    // this.books = [{bookID:1, title:"TEST", authors:["Me"], year:2021}];
   }
 
   ngOnInit(): void {
+    this.libservice.getAllBooks().subscribe(list => {
+      this.books = list
+    });
+    
   }
 
 }
