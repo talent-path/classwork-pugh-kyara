@@ -2,7 +2,8 @@
 {
     min-height: 100%;
     min-width: 100%;
-    border: 2px solid black;
+    border-bottom: 4px solid black;
+    border-left: 4px solid black;
 }
 
 .square{

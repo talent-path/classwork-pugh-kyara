@@ -16,13 +16,20 @@ export class GameSquareComponent implements OnInit {
   @Output() spotClickEvent: EventEmitter<Position> = new EventEmitter<Position>();
   @Input() row: number=0;
   @Input() col: number=0;
-  @Input() tokenPiece : PlayerToken;
+  @Input() tokenPiece : Player;
   // this.imgSrc = "./assets/LetterX.png"
   // this.imgSrc = "./assets/LetterO.png"
   
   constructor() { }
 
   ngOnInit(): void {
+    if(this.tokenPiece===null)
+    {
+      this.imgSrc+="";
+    }
+    else{
+      this.imgSrc += this.tokenPiece.isX ? "LetterX.png" : "LetterO.png";
+    }
   }
 
   spotClicked() : void
