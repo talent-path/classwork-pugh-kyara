@@ -25,10 +25,10 @@ export class GameSquareComponent implements OnInit {
   ngOnInit(): void {
     if(this.tokenPiece===null)
     {
-      this.imgSrc+="";
+      this.imgSrc += "";
     }
     else{
-      this.imgSrc += this.tokenPiece.isX ? "LetterX.png" : "LetterO.png";
+      this.imgSrc = this.tokenPiece.isX ? "./assets/LetterX.png" : "./assets/LetterO.png";
     }
   }
 

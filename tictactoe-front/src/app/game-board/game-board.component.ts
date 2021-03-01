@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Board, TTTBoard } from '../tictactoe/Board'
 import { Position } from '../tictactoe/Position';
-import { Player, PlayerToken } from '../tictactoe/Player';
+import { Player } from '../tictactoe/Player';
 
 
 @Component({
@@ -21,7 +21,6 @@ export class GameBoardComponent implements OnInit {
 
   onSpotClicked(spot:Position):void{
     console.log(this.board.isXturn);
-    console.log(this.spotSelected);
     let spotAtPos: Player = this.board.tokenAt(spot);
     //if the spot is empty makae thst the spot selected
     if(spotAtPos === null)
@@ -39,7 +38,11 @@ export class GameBoardComponent implements OnInit {
      this.spotSelected = null; 
     }
     //update the board
-    this.board.chooseSpot(this.spotSelected);
+    this.board = this.board.chooseSpot(this.spotSelected);
+    console.log(this.spotSelected);
+    console.log(this.board.tokenAt(this.spotSelected));
+
+
     
   }
 

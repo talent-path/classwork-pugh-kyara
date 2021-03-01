@@ -6,12 +6,14 @@ export interface Board{
     isXturn: boolean
     squares: Player[][];
     nineMoves: number;
+    gameOver: boolean;
     chooseSpot : (this: Board, loc: Position) => Board;
     tokenAt: (spot: Position) => Player;
 }
 
 export class TTTBoard implements Board{
     isXturn: boolean=true;
+    gameOver: boolean = false;
     nineMoves: number=0;
     squares: Player[][];
 
@@ -50,11 +52,10 @@ export class TTTBoard implements Board{
     // player chooses a spot
     chooseSpot: (loc:Position) => Board = loc =>{
      let nextBoard: TTTBoard = new TTTBoard(this);
-
-     if(this.nineMoves <10 || (this.squares[loc.row][loc.col]===null && !this.hasWon()) )
+     if(this.nineMoves < 10 )
      {
          nextBoard.squares[loc.row][loc.col] = this.isXturn ? {token: PlayerToken.X, isX: true} : {token: PlayerToken.O, isX: false};
-         nextBoard.hasWon();
+         this.gameOver = nextBoard.hasWon();
          nextBoard.isXturn = !this.isXturn;
      }
      else{
@@ -77,39 +78,20 @@ export class TTTBoard implements Board{
 
     checkRows() : boolean
     {
-        for(let i=0; i < 3; i++)
-        {
-            let rowTotal = this.squares[i][0].token + this.squares[i][1].token + this.squares[i][3].token;
-            if(rowTotal===0 || rowTotal === 3)
-            {
-                return true;
-            }
-        }
+        
         return false;
         
     }
 
     checkCols() : boolean {
-        for(let i=0; i < 3; i++)
-        {
-            let colTotal = this.squares[0][1].token + this.squares[1][i].token + this.squares[2][i].token;
-            if(colTotal===0 || colTotal === 3)
-            {
-                return true;
-            }
-        }
+    
         return false;
 
     }
 
     checkDiags() : boolean
     {
-        let diag1 = this.squares[0][0].token + this.squares[1][1].token + this.squares[2][2].token;
-        let diag2 = this.squares[0][2].token + this.squares[1][1].token + this.squares[2][0].token;
-        if(diag1===0||diag1===3||diag2===0||diag2===3)
-        {
-            return true;
-        }
+    
         return false;
     }
 
